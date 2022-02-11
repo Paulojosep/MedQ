@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MedQ.Domain.Entities
 {
     public class Consultas : Entity
     {
-        public DateTime DataHora { get; set; }
+        public DateTime Data { get; set; }
+        public DateTime Hora { get; set; }
         public string Status { get; set; }
         public string Senha { get; set; }
 
@@ -18,5 +18,7 @@ namespace MedQ.Domain.Entities
 
         public int SocioId { get; set; }
         public Socio Socio { get; set; }
+
+        public ICollection<MinhasConsulta> MinhasConsultas { get; set; }
     }
 }

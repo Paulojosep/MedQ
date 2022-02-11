@@ -14,5 +14,7 @@ namespace MedQ.Domain.Entities
 
         public int EstabelecimentoId { get; set; }
         public Estabelecimento Estabelecimento { get; set; }
+
+        public ICollection<AgendamentoDisponiveis> AgendamentoDisponiveis { get; private set; }
     }
 }

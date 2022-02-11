@@ -8,6 +8,6 @@ namespace MedQ.Domain.Entities
     {
         public string Tipo { get; set; }
 
-        public ICollection<Estabelecimento> Estabelecimentoos { get; private set; }
+        public ICollection<Estabelecimento> Estabelecimentos { get; private set; }
     }
 }
