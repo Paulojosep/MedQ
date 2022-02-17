@@ -12,7 +12,7 @@ namespace MedQ.Infra.Data.EntitiesConfiguration
 
             builder.HasKey(p => p.Id);
 
-            builder.Property(p => p.Id).HasColumnName("");
+            builder.Property(p => p.Id).HasColumnName("id");
             builder.Property(p => p.Nome).HasColumnName("nome");
             builder.Property(p => p.CEP).HasColumnName("cep");
             builder.Property(p => p.Endereco).HasColumnName("endereco");

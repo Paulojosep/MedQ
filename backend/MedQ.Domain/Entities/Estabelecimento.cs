@@ -30,7 +30,7 @@ namespace MedQ.Domain.Entities
         public ICollection<Calendario> Calendarios { get; private set; }
         public ICollection<AgendamentoDisponiveis> AgendamentoDisponiveis { get; private set; }
         public ICollection<Estabelecimento> Estabelecimentos { get; private set; }
-        public ICollection<Socio> Socios { get; private set; }
-        public ICollection<TipoEstabelecimento> TipoEstabelecimentos { get; private set; }
+        //public ICollection<Socio> Socios { get; private set; }
+        //public ICollection<TipoEstabelecimento> TipoEstabelecimentos { get; private set; }
     }
 }
