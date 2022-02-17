@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MedQ.Domain.Interfaces
 {
-    public interface IEspecialidade
+    public interface IEspecialidadeRepository
     {
         Task<Especialidade> GtById(int id);
     }

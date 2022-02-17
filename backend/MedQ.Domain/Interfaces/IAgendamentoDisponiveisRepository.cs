@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace MedQ.Domain.Interfaces
 {
-    public interface IAgendamentoDisponiveis
+    public interface IAgendamentoDisponiveisRepository
     {
         Task<IEnumerable<AgendamentoDisponiveis>> GetAgendamentoDisponiveisAsync();
         Task<AgendamentoDisponiveis> GetBbyIdAsync(int id);
-        Task<AgendamentoDisponiveis> GetBbyStatusAsync(int id);
-        Task<AgendamentoDisponiveis> GetBbyEstabelecimentoAsync(int id);
+        Task<AgendamentoDisponiveis> GetBbyStatusAsync(string status);
+        Task<AgendamentoDisponiveis> GetBbyEstabelecimentoAsync(int estabelecimentoId);
         Task<AgendamentoDisponiveis> CreateAsync(AgendamentoDisponiveis agendamentoDisponiveis);
-        Task<AgendamentoDisponiveis> UpdateAsync(int id, AgendamentoDisponiveis agendamentoDisponiveis);
+        Task<AgendamentoDisponiveis> UpdateAsync(AgendamentoDisponiveis agendamentoDisponiveis);
         Task DeleteAsync(int id);
     }
 }
