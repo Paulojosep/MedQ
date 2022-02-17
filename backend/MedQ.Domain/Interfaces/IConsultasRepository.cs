@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MedQ.Domain.Interfaces
 {
-    public interface IConsultas
+    public interface IConsultasRepository
     {
         Task<Consultas> GetBySocioAsync(int socioId);
         Task<Consultas> CreateAsync(Consultas consultas);
-        Task<Consultas> UpdateAsync(int id, Consultas consultas);
+        Task<Consultas> UpdateAsync(Consultas consultas);
         Task DeleteAsync(int id);
 
     }
