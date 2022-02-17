@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MedQ.Domain.Interfaces
 {
-    public interface ISocio
+    public interface ISocioRepository
     {
-        Task<Socio> GetSocioAsync();
+        Task<IEnumerable<Socio>> GetSocioAsync();
         Task<Socio> GetByIdAsync(int id);
         Task<Socio> GetByCPFAsync(string cpf);
         Task<Socio> CreateAsync(Socio socio);
-        Task<Socio> UpdateAsycn(int id, Socio socio);
+        Task<Socio> UpdateAsycn(Socio socio);
         Task DaleteAsync(int id);
     }
 }
