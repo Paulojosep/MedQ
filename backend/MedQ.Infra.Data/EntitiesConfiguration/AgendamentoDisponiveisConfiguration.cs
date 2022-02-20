@@ -12,7 +12,7 @@ namespace MedQ.Infra.Data.EntitiesConfiguration
 
             builder.HasKey(p => p.Id);
 
-            builder.Property(p => p.Id).HasColumnName("");
+            builder.Property(p => p.Id).HasColumnName("id");
             builder.Property(p => p.Data).HasColumnName("data").IsRequired();
             builder.Property(p => p.Hora).HasColumnName("hora").IsRequired();
             builder.Property(p => p.Disponibilidade).HasColumnName("disponibilidade");

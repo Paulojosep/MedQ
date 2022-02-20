@@ -13,6 +13,6 @@ namespace MedQ.Domain.Interfaces
         Task<Socio> GetByCPFAsync(string cpf);
         Task<Socio> CreateAsync(Socio socio);
         Task<Socio> UpdateAsycn(Socio socio);
-        Task DaleteAsync(int id);
+        Task DaleteAsync(Socio socio);
     }
 }
