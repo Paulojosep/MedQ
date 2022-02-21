@@ -12,6 +12,7 @@ namespace MedQ.Application.Mappings
         public DomainToDTOMappingProfile()
         {
             CreateMap<Socio, SocioDTO>().ReverseMap();
+            CreateMap<Telefone, TelefoneDTO>().ReverseMap();
         }
     }
 }
