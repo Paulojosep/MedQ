@@ -34,7 +34,8 @@ namespace MedQ.Infra.Data.Repositories
         public async Task<IEnumerable<Especialidade>> GetByEstabelecimentoAsync(int idEstabelecimento)
         {
             var especialidade = await _especialidadeContext.Especialidade
-                .Include(fila => fila.Filas)
+                .Include(f => f.Filas.Where(x => x.EstabelecimentoId.Equals(idEstabelecimento)))
+                .Where(x => x.Id.Equals(idEstabelecimento))
                 .ToListAsync();
             return especialidade;
         }
