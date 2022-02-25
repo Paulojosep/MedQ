@@ -1,19 +1,22 @@
-﻿using System;
+﻿using MedQ.Domain.Entities;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 using System.Text;
+using System.Text.Json.Serialization;
 
-namespace MedQ.Domain.Entities
+namespace MedQ.Application.DTOs
 {
-    public class Telefone : Entity
+    public class TelefoneDTO
     {
+        public int Id { get; set; }
         public string DDD { get; set; }
         public string Numero { get; set; }
-        [Column("fk_estabelecimento_id")]
         public int EstabelecimentoId { get; set; }
+        [JsonIgnore]
         public Estabelecimento Estabelecimento { get; set; }
-        [Column("tb_socio_id")]
         public int SocioId { get; set; }
+        [JsonIgnore]
         public Socio Socio { get; set; }
     }
 }
