@@ -24,10 +24,12 @@ namespace MedQ.Infra.IoC
 
             //Services
             services.AddScoped<ISocioService, SocioService>();
+            services.AddScoped<IEspecialidadeService, EspecialidadeService>();
             services.AddScoped<ITelefoneService, TelefoneService>();
-
+            
             //Repositories
             services.AddScoped<ISocioRepository, SocioRepository>();
+            services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
             services.AddScoped<ITelefoneRepository, TelefoneRepository>();
 
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
