@@ -33,11 +33,14 @@ namespace MedQ.Infra.Data.Repositories
 
         public async Task<IEnumerable<Especialidade>> GetByEstabelecimentoAsync(int idEstabelecimento)
         {
-            var especialidade = await _especialidadeContext.Especialidade
-                .Include(f => f.Filas.Where(x => x.EstabelecimentoId.Equals(idEstabelecimento)))
-                .Where(x => x.Id.Equals(idEstabelecimento))
-                .ToListAsync();
-            return especialidade;
+            var especialidade = from e in _especialidadeContext.Especialidade
+                                      join f in _especialidadeContext.Fila on e.Id equals f.EspecialidadeId
+                                      where f.EstabelecimentoId == idEstabelecimento
+                                      select e;
+
+            return await especialidade.ToListAsync();
+
+            
         }
     }
 }
