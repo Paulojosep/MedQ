@@ -1,28 +1,29 @@
-﻿using System;
+﻿using MedQ.Domain.Entities;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
+using System.Text.Json.Serialization;
 
-namespace MedQ.Domain.Entities
+namespace MedQ.Application.DTOs
 {
-    public class Consultas : Entity
+    public class ConsultasDTO
     {
+        public int Id { get; set; }
         public DateTime Data { get; set; }
         public DateTime Hora { get; set; }
         public string Status { get; set; }
         public string Senha { get; set; }
 
-        [Column("fk_agendamento_id")]
         public int AgendamentoId { get; set; }
+        [JsonIgnore]
         public AgendamentoDisponiveis Agendamento { get; set; }
 
-        [Column("fk_estabelecimento_id")]
         public int EstabelecimentoId { get; set; }
+        [JsonIgnore]
         public Estabelecimento Estabelecimento { get; set; }
 
-        [Column("fk_socio_id")]
         public int SocioId { get; set; }
+        [JsonIgnore]
         public Socio Socio { get; set; }
-
-        public ICollection<MinhasConsulta> MinhasConsultas { get; private set; }
     }
 }
