@@ -30,5 +30,35 @@ namespace MedQ.API.Controllers
             }
             return Ok(consulta);
         }
+
+        [HttpPost, Route("Incluir")]
+        public async Task<ActionResult<ConsultasDTO>> Incluir([FromBody] ConsultasDTO consultas)
+        {
+            var consulta = await _service.CreateAsync(consultas);
+            if (consulta == null)
+            {
+                return BadRequest("Não foi possivel Cadastrar");
+            }
+            return Ok(consulta);
+        }
+
+        [HttpPut, Route("Editar/{id}")]
+        public async Task<ActionResult<ConsultasDTO>> Editar(int id, [FromBody] ConsultasDTO consultas)
+        {
+            var consultaID = await _service.GetByIdAsync(id);
+            if (consultaID.Id != id)
+            {
+                return BadRequest("Não foi possivel Econtrar a Consulta");
+            }
+            var consulta = await _service.UpdateAsync(consultas);
+            return Ok(consulta);
+        }
+
+        [HttpDelete, Route("Deletar/{id}")]
+        public async Task<ActionResult<ConsultasDTO>> Deletar(int id)
+        {
+            await _service.DeleteAsync(id);
+            return Ok();
+        }
     }
 }

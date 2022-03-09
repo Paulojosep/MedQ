@@ -13,6 +13,7 @@ namespace MedQ.Domain.Interfaces
         Task<Consultas> CreateAsync(Consultas consultas);
         Task<Consultas> UpdateAsync(Consultas consultas);
         Task DeleteAsync(Consultas consultas);
+        Task<IEnumerable<Consultas>> GetInfosAsync(int id);
 
     }
 }

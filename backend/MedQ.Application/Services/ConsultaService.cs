@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,13 @@ namespace MedQ.Application.Services
             _mapper = mapper;
         }
 
+        public async Task<ConsultasDTO> GetByIdAsync(int id)
+        {
+            var consultaEntity = await _repository.GetByIdAsync(id);
+            var resultado = _mapper.Map<ConsultasDTO>(consultaEntity);
+            return resultado;
+        }
+
         public async Task<IEnumerable<ConsultasDTO>> GetBySocioAsync(int socioId)
         {
             var consultaEntity = await _repository.GetBySocioAsync(socioId);
@@ -29,17 +37,24 @@ namespace MedQ.Application.Services
 
         public async Task<ConsultasDTO> CreateAsync(ConsultasDTO consultas)
         {
-            throw new NotImplementedException();
+            var consultaEntity = _mapper.Map<Consultas>(consultas);
+            await _repository.CreateAsync(consultaEntity);
+            var resultado = _mapper.Map<ConsultasDTO>(consultaEntity);
+            return resultado;
         }
 
         public async Task<ConsultasDTO> UpdateAsync(ConsultasDTO consultas)
         {
-            throw new NotImplementedException();
+            var consultaEntity = _mapper.Map<Consultas>(consultas);
+            await _repository.UpdateAsync(consultaEntity);
+            var resultado = _mapper.Map<ConsultasDTO>(consultaEntity);
+            return resultado;
         }
 
         public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var consultaEntity = await _repository.GetByIdAsync(id);
+            await _repository.DeleteAsync(consultaEntity);
         }
     }
 }

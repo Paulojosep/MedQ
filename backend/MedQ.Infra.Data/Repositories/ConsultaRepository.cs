@@ -43,7 +43,7 @@ namespace MedQ.Infra.Data.Repositories
 
         public async Task<Consultas> UpdateAsync(Consultas consultas)
         {
-            _consultasContext.Update(consultas);
+            _consultasContext.Database.ExecuteSqlRaw($@"UPDATE `medq`.`tb_consultas` SET `status` = '{consultas.Status}' WHERE (`id` = '{consultas.Id}')");
             await _consultasContext.SaveChangesAsync();
             return consultas;
         }
@@ -52,6 +52,19 @@ namespace MedQ.Infra.Data.Repositories
         {
             _consultasContext.Remove(consultas);
             await _consultasContext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Consultas>> GetInfosAsync(int id)
+        {
+            var consultas = from c in _consultasContext.Consultas
+                            join a in _consultasContext.AgendamentoDisponiveis on c.AgendamentoId equals a.Id
+                            join m in _consultasContext.Medico on a.MedicoId equals m.Id
+                            join p in _consultasContext.Especialidade on m.EspecialidadeId equals p.Id
+                            join es in _consultasContext.Estabelecimento on m.EstabelecimentoId equals es.Id
+                            where c.Id == id
+                            select c;
+
+            return await consultas.ToListAsync();
         }
     }
 }
