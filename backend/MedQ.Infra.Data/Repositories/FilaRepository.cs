@@ -21,11 +21,6 @@ namespace MedQ.Infra.Data.Repositories
 
         public async Task<IEnumerable<Fila>> GetByEstabelecimentoAsync(int estabelecimentoId)
         {
-            /*var filas = _context.Fila
-                .Include(x => x.TipoAtendimento)
-                .Include(x => x.Especialidade)
-                .Where(x => x.EstabelecimentoId == estabelecimentoId);*/
-
             var filas = from f in _context.Fila
                         join ta in _context.TipoAtendimento on f.TipoAntendimentoId equals ta.Id
                         join e in _context.Especialidade on f.EspecialidadeId equals e.Id
