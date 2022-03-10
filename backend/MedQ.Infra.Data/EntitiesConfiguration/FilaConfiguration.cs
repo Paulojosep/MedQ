@@ -16,7 +16,7 @@ namespace MedQ.Infra.Data.EntitiesConfiguration
             builder.Property(p => p.QtdPessoas).HasColumnName("qtd_pessoas");
             builder.Property(p => p.Status).HasColumnName("status");
             builder.Property(p => p.DataCadastro).HasColumnName("data_cadastro");
-            builder.Property(p => p.TipoAntendimentoId).HasColumnName("fk_tipo_atendimento").IsRequired();
+            builder.Property(p => p.TipoAntendimentoId).HasColumnName("fk_tipo_atendimento_id").IsRequired();
             builder.Property(p => p.EstabelecimentoId).HasColumnName("fk_estabelecimento_id").IsRequired();
             builder.Property(p => p.EspecialidadeId).HasColumnName("fk_especialidade_id").IsRequired();
 
