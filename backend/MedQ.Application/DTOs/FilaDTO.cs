@@ -15,14 +15,14 @@ namespace MedQ.Application.DTOs
         public int TipoAntendimentoId { get; set; }
 
         [JsonIgnore]
-        public TipoAtendimento TipoAtendimento { get; set; }
+        public TipoAtendimentoDTO TipoAtendimento { get; set; }
         public int EstabelecimentoId { get; set; }
 
         [JsonIgnore]
-        public Estabelecimento Estabelecimento { get; set; }
+        public EstabelecimentoDTO Estabelecimento { get; set; }
         public int EspecialidadeId { get; set; }
 
         [JsonIgnore]
-        public Especialidade Especialidade { get; set; }
+        public EspecialidadeDTO Especialidade { get; set; }
     }
 }
