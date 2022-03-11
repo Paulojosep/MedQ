@@ -11,7 +11,7 @@ namespace MedQ.Domain.Entities
         public string Status { get; set; }
         public DateTime DataCadastro { get; set; }
 
-        [Column("fk_tipo_atendimento")]
+        [Column("fk_tipo_atendimento_id")]
         public int TipoAntendimentoId { get; set; }
         public TipoAtendimento TipoAtendimento { get; set; }
 

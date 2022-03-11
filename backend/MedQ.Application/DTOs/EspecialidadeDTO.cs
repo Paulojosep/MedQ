@@ -9,5 +9,8 @@ namespace MedQ.Application.DTOs
         public int Id { get; set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
+
+        public ICollection<FilaDTO> Filas { get; private set; }
+        public ICollection<MedicoDTO> Medicos { get; private set; }
     }
 }

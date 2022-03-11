@@ -1,4 +1,3 @@
-﻿using MedQ.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,14 +15,16 @@ namespace MedQ.Application.DTOs
 
         public int AgendamentoId { get; set; }
         [JsonIgnore]
-        public AgendamentoDisponiveis Agendamento { get; set; }
+        public AgendamentoDisponiveisDTO Agendamento { get; set; }
 
         public int EstabelecimentoId { get; set; }
         [JsonIgnore]
-        public Estabelecimento Estabelecimento { get; set; }
+        public EstabelecimentoDTO Estabelecimento { get; set; }
 
         public int SocioId { get; set; }
         [JsonIgnore]
-        public Socio Socio { get; set; }
+        public SocioDTO Socio { get; set; }
+
+        public ICollection<MinhasConsultaDTO> MinhasConsultas { get; set; }
     }
 }
