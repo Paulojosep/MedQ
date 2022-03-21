@@ -16,6 +16,7 @@ namespace MedQ.Application.Mappings
             CreateMap<Telefone, TelefoneDTO>().ReverseMap();
             CreateMap<Consultas, ConsultasDTO>().ReverseMap();
             CreateMap<Fila, FilaDTO>().ReverseMap();
+            CreateMap<Mensagens, MensagensDTO>().ReverseMap();
         }
     }
 }
