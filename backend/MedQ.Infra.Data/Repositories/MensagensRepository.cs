@@ -50,5 +50,17 @@ namespace MedQ.Infra.Data.Repositories
             await _context.SaveChangesAsync();
             return mensagens;
         }
+
+        public async Task CreateConsultationMessage(string titulo, string resumo, string texto, string data, string hora, int socio_id)
+        {
+            var resultado = await _context.Database.ExecuteSqlRawAsync($@"INSERT INTO tb_mensagens (titulo, resumo, texto, data, hora, fk_socio_id) VALUES ({titulo},{resumo},{texto},{data},{hora},{socio_id})");
+            if(resultado == 1)
+            {
+                Console.WriteLine("Erro");
+            }else
+            {
+                Console.WriteLine("Mensagem da consulta criada com sucesso!");
+            }
+        }
     }
 }

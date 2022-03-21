@@ -40,6 +40,45 @@ namespace MedQ.Application.Services
             return resultado;
         }
 
+        public async Task CreateConsultationMessage(ConsultasDTO infoConsultation)
+        {
+            var estabelecimento_nome = infoConsultation.Estabelecimento.Nome;
+            var profissional_nome = infoConsultation.Agendamento.Medico.Nome;
+            var consulta_data = infoConsultation.Data.Date;
+            var consulta_hora = infoConsultation.Data.Hour;
+            var socio_id = infoConsultation.SocioId;
+
+            var consulta_data_formatada = SetDay(consulta_data);
+            var titulo = "Consulta Marcada!";
+            var resumo = "Você marcou uma consulta no " + estabelecimento_nome;
+            var texto = $@"Você marcou uma consulta no {estabelecimento_nome} em {consulta_data_formatada} as {consulta_hora}";
+
+            var data = GetDay();
+            var hora = GetTime();
+
+            await _repository.CreateConsultationMessage(titulo, resumo, texto, data, hora, socio_id);
+
+        }
+
+        public async Task CreateStatusConsultationMessage(ConsultasDTO infoConsultation, string status)
+        {
+            var estabelecimento_nome = infoConsultation.Estabelecimento.Nome;
+            var profissional_nome = infoConsultation.Agendamento.Medico.Nome;
+            var consulta_data = infoConsultation.Data.Date;
+            var consulta_hora = infoConsultation.Data.Hour;
+            var socio_id = infoConsultation.SocioId;
+
+            var consulta_data_formatada = SetDay(consulta_data);
+            var titulo = $@"Consulta {status}!";
+            var resumo = "Você marcou uma consulta no " + estabelecimento_nome;
+            var texto = $@"Você marcou uma consulta no {estabelecimento_nome} em {consulta_data_formatada} as {consulta_hora}";
+
+            var data = GetDay();
+            var hora = GetTime();
+
+            await _repository.CreateConsultationMessage(titulo, resumo, texto, data, hora, socio_id);
+        }
+
         public string GetDay()
         {
             DateTime date = new DateTime();
@@ -48,11 +87,10 @@ namespace MedQ.Application.Services
             return resultDate;
         }
 
-        public string SetDay(string day)
+        public string SetDay(DateTime day)
         {
-            DateTime date = new DateTime();
             double days = Convert.ToDouble(day);
-            var resultado = date.AddDays(days).ToString();
+            var resultado = days.ToString();
             return resultado;
         }
 

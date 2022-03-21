@@ -13,5 +13,6 @@ namespace MedQ.Domain.Interfaces
         Task<Mensagens> GetMensagensAsync(int socioId);
         Task<Mensagens> CreateAsync(Mensagens mensagens);
         Task<Mensagens> SetViwedTrueAsync(Mensagens mensagens);
+        Task CreateConsultationMessage(string titulo, string resumo, string texto, string data, string hora, int socio_id);
     }
 }
