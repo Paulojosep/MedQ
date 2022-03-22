@@ -13,12 +13,14 @@ namespace MedQ.Application.Services
     public class ConsultaService : IConsultaService
     {
         private IConsultasRepository _repository;
+        private IMensagensService _mensagensService;
         private readonly IMapper _mapper;
 
-        public ConsultaService(IConsultasRepository repository, IMapper mapper)
+        public ConsultaService(IConsultasRepository repository, IMensagensService mensagensService, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
+            _mensagensService = mensagensService;
         }
 
         public async Task<ConsultasDTO> GetByIdAsync(int id)
@@ -55,6 +57,22 @@ namespace MedQ.Application.Services
         {
             var consultaEntity = await _repository.GetByIdAsync(id);
             await _repository.DeleteAsync(consultaEntity);
+        }
+
+        public async Task<ConsultasDTO> GetInfosAsync(int id)
+        {
+            var consultaEntity = await _repository.GetInfosAsync(id);
+            var consultaService = _mapper.Map<ConsultasDTO>(consultaEntity);
+            await _mensagensService.CreateConsultationMessage(consultaService);
+            return consultaService;
+        }
+
+        public async Task<ConsultasDTO> GetInfosForStatusConsultationAsync(int id, string status)
+        {
+            var consultaEntity = await _repository.GetInfosAsync(id);
+            var consultaService = _mapper.Map<ConsultasDTO>(consultaEntity);
+            await _mensagensService.CreateStatusConsultationMessage(consultaService, status);
+            return consultaService;
         }
     }
 }
