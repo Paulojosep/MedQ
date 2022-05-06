@@ -27,7 +27,6 @@ namespace MedQ.Infra.Data.Repositories
         public async Task<IEnumerable<Medico>> GetByEstabelecimentoAsync(int estabelecimentoId)
         {
             var medico = _context.Medico
-                .Include(e => e.Estabelecimento)
                 .Where(x => x.EstabelecimentoId.Equals(estabelecimentoId));
 
             return await medico.ToListAsync();
@@ -42,14 +41,14 @@ namespace MedQ.Infra.Data.Repositories
 
         public async Task<Medico> UpdateAsync(Medico medico)
         {
-            await _context.Database.ExecuteSqlRawAsync($@"UPDATE tb_medicos SET nome = {medico.Nome}, cpf = {medico.CPF}, fk_especialidade_id = {medico.EspecialidadeId} WHERE id={medico.Id}");
+            await _context.Database.ExecuteSqlRawAsync($@"UPDATE tb_medicos SET nome = '{medico.Nome}', cpf = '{medico.CPF}', fk_especialidade_id = {medico.EspecialidadeId} WHERE id={medico.Id}");
             await _context.SaveChangesAsync();
             return medico;
         }
 
         public async Task DeleteAync(Medico medico)
         {
-            _context.Remove(medico);
+            await _context.Database.ExecuteSqlRawAsync($@"DELETE FROM tb_medicos WHERE id = {medico.Id}");
             await _context.SaveChangesAsync();
         }
     }
