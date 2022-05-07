@@ -17,7 +17,8 @@ namespace MedQ.Infra.Data.Repositories
         }
         public async Task<IEnumerable<Socio>> GetSocioAsync()
         {
-            return await _socioContext.Socio.ToListAsync();
+            var resultado = await _socioContext.Socio.ToListAsync();
+            return resultado;
         }
 
         public async Task<Socio> GetByIdAsync(int id)

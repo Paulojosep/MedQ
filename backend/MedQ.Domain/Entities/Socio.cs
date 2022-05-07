@@ -17,7 +17,7 @@ namespace MedQ.Domain.Entities
         public string Cidade { get; set; }
         public string Bairro { get; set; }
         public DateTime Data_Cadastro { get; set; }
-        public long Image { get; set; }
+        public string Image { get; set; }
         public string CodigoVerificacao { get; set; }
         public string IdGoogle { get; set; }
         public string Tipo { get; set; }
