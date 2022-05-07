@@ -24,7 +24,8 @@ namespace MedQ.Application.Services
         public async Task<IEnumerable<SocioDTO>> GetSocioAsync()
         {
             var socioEntity = await _repository.GetSocioAsync();
-            return _mapper.Map<IEnumerable<SocioDTO>>(socioEntity);
+            var resultado = _mapper.Map<IEnumerable<SocioDTO>>(socioEntity);
+            return resultado;
         }
 
         public async Task<SocioDTO> GetByIdAsync(int id)
