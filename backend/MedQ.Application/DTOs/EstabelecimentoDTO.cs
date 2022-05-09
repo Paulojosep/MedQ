@@ -15,9 +15,8 @@ namespace MedQ.Application.DTOs
         public string Cidade { get; set; }
         public string Bairro { get; set; }
         public string Estado { get; set; }
-        public int Status { get; set; }
         public DateTime Data_Cadastro { get; set; }
-        public long Image { get; set; }
+        public string Image { get; set; }
 
         public int TipoEstabelecimentoId { get; set; }
         [JsonIgnore]
@@ -33,6 +32,6 @@ namespace MedQ.Application.DTOs
         public ICollection<MedicoDTO> Medicos { get; private set; }
         public ICollection<CalendarioDTO> Calendarios { get; private set; }
         public ICollection<AgendamentoDisponiveisDTO> AgendamentoDisponiveis { get; private set; }
-        public ICollection<EstabelecimentoDTO> Estabelecimentos { get; private set; }
+        //public ICollection<EstabelecimentoDTO> Estabelecimentos { get; private set; }
     }
 }
