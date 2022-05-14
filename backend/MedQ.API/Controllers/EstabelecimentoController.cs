@@ -76,7 +76,7 @@ namespace MedQ.API.Controllers
                 return BadRequest("Estabelecimento não econtrado");
             }
             var estabelecimento = await _service.Update(estabelecimentoDTO);
-            return Ok(estabelecimento);
+            return Ok();
         }
 
         [HttpDelete, Route("DeleteEstabelecimento/{id}")]
@@ -88,7 +88,7 @@ namespace MedQ.API.Controllers
                 return NotFound("Estabelecimento Não Econtrado");
             }
             await _service.Delete(estabelecimento);
-            return Ok(estabelecimento);
+            return Ok("Deletado com sucesso");
         }
     }
 }

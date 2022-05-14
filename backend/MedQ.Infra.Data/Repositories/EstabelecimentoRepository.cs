@@ -39,7 +39,7 @@ namespace MedQ.Infra.Data.Repositories
 
         public async Task<Estabelecimento> GetByNomeAsync(string nome)
         {
-            var resultado = await _context.Estabelecimento.FindAsync(nome);
+            var resultado = await _context.Estabelecimento.FirstOrDefaultAsync(estabelecimento => estabelecimento.Nome.Equals(nome));
             return resultado;
         }
 
@@ -52,14 +52,24 @@ namespace MedQ.Infra.Data.Repositories
 
         public async Task<Estabelecimento> UpdateAsync(Estabelecimento estabelecimento)
         {
-            _context.Update(estabelecimento);
+            await _context.Database.ExecuteSqlRawAsync($@"UPDATE tb_estabelecimento SET nome = '{estabelecimento.Nome}', 
+                                                        cep = '{estabelecimento.CEP}', 
+                                                        endereco = '{estabelecimento.Endereco}', 
+                                                        complemento = '{estabelecimento.Complemento}', 
+                                                        cidade = '{estabelecimento.Cidade}', 
+                                                        bairro = '{estabelecimento.Bairro}', 
+                                                        estado = '{estabelecimento.Estado}', 
+                                                        image = '{estabelecimento.Image}', 
+                                                        fk_tipo_estabelecimento_id = {estabelecimento.TipoEstabelecimentoId}, 
+                                                        fk_socio_id = {estabelecimento.SocioId} 
+                                                        WHERE id={estabelecimento.Id}");
             await _context.SaveChangesAsync();
             return estabelecimento;
         }
 
         public async Task DeleteAsync(Estabelecimento estabelecimento)
         {
-            _context.Remove(estabelecimento);
+            await _context.Database.ExecuteSqlRawAsync($@"DELETE FROM tb_estabelecimento WHERE id = {estabelecimento.Id}");
             await _context.SaveChangesAsync();
         }
     }
