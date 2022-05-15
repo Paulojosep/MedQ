@@ -13,9 +13,8 @@ namespace MedQ.Domain.Entities
         public string Cidade { get; set; }
         public string Bairro { get; set; }
         public string Estado { get; set; }
-        public int Status { get; set; }
         public DateTime Data_Cadastro { get; set; }
-        public long Image { get; set; }
+        public string Image { get; set; }
 
         public int TipoEstabelecimentoId { get; set; }
         public TipoEstabelecimento TipoEstbelecimento { get; set; }
@@ -29,7 +28,7 @@ namespace MedQ.Domain.Entities
         public ICollection<Medico> Medicos { get; private set; }
         public ICollection<Calendario> Calendarios { get; private set; }
         public ICollection<AgendamentoDisponiveis> AgendamentoDisponiveis { get; private set; }
-        public ICollection<Estabelecimento> Estabelecimentos { get; private set; }
+        //public ICollection<Estabelecimento> Estabelecimentos { get; private set; }
         //public ICollection<Socio> Socios { get; private set; }
         //public ICollection<TipoEstabelecimento> TipoEstabelecimentos { get; private set; }
     }
