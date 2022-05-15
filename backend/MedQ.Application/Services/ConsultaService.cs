@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using MedQ.Application.IO;
 using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using System;
@@ -14,13 +15,15 @@ namespace MedQ.Application.Services
     {
         private IConsultasRepository _repository;
         private IMensagensService _mensagensService;
+        private IMinhasConsultaService _minhasConsultaService;
         private readonly IMapper _mapper;
 
-        public ConsultaService(IConsultasRepository repository, IMensagensService mensagensService, IMapper mapper)
+        public ConsultaService(IConsultasRepository repository, IMensagensService mensagensService, IMinhasConsultaService minhasConsultaService, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
             _mensagensService = mensagensService;
+            _minhasConsultaService = minhasConsultaService;
         }
 
         public async Task<ConsultasDTO> GetByIdAsync(int id)
@@ -73,6 +76,14 @@ namespace MedQ.Application.Services
             var consultaService = _mapper.Map<ConsultasDTO>(consultaEntity);
             await _mensagensService.CreateStatusConsultationMessage(consultaService, status);
             return consultaService;
+        }
+
+        public async Task<MinhasConsultaInput> GetInfosForConsultation(int id)
+        {
+            var consultaEntity = await _repository.GetInfosForConsultationAsync(id);
+            var consulta = _mapper.Map<MinhasConsultaInput>(consultaEntity);
+            await _minhasConsultaService.CreateMyConsultation(consulta);
+            return consulta;
         }
     }
 }

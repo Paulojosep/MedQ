@@ -1,4 +1,5 @@
 ﻿using MedQ.Application.DTOs;
+using MedQ.Application.IO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +11,7 @@ namespace MedQ.Application.Interfaces
     {
         Task<IEnumerable<MinhasConsultaDTO>> GetAll();
         Task<MinhasConsultaDTO> GetFinishedMensagens(int socioId);
-        Task<MinhasConsultaDTO> CreateMyConsultation(MinhasConsultaDTO minhasConsulta);
+        Task<bool> CreateMyConsultation(MinhasConsultaInput minhasConsulta);
         Task<MinhasConsultaDTO> UpdateMyConsultation(MinhasConsultaDTO minhasConsulta);
         Task DeleteMyConsultation(int id);
     }

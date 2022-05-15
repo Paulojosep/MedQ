@@ -10,7 +10,7 @@ namespace MedQ.Domain.Interfaces
     {
         Task<IEnumerable<MinhasConsulta>> GetAllAsyns();
         Task<MinhasConsulta> GetFinishedMensagensAsync(int socioId);
-        Task<MinhasConsulta> CreateMyConsultationAsync(MinhasConsulta minhasConsulta);
+        Task<bool> CreateMyConsultationAsync(MinhasConsultas2 minhasConsulta);
         Task<MinhasConsulta> UpdateMyConsultationAsync(MinhasConsulta minhasConsulta);
         Task DeleteMyConsultationAsync(int id);
 

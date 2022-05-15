@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using MedQ.Application.IO;
 using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using System;
@@ -35,13 +36,18 @@ namespace MedQ.Application.Services
             return resultado;
         }
 
-        public async Task<MinhasConsultaDTO> CreateMyConsultation(MinhasConsultaDTO minhasConsulta)
+        public async Task<bool> CreateMyConsultation(MinhasConsultaInput minhasConsulta)
         {
-            var minhasConsultaEntity = _mapper.Map<MinhasConsulta>(minhasConsulta);
-            minhasConsultaEntity.Finished = MakeId();
-            await _repository.CreateMyConsultationAsync(minhasConsultaEntity);
-            var resultado = _mapper.Map<MinhasConsultaDTO>(minhasConsultaEntity);
-            return resultado;
+            try
+            {
+                var minhasConsultas = _mapper.Map<MinhasConsultas2>(minhasConsulta);
+                var resultado = await _repository.CreateMyConsultationAsync(minhasConsultas);
+                return resultado;
+            }catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
         }
 
         public async Task<MinhasConsultaDTO> UpdateMyConsultation(MinhasConsultaDTO minhasConsulta)

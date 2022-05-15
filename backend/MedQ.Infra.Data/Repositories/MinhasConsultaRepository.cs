@@ -1,4 +1,5 @@
-﻿using MedQ.Domain.Entities;
+﻿using MedQ.Application.IO;
+using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -32,11 +33,14 @@ namespace MedQ.Infra.Data.Repositories
 
         }
 
-        public async Task<MinhasConsulta> CreateMyConsultationAsync(MinhasConsulta minhasConsulta)
+        public async Task<bool> CreateMyConsultationAsync(MinhasConsultas2 minhasConsulta)
         {
-            _minhasConsultaContext.Add(minhasConsulta);
+            await _minhasConsultaContext.Database.ExecuteSqlRawAsync($@"INSERT INTO tb_minhas_consultas 
+                    (titulo, resumo, texto, pedido, senha, profissional, data, hora, status, finished, fk_consultas_id, fk_socio_id) 
+                    VALUES 
+                    ({minhasConsulta.Estabelecimento.Nome},{minhasConsulta.Especialidade.Nome},{null},{minhasConsulta.Pedido},{minhasConsulta.consultas.Senha},{minhasConsulta.Medico.Nome},{minhasConsulta.data},{minhasConsulta.hora},{minhasConsulta.status},{0},{minhasConsulta.consulta_id},{minhasConsulta.socio_id})");
             await _minhasConsultaContext.SaveChangesAsync();
-            return minhasConsulta;
+            return true;
         }
 
         public async Task<MinhasConsulta> UpdateMyConsultationAsync(MinhasConsulta minhasConsulta)
