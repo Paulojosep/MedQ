@@ -31,6 +31,7 @@ namespace MedQ.Infra.IoC
             services.AddScoped<IMensagensService, MensagensService>();
             services.AddScoped<IMedicoService, MedicoService>();
             services.AddScoped<IEstabelecimentoService, EstabelecimentoService>();
+            services.AddScoped<IMinhasConsultaService, MinhasConsultaService>();
 
             //Repositories
             services.AddScoped<ISocioRepository, SocioRepository>();
@@ -41,6 +42,7 @@ namespace MedQ.Infra.IoC
             services.AddScoped<IMensagensRepository, MensagensRepository>();
             services.AddScoped<IMedicoRepository, MedicoRepository>();
             services.AddScoped<IEstabelecimentoRepository, EstabelecimentoRepository>();
+            services.AddScoped<IMinhasConsultaRepository, MinhasConsultaRepository>();
 
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 

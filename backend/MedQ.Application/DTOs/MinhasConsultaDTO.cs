@@ -17,7 +17,7 @@ namespace MedQ.Application.DTOs
         public DateTime Data { get; set; }
         public DateTime Hora { get; set; }
         public string Status { get; set; }
-        public int Finished { get; set; }
+        public string Finished { get; set; }
 
         public int ConsultaId { get; set; }
         [JsonIgnore]

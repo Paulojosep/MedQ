@@ -15,7 +15,7 @@ namespace MedQ.Domain.Entities
         public DateTime Data { get; set; }
         public DateTime Hora { get; set; }
         public string Status { get; set; }
-        public int Finished { get; set; }
+        public string Finished { get; set; }
 
         public int ConsultaId { get; set; }
         public Consultas Consulta { get; set; }

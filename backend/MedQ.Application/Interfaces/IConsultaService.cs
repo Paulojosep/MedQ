@@ -1,4 +1,5 @@
 ﻿using MedQ.Application.DTOs;
+using MedQ.Application.IO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,5 +16,6 @@ namespace MedQ.Application.Interfaces
         Task DeleteAsync(int id);
         Task<ConsultasDTO> GetInfosAsync(int id);
         Task<ConsultasDTO> GetInfosForStatusConsultationAsync(int id, string status);
+        Task<MinhasConsultaInput> GetInfosForConsultation(int id);
     }
 }
