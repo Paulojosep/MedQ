@@ -14,6 +14,8 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "camelcase": [2, {"properties": "never"}],
+        "eol-last": ["error", "never"],
         "@angular-eslint/component-class-suffix": [
           "error",
           {
@@ -34,6 +36,13 @@
             "type": "attribute",
             "prefix": "app",
             "style": "camelCase"
+          }
+        ],
+        "@typescript-eslint/naming-convention": [
+          "warn",
+          {
+            "selector": "variable",
+            "format": ["camelCase"]
           }
         ]
       }
