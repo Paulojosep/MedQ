@@ -8,12 +8,10 @@ export class ApiServices {
     constructor(private http: HttpClient){}
 
     public get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-        console.log(`${environment.root_url}${path}`);
         return this.http.get(`${environment.root_url}${path}`);
     }
 
     public getID(path: string, param: any): Observable<any> {
-        console.log(`${environment.root_url}${path}`);
         return this.http.get<any>(`${environment.root_url}${path}/${param}`);
     }
 

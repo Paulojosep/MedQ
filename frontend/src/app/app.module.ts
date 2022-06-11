@@ -10,9 +10,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConsultaService } from './core/services/consultas.service';
 import { ApiServices } from './core/services/api.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AgendamentosDisponiveisComponent } from './agendamentos-disponiveis/agendamentos-disponiveis.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [	AppComponent,
+      AgendamentosDisponiveisComponent
+   ],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, HttpClientModule],
   providers: [ ConsultaService, ApiServices],
