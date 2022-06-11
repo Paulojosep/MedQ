@@ -1,3 +1,5 @@
+import { IMinhasConsulta } from "./IMinhasConsulta";
+
 export class IConsultas {
     Id: number;
     Data: Date;
@@ -7,4 +9,5 @@ export class IConsultas {
     AgendamentoId: number;
     EstabelecimentoId: number;
     SocioId: number;
+    minhasConsultas: IMinhasConsulta[];
 }

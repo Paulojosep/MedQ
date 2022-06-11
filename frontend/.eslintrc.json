@@ -13,7 +13,12 @@
         "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
+      "env": {
+        "node":true
+      },
       "rules": {
+        "unnecessary": true,
+        "quotes": [2, "single", { "avoidEscape": true }],
         "camelcase": [2, {"properties": "never"}],
         "eol-last": ["error", "never"],
         "@angular-eslint/component-class-suffix": [
@@ -43,6 +48,14 @@
           {
             "selector": "variable",
             "format": ["camelCase"]
+          }
+        ],
+        "@typescript-eslint/quotes": [
+          "error",
+          "single",
+          {
+            "avoidEscape": true,
+            "allowTemplateLiterals": true
           }
         ]
       }
