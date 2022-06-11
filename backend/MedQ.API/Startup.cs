@@ -27,6 +27,14 @@ namespace MedQ.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //allowed permision angular react and vue acess to API
+            services.AddCors(options => options.AddPolicy("AllowAccess_To_API",
+                policy => policy
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                ));
+
             services.AddInfrastructureAPI(Configuration);
 
             services.AddControllers();
@@ -39,6 +47,9 @@ namespace MedQ.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //Active Access to API from Angular, Recat and Vue
+            app.UseCors("AllowAccess_To_API");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
