@@ -20,7 +20,7 @@ namespace MedQ.API.Controllers
             _service = service;
         }
 
-        [HttpGet, Route("MedicoByID")]
+        [HttpGet, Route("MedicoByID/{id}")]
         public async Task<ActionResult<MedicoDTO>> GetByID(int id)
         {
             var medico = await _service.GetByID(id);
@@ -31,7 +31,7 @@ namespace MedQ.API.Controllers
             return Ok(medico);
         }
 
-        [HttpGet, Route("MedicoByEstabelecimento")]
+        [HttpGet, Route("MedicoByEstabelecimento/{estabelecimentoID}")]
         public async Task<ActionResult<IEnumerable<MedicoDTO>>> GetByEstabelecimento(int estabelecimentoID)
         {
             var medico = await _service.GetByEstabelecimento(estabelecimentoID);

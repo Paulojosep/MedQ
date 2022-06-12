@@ -20,7 +20,7 @@ namespace MedQ.API.Controllers
             _service = service;
         }
 
-        [HttpGet, Route("Mensagens")]
+        [HttpGet, Route("Mensagens/{socioId}")]
         public async Task<ActionResult<MensagensDTO>> GetMensagens(int socioId)
         {
             var mensagens = await _service.GetMensagens(socioId);
@@ -31,7 +31,7 @@ namespace MedQ.API.Controllers
             return Ok(mensagens);
         }
 
-        [HttpGet, Route("ViewdMensagens")]
+        [HttpGet, Route("ViewdMensagens/{socioId}")]
         public async Task<ActionResult<MensagensDTO>> GetViewdMensagens(int socioId)
         {
             var mensagens = await _service.GetViewdMensagens(socioId);
