@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Adicionar Telefone</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="adicionarTelefoneForm" (ngSubmit)="onSubmit()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" class="center">
+          <div>
+            Insira o número de telefone:
+          </div>
+        </ion-col>
+        <ion-col size="12">
+          <div>
+            <ion-item style="border: 1px solid black;">
+              <ion-label position="floating" style="font-size: 4.5vw;">Telefone<ion-text
+                  color="danger">*</ion-text>
+              </ion-label>
+              <ion-input type="text" [(ngModel)]="estabelecimento.telefone" formControlName="adicionar_telefone_estabelecimento" name="adicionar_telefone_estabelecimento" ></ion-input>
+              <div *ngFor="let error of errorMessages.telefone_estabelecimento">
+                <ng-container
+                  *ngIf="adicionar_telefone_estabelecimento.hasError(error.type) && (adicionar_telefone_estabelecimento.dirty || adicionar_telefone_estabelecimento.touched)">
+                  <small class="error-message">{{error.message}}</small>
+                </ng-container>
+              </div>
+            </ion-item>
+          </div>
+
+
+          <div>
+            <ion-item>
+              <ion-button color="danger" (click)="close()">Sair</ion-button>
+              <ion-button type="submit">Adicionar</ion-button>
+            </ion-item>
+            
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

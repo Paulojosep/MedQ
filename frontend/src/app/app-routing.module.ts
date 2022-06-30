@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'adicionar-telefone',
+    loadChildren: () => import('./adicionar-telefone/adicionar-telefone.module').then(m => m.AdicionarTelefoneModule)
+  }
 ];
 
 @NgModule({
