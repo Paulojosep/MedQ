@@ -12,9 +12,9 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class MedicoRepository : IMedicoRepository
     {
-        private ApplicationDbContext _context;
+        private MedQContext _context;
 
-        public MedicoRepository(ApplicationDbContext context)
+        public MedicoRepository(MedQContext context)
         {
             _context = context;
         }

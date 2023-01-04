@@ -9,9 +9,9 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class SocioRepository : ISocioRepository
     {
-        private ApplicationDbContext _socioContext;
+        private MedQContext _socioContext;
 
-        public SocioRepository(ApplicationDbContext context)
+        public SocioRepository(MedQContext context)
         {
             _socioContext = context;
         }

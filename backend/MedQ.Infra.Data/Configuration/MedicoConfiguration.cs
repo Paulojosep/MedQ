@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MedQ.Infra.Data.EntitiesConfiguration
+namespace MedQ.Infra.Data.Configuration
 {
     class MedicoConfiguration : IEntityTypeConfiguration<Medico>
     {

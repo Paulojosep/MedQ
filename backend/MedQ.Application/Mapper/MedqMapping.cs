@@ -5,11 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MedQ.Application.Mappings
+namespace MedQ.Application.Mapper
 {
-    public class DomainToDTOMappingProfile : Profile
+    public class MedqMapping : Profile
     {
-        public DomainToDTOMappingProfile()
+        public MedqMapping()
         {
             CreateMap<Socio, SocioDTO>().ReverseMap();
             CreateMap<Especialidade, EspecialidadeDTO>().ReverseMap();

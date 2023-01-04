@@ -12,9 +12,9 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class MensagensRepository : IMensagensRepository
     {
-        private ApplicationDbContext _context;
+        private MedQContext _context;
 
-        public MensagensRepository(ApplicationDbContext context)
+        public MensagensRepository(MedQContext context)
         {
             _context = context;
         }

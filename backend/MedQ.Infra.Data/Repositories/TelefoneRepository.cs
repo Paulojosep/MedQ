@@ -11,9 +11,9 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class TelefoneRepository : ITelefoneRepository
     {
-        private ApplicationDbContext _telefoneContext;
+        private MedQContext _telefoneContext;
 
-        public TelefoneRepository(ApplicationDbContext context)
+        public TelefoneRepository(MedQContext context)
         {
             _telefoneContext = context;
         }

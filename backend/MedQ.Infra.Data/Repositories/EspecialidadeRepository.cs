@@ -12,9 +12,9 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class EspecialidadeRepository : IEspecialidadeRepository
     {
-        private ApplicationDbContext _especialidadeContext;
+        private MedQContext _especialidadeContext;
 
-        public EspecialidadeRepository(ApplicationDbContext context)
+        public EspecialidadeRepository(MedQContext context)
         {
             _especialidadeContext = context;
         }

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MedQ.Infra.Data.EntitiesConfiguration
+namespace MedQ.Infra.Data.Configuration
 {
     public class SocioConfiguration : IEntityTypeConfiguration<Socio>
     {

@@ -13,9 +13,9 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class MinhasConsultaRepository : IMinhasConsultaRepository
     {
-        private ApplicationDbContext _minhasConsultaContext;
+        private MedQContext _minhasConsultaContext;
 
-        public MinhasConsultaRepository(ApplicationDbContext context)
+        public MinhasConsultaRepository(MedQContext context)
         {
             _minhasConsultaContext = context;
         }

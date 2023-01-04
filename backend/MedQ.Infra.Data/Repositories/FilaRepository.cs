@@ -12,9 +12,9 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class FilaRepository : IFilaRepository
     {
-        private ApplicationDbContext _context;
+        private MedQContext _context;
 
-        public FilaRepository(ApplicationDbContext context)
+        public FilaRepository(MedQContext context)
         {
             _context = context;
         }

@@ -1,4 +1,5 @@
-﻿using MedQ.Application.IO;
+﻿using MedQ.Application.Interfaces;
+using MedQ.Application.IO;
 using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data.Context;
@@ -11,16 +12,18 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class ConsultaRepository : IConsultasRepository
     {
-        private ApplicationDbContext _consultasContext;
+        private MedQContext _consultasContext;
+        private readonly IRepositorioGenerico<Consultas> _repositorie;
 
-        public ConsultaRepository(ApplicationDbContext context)
+        public ConsultaRepository(MedQContext context, IRepositorioGenerico<Consultas> repositorie)
         {
             _consultasContext = context;
+            _repositorie = repositorie;
         }
 
         public async Task<Consultas> GetByIdAsync(int id)
         {
-            return await _consultasContext.Consultas.FindAsync(id);
+            return await _repositorie.Obter(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Consultas>> GetBySocioAsync(int socioId)
