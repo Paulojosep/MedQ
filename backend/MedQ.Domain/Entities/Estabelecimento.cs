@@ -37,8 +37,8 @@ namespace MedQ.Domain.Entities
         public virtual ICollection<Medico> Medicos { get; set; }
         public virtual ICollection<Calendario> Calendarios { get; set; }
         public virtual ICollection<AgendamentoDisponiveis> AgendamentoDisponiveis { get; set; }
-        //public ICollection<Estabelecimento> Estabelecimentos { get; private set; }
-        //public ICollection<Socio> Socios { get; private set; }
-        //public ICollection<TipoEstabelecimento> TipoEstabelecimentos { get; private set; }
+        //public ICollection<Estabelecimento> Estabelecimentos { get; set; }
+        //public ICollection<Socio> Socios { get; set; }
+        //public ICollection<TipoEstabelecimento> TipoEstabelecimentos { get; set; }
     }
 }

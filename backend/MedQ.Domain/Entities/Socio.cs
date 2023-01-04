@@ -32,10 +32,10 @@ namespace MedQ.Domain.Entities
         public string Tipo { get; set; }
         
 
-        public virtual ICollection<Estabelecimento> Estabelecimentos { get; private set; }
-        public virtual ICollection<Consultas> Consultas { get; private set; }
-        public virtual ICollection<Mensagens> Mensagens { get; private set; }
-        public virtual ICollection<MinhasConsulta> MinhasConsultas { get; private set; }
-        public virtual ICollection<Telefone> Telefones { get; private set; }
+        public virtual ICollection<Estabelecimento> Estabelecimentos { get; set; }
+        public virtual ICollection<Consultas> Consultas { get; set; }
+        public virtual ICollection<Mensagens> Mensagens { get; set; }
+        public virtual ICollection<MinhasConsulta> MinhasConsultas { get; set; }
+        public virtual ICollection<Telefone> Telefones { get; set; }
     }
 }
