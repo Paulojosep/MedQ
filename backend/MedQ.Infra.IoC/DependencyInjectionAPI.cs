@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using MedQ.Application.Interfaces;
-using MedQ.Application.Mappings;
+using MedQ.Application.Mapper;
 using MedQ.Application.Services;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data.Context;
@@ -19,8 +19,8 @@ namespace MedQ.Infra.IoC
         public static IServiceCollection AddInfrastructureAPI(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("MySqlConnection");
-            services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
-            b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+            services.AddDbContext<MedQContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+            b => b.MigrationsAssembly(typeof(MedQContext).Assembly.FullName)));
 
             //Services
             services.AddScoped<ISocioService, SocioService>();
@@ -43,8 +43,9 @@ namespace MedQ.Infra.IoC
             services.AddScoped<IMedicoRepository, MedicoRepository>();
             services.AddScoped<IEstabelecimentoRepository, EstabelecimentoRepository>();
             services.AddScoped<IMinhasConsultaRepository, MinhasConsultaRepository>();
+            services.AddScoped(typeof(IRepositorioGenerico<>), typeof(RepositorioGenerico<>));
 
-            services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
+            services.AddAutoMapper(typeof(MedqMapping));
 
             var myhandlers = AppDomain.CurrentDomain.Load("MedQ.Application");
             services.AddMediatR(myhandlers);
