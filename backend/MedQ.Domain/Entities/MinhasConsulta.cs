@@ -16,12 +16,11 @@ namespace MedQ.Domain.Entities
         public DateTime Hora { get; set; }
         public string Status { get; set; }
         public string Finished { get; set; }
-
         public int ConsultaId { get; set; }
-        public Consultas Consulta { get; set; }
-
         public int SocioId { get; set; }
-        public Socio Socio { get; set; }
+
+        public virtual Consultas Consulta { get; set; }
+        public virtual Socio Socio { get; set; }
 
         
     }

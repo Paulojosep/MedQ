@@ -6,8 +6,13 @@ namespace MedQ.Domain.Entities
 {
     public class TipoEstabelecimento : Entity
     {
+        public TipoEstabelecimento()
+        {
+            Estabelecimentos = new HashSet<Estabelecimento>();
+        }
+
         public string Tipo { get; set; }
 
-        public ICollection<Estabelecimento> Estabelecimentos { get; private set; }
+        public virtual ICollection<Estabelecimento> Estabelecimentos { get; set; }
     }
 }

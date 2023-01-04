@@ -16,10 +16,11 @@ namespace MedQ.Domain.Entities
         public string estabelecimento_nome { get; set; }
         public string especialidade_nome { get; set; }
         public string Pedido { get; set; }
-        public Consultas consultas { get; set; }
-        public AgendamentoDisponiveis Agendamento { get; set; }
-        public Estabelecimento Estabelecimento { get; set; }
-        public Especialidade Especialidade { get; set; }
-        public Medico Medico { get; set; }
+
+        public virtual Consultas consultas { get; set; }
+        public virtual AgendamentoDisponiveis Agendamento { get; set; }
+        public virtual Estabelecimento Estabelecimento { get; set; }
+        public virtual Especialidade Especialidade { get; set; }
+        public virtual Medico Medico { get; set; }
     }
 }
