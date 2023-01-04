@@ -10,9 +10,9 @@ namespace MedQ.Application.Interfaces
     {
         Task<T[]> SelecionarTodos();
         Task<T> ObterPorCodigoAsync(int id);
-        T AdicionarAsync(T entity);
-        T EditarAsync(T entity);
-        void DeletarAsync(T entity);
+        T Adicionar(T entity);
+        T Editar(T entity);
+        void Deletar(T entity);
         Task<bool> SalvarAsync();
     }
 

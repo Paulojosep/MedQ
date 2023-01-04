@@ -33,20 +33,20 @@ namespace MedQ.Infra.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public T AdicionarAsync(T entity)
+        public T Adicionar(T entity)
         {
             _medQContext.AddAsync(entity);
             return entity;
         }
 
-        public T EditarAsync(T entity)
+        public T Editar(T entity)
         {
             _medQContext.Attach<T>(entity);
             _medQContext.Entry(entity).State = EntityState.Modified;
             return entity;
         }
 
-        public void DeletarAsync(T entity)
+        public void Deletar(T entity)
         {
             _medQContext.Set<T>().Remove(entity);
         }
