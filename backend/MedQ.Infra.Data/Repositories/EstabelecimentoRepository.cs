@@ -36,7 +36,7 @@ namespace MedQ.Infra.Data.Repositories
 
             var query = _repositorio.IQueryable();
             if (!String.IsNullOrEmpty(nome)) query = query.Where(x => x.Nome == nome);
-            if(!id.Equals(null) || id > 0) query = query.Where(x => x.Id == id);
+            if(id > 0) query = query.Where(x => x.Id == id);
 
             return await query.FirstOrDefaultAsync();
         }
