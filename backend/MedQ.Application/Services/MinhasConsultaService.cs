@@ -40,7 +40,7 @@ namespace MedQ.Application.Services
         {
             try
             {
-                var minhasConsultas = _mapper.Map<MinhasConsultas2>(minhasConsulta);
+                var minhasConsultas = _mapper.Map<MinhasConsulta>(minhasConsulta);
                 var resultado = await _repository.CreateMyConsultationAsync(minhasConsultas);
                 return resultado;
             }catch(Exception e)

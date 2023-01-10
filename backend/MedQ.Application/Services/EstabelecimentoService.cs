@@ -28,9 +28,9 @@ namespace MedQ.Application.Services
             return resultado;
         }
 
-        public async Task<EstabelecimentoDTO> GetById(int id)
+        public async Task<EstabelecimentoDTO> GetEstabelecimento(int id, string nome)
         {
-            var estabelecimentoEntity = await _repository.GetByIdAsync(id);
+            var estabelecimentoEntity = await _repository.GetEstabelecimentoAsync(id, nome);
             var resultado = _mapper.Map<EstabelecimentoDTO>(estabelecimentoEntity);
             return resultado;
         }
@@ -39,13 +39,6 @@ namespace MedQ.Application.Services
         {
             var estabelecimentoEntity = await _repository.GetBySocioAsync(socioId);
             var resultado = _mapper.Map<IEnumerable<EstabelecimentoDTO>>(estabelecimentoEntity);
-            return resultado;
-        }
-
-        public async Task<EstabelecimentoDTO> GetByNome(string nome)
-        {
-            var estabelecimentoEntity = await _repository.GetByNomeAsync(nome);
-            var resultado = _mapper.Map<EstabelecimentoDTO>(estabelecimentoEntity);
             return resultado;
         }
 

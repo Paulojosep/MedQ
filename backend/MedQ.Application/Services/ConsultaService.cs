@@ -33,10 +33,10 @@ namespace MedQ.Application.Services
             return resultado;
         }
 
-        public async Task<IEnumerable<ConsultasDTO>> GetBySocioAsync(int socioId)
+        public async Task<List<ConsultasPorSocioOutput>> GetBySocioAsync(int socioId)
         {
             var consultaEntity = await _repository.GetBySocioAsync(socioId);
-            var resultado = _mapper.Map<IEnumerable<ConsultasDTO>>(consultaEntity);
+            var resultado = _mapper.Map<List<ConsultasPorSocioOutput>>(consultaEntity);
             return resultado;
         }
 

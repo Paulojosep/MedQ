@@ -28,21 +28,16 @@ namespace MedQ.Application.Services
             return resultado;
         }
 
-        public async Task<SocioDTO> GetByIdAsync(int id)
+        public async Task<SocioDTO> GetBySocioAsync(int id, string cpf)
         {
-            var socioEntity = await _repository.GetByIdAsync(id);
-            return _mapper.Map<SocioDTO>(socioEntity);
-        }
-
-        public async Task<SocioDTO> GetByCPFAsync(string cpf)
-        {
-            var socioEntity = await _repository.GetByCPFAsync(cpf);
-            return _mapper.Map<SocioDTO>(socioEntity);
+            if (id > 0 && String.IsNullOrEmpty(cpf)) throw new Exception("Parametro deve ser informado");
+            return _mapper.Map<SocioDTO>(await _repository.GetBySocioAsync(id, cpf));
         }
 
         public async Task<SocioDTO> CreateAsync(SocioDTO socioDTO)
         {
-            throw new NotImplementedException();
+            var socioEntity = _mapper.Map<Socio>(socioDTO);
+            return _mapper.Map<SocioDTO>(await _repository.CreateAsync(socioEntity));
         }
 
         public async Task<SocioDTO> UpdateAsycn(int id, SocioDTO socioDTO)
@@ -55,8 +50,7 @@ namespace MedQ.Application.Services
 
         public async Task DaleteAsync(int id)
         {
-            var socioEntity = _repository.GetByIdAsync(id).Result;
-            await _repository.DaleteAsync(socioEntity);
+            await _repository.DaleteAsync(await _repository.GetBySocioAsync(id, ""));
         }
     }
 }
