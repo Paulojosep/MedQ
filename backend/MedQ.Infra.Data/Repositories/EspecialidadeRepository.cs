@@ -1,4 +1,5 @@
-﻿using MedQ.Domain.Entities;
+﻿using MedQ.Application.Interfaces;
+using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -12,33 +13,34 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class EspecialidadeRepository : IEspecialidadeRepository
     {
-        private MedQContext _especialidadeContext;
+        private readonly IRepositorioGenerico<Especialidade> _repositorio;
 
-        public EspecialidadeRepository(MedQContext context)
+        public EspecialidadeRepository(IRepositorioGenerico<Especialidade> repositorio)
         {
-            _especialidadeContext = context;
+            _repositorio = repositorio;
         }
 
         public async Task<IEnumerable<Especialidade>> GetEspecialidadeAsync()
         {
-            var resultado = await _especialidadeContext.Especialidade.ToListAsync();
-            return resultado;
+            return await _repositorio.SelecionarTodos();
         }
 
         public async Task<Especialidade> GetByIdAsync(int id)
         {
-            var especialidade = await _especialidadeContext.Especialidade.FindAsync(id);
-            return especialidade;
+            return await _repositorio.Obter(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Especialidade>> GetByEstabelecimentoAsync(int idEstabelecimento)
         {
-            var especialidade = from e in _especialidadeContext.Especialidade
-                                      join f in _especialidadeContext.Fila on e.Id equals f.EspecialidadeId
-                                      where f.EstabelecimentoId == idEstabelecimento
-                                      select e;
+            using(var ctx = new MedQContext())
+            {
+                var especialidade = from e in ctx.Especialidade
+                                    join f in ctx.Fila on e.Id equals f.EspecialidadeId
+                                    where f.EstabelecimentoId == idEstabelecimento
+                                    select e;
 
-            return await especialidade.ToListAsync();
+                return await especialidade.ToListAsync();
+            }
 
             
         }

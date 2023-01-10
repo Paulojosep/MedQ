@@ -1,4 +1,5 @@
-﻿using MedQ.Domain.Entities;
+﻿using MedQ.Application.Interfaces;
+using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -11,40 +12,68 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class TelefoneRepository : ITelefoneRepository
     {
-        private MedQContext _telefoneContext;
+        private readonly IRepositorioGenerico<Telefone> _repositorio;
 
-        public TelefoneRepository(MedQContext context)
+        public TelefoneRepository(IRepositorioGenerico<Telefone> repositorio)
         {
-            _telefoneContext = context;
+            _repositorio = repositorio;
         }
 
         public async Task<IEnumerable<Telefone>> GetAllTelefoneAsync()
         {
-            return await _telefoneContext.Telefone.ToListAsync(); 
+            return await _repositorio.SelecionarTodos();
         }
 
         public async Task<Telefone> GetByIdAsync(int id)
         {
-            return await _telefoneContext.Telefone.FindAsync(id);
+            try
+            {
+                return await _repositorio.Obter(x => x.Id == id).FirstAsync();
+            }
+            catch (ArgumentException ex)
+            {
+                throw new ArgumentException("Parametro não pode ser nulo", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Valor não econtrado");
+            }
         }
 
         public async Task<Telefone> CreateTelefoneAsync(Telefone telefone)
         {
-            _telefoneContext.Database.ExecuteSqlRaw($@"
-            INSERT INTO `tb_telefone` (`DDD`, `Numero`, `fk_estabelecimento_id`, `tb_socio_id`)
-            VALUES 
-            ({telefone.DDD},{telefone.Numero},{telefone.EstabelecimentoId},{telefone.SocioId});");
-            await _telefoneContext.SaveChangesAsync();
-            return telefone;
+            try
+            {
+                _repositorio.Adicionar(telefone);
+                await _repositorio.SalvarAsync();
+                return telefone;
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DbUpdateException("Erro ao incluir", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
 
         public async Task<Telefone> UpdateTelefoneAsync(Telefone telefone)
         {
-            _telefoneContext.Database.ExecuteSqlRaw($@"
-                UPDATE tb_telefone SET ddd = {telefone.DDD}, numero = {telefone.Numero}  WHERE tb_socio_id = {telefone.SocioId}
-            ");
-            await _telefoneContext.SaveChangesAsync();
-            return telefone;
+            try
+            {
+                _repositorio.Editar(telefone);
+                await _repositorio.SalvarAsync();
+                return telefone;
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DbUpdateException("Erro ao editar", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
     }
 }

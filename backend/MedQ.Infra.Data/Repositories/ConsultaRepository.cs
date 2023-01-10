@@ -6,6 +6,7 @@ using MedQ.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace MedQ.Infra.Data.Repositories
@@ -26,36 +27,33 @@ namespace MedQ.Infra.Data.Repositories
             return await _repositorie.Obter(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<Consultas>> GetBySocioAsync(int socioId)
+        public async Task<List<Consultas>> GetBySocioAsync(int socioId)
         {
-            var consultas = from c in _consultasContext.Consultas
-                                join a in _consultasContext.AgendamentoDisponiveis on c.AgendamentoId equals a.Id
-                                join m in _consultasContext.Medico on a.MedicoId equals m.Id
-                                join e in _consultasContext.Especialidade on m.EspecialidadeId equals e.Id
-                                where c.SocioId == socioId
-                                select c;
-
-            return await consultas.ToListAsync();
+            var consultas = await _repositorie.AdicionarInclusoes<Consultas, object>(
+                x => x.Agendamento,
+                x => x.Socio,
+                x => x.Estabelecimento).Where(x => x.SocioId == socioId).ToListAsync();
+            return consultas;
         }
 
         public async Task<Consultas> CreateAsync(Consultas consultas)
         {
-            _consultasContext.Add(consultas);
-            await _consultasContext.SaveChangesAsync();
+            _repositorie.Adicionar(consultas);
+            await _repositorie.SalvarAsync();
             return consultas;
         }
 
         public async Task<Consultas> UpdateAsync(Consultas consultas)
         {
-            _consultasContext.Database.ExecuteSqlRaw($@"UPDATE `medq`.`tb_consultas` SET `status` = '{consultas.Status}' WHERE (`id` = '{consultas.Id}')");
-            await _consultasContext.SaveChangesAsync();
+            _repositorie.Editar(consultas);
+            await _repositorie.SalvarAsync();
             return consultas;
         }
 
         public async Task DeleteAsync(Consultas consultas)
         {
-            _consultasContext.Remove(consultas);
-            await _consultasContext.SaveChangesAsync();
+            _repositorie.Deletar(consultas);
+            await _repositorie.SalvarAsync();
         }
 
         public async Task<IEnumerable<Consultas>> GetInfosAsync(int id)

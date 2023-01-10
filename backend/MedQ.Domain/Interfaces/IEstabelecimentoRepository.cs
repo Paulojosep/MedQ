@@ -9,9 +9,8 @@ namespace MedQ.Domain.Interfaces
     public interface IEstabelecimentoRepository
     {
         Task<IEnumerable<Estabelecimento>> GetAllAsync();
-        Task<Estabelecimento> GetByIdAsync(int id);
+        Task<Estabelecimento> GetEstabelecimentoAsync(int? id, string? nome);
         Task<IEnumerable<Estabelecimento>> GetBySocioAsync(int socioId);
-        Task<Estabelecimento> GetByNomeAsync(string nome);
         Task<Estabelecimento> CreateAsync(Estabelecimento estabelecimento);
         Task<Estabelecimento> UpdateAsync(Estabelecimento estabelecimento);
         Task DeleteAsync(Estabelecimento estabelecimento);

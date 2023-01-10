@@ -1,4 +1,5 @@
-﻿using MedQ.Domain.Entities;
+﻿using MedQ.Application.Interfaces;
+using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -12,65 +13,81 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class EstabelecimentoRepository : IEstabelecimentoRepository
     {
-        private MedQContext _context;
+        private readonly IRepositorioGenerico<Estabelecimento> _repositorio;
 
-        public EstabelecimentoRepository(MedQContext context)
+        public EstabelecimentoRepository(IRepositorioGenerico<Estabelecimento> repositorio)
         {
-            _context = context;
+            _repositorio = repositorio;
         }
 
         public async Task<IEnumerable<Estabelecimento>> GetAllAsync()
         {
-            var resultado = await _context.Estabelecimento.ToListAsync();
-            return resultado;
+            return await _repositorio.SelecionarTodos();
         }
 
         public async Task<IEnumerable<Estabelecimento>> GetBySocioAsync(int socioId)
         {
-            var medico = _context.Estabelecimento.Where(x => x.SocioId.Equals(socioId));
-            return await medico.ToListAsync();
+            return await _repositorio.Obter(x => x.SocioId == socioId).ToListAsync();
         }
 
-        public async Task<Estabelecimento> GetByIdAsync(int id)
+        public async Task<Estabelecimento> GetEstabelecimentoAsync(int? id, string? nome)
         {
-            var resultado = await _context.Estabelecimento.FindAsync(id);
-            return resultado;
-        }
+            if (String.IsNullOrEmpty(nome) && id.Equals(null)) throw new Exception("Parametros deve ser informados");
 
-        public async Task<Estabelecimento> GetByNomeAsync(string nome)
-        {
-            var resultado = await _context.Estabelecimento.FirstOrDefaultAsync(estabelecimento => estabelecimento.Nome.Equals(nome));
-            return resultado;
+            var query = _repositorio.IQueryable();
+            if (!String.IsNullOrEmpty(nome)) query = query.Where(x => x.Nome == nome);
+            if(!id.Equals(null) || id > 0) query = query.Where(x => x.Id == id);
+
+            return await query.FirstOrDefaultAsync();
         }
 
         public async Task<Estabelecimento> CreateAsync(Estabelecimento estabelecimento)
         {
-            await _context.AddAsync(estabelecimento);
-            await _context.SaveChangesAsync();
-            return estabelecimento;
+            try
+            {
+                _repositorio.Adicionar(estabelecimento);
+                await _repositorio.SalvarAsync();
+                return estabelecimento;
+            }
+            catch(DbUpdateException dbException)
+            {
+                throw new Exception("Erro ao fazer inclusao", dbException);
+            }
         }
 
         public async Task<Estabelecimento> UpdateAsync(Estabelecimento estabelecimento)
         {
-            await _context.Database.ExecuteSqlRawAsync($@"UPDATE tb_estabelecimento SET nome = '{estabelecimento.Nome}', 
-                                                        cep = '{estabelecimento.CEP}', 
-                                                        endereco = '{estabelecimento.Endereco}', 
-                                                        complemento = '{estabelecimento.Complemento}', 
-                                                        cidade = '{estabelecimento.Cidade}', 
-                                                        bairro = '{estabelecimento.Bairro}', 
-                                                        estado = '{estabelecimento.Estado}', 
-                                                        image = '{estabelecimento.Image}', 
-                                                        fk_tipo_estabelecimento_id = {estabelecimento.TipoEstabelecimentoId}, 
-                                                        fk_socio_id = {estabelecimento.SocioId} 
-                                                        WHERE id={estabelecimento.Id}");
-            await _context.SaveChangesAsync();
-            return estabelecimento;
+            try
+            {
+                _repositorio.Editar(estabelecimento);
+                await _repositorio.SalvarAsync();
+                return estabelecimento;
+            }
+            catch (DbUpdateException dbException)
+            {
+                throw new Exception("Erro ao Atualizar", dbException);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
 
         public async Task DeleteAsync(Estabelecimento estabelecimento)
         {
-            await _context.Database.ExecuteSqlRawAsync($@"DELETE FROM tb_estabelecimento WHERE id = {estabelecimento.Id}");
-            await _context.SaveChangesAsync();
+            try
+            {
+                _repositorio.Deletar(estabelecimento);
+                await _repositorio.SalvarAsync();
+            }
+            catch(DbUpdateException dbException)
+            {
+                throw new Exception("Erro ao deletar", dbException);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
     }
 }

@@ -1,54 +1,105 @@
-﻿using MedQ.Domain.Entities;
+﻿using MedQ.Application.Interfaces;
+using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MedQ.Infra.Data.Repositories
 {
     public class SocioRepository : ISocioRepository
     {
-        private MedQContext _socioContext;
+        private readonly IRepositorioGenerico<Socio> _repositorio;
 
-        public SocioRepository(MedQContext context)
+        public SocioRepository(IRepositorioGenerico<Socio> repositorio)
         {
-            _socioContext = context;
+            _repositorio = repositorio;
         }
         public async Task<IEnumerable<Socio>> GetSocioAsync()
         {
-            var resultado = await _socioContext.Socio.ToListAsync();
-            return resultado;
+            return await _repositorio.SelecionarTodos();
         }
 
-        public async Task<Socio> GetByIdAsync(int id)
+        public async Task<Socio> GetBySocioAsync(int? id, string? cpf)
         {
-            return await _socioContext.Socio.FindAsync(id);
-        }
-
-        public async Task<Socio> GetByCPFAsync(string cpf)
-        {
-            return await _socioContext.Socio.FirstOrDefaultAsync(socio => socio.CPF.Equals(cpf));
+            if (id > 0 && String.IsNullOrEmpty(cpf)) throw new Exception("Parametro deve ser informado");
+            try
+            {
+                var socio = new Socio();
+                if(id > 0)
+                {
+                    socio = await _repositorio.Obter(x => x.Id == id).FirstAsync();
+                }
+                if (!String.IsNullOrEmpty(cpf))
+                {
+                    socio = await _repositorio.Obter(x => x.CPF == cpf).FirstAsync();
+                }
+                return socio;
+            }
+            catch(ArgumentException ex)
+            {
+                throw new ArgumentException("Parametro não pode ser nulo", ex);
+            }
+            catch(InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Valor não econtrado");
+            }
         }
 
         public async Task<Socio> CreateAsync(Socio socio)
         {
-            _socioContext.Add(socio);
-            await _socioContext.SaveChangesAsync();
-            return socio;
+            try
+            {
+                _repositorio.Adicionar(socio);
+                await _repositorio.SalvarAsync();
+                return socio;
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DbUpdateException("Erro ao incluir", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
 
         public async Task<Socio> UpdateAsycn(Socio socio)
         {
-            _socioContext.Update(socio);
-            await _socioContext.SaveChangesAsync();
-            return socio;
+            try
+            {
+                _repositorio.Editar(socio);
+                await _repositorio.SalvarAsync();
+                return socio;
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DbUpdateException("Erro ao editar", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
 
         public async Task DaleteAsync(Socio socio)
         {
-            _socioContext.Remove(socio);
-            await _socioContext.SaveChangesAsync();
+            try
+            {
+                _repositorio.Deletar(socio);
+                await _repositorio.SalvarAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DbUpdateException("Erro ao editar", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MedQ.Application.IO;
+﻿using MedQ.Application.Interfaces;
+using MedQ.Application.IO;
 using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data.Context;
@@ -13,49 +14,74 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class MinhasConsultaRepository : IMinhasConsultaRepository
     {
-        private MedQContext _minhasConsultaContext;
+        private readonly IRepositorioGenerico<MinhasConsulta> _repositorio;
 
-        public MinhasConsultaRepository(MedQContext context)
+        public MinhasConsultaRepository(IRepositorioGenerico<MinhasConsulta> repositorio)
         {
-            _minhasConsultaContext = context;
+            _repositorio = repositorio;
         }
 
         public async Task<IEnumerable<MinhasConsulta>> GetAllAsyns()
         {
-            var resultado = await _minhasConsultaContext.MinhasConsulta.ToListAsync();
-            return resultado;
+            return await _repositorio.SelecionarTodos();
         }
 
-        public async Task<MinhasConsulta> GetFinishedMensagensAsync(int socioId)
+        public async Task<string> GetFinishedMensagensAsync(int socioId)
         {
-            var consulta = from m in _minhasConsultaContext.MinhasConsulta where m.SocioId == socioId select m;
-            return await consulta.FirstOrDefaultAsync();
-
+            return await _repositorio.Obter(x => x.SocioId == socioId).Select(s => s.Finished).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> CreateMyConsultationAsync(MinhasConsultas2 minhasConsulta)
+        public async Task<bool> CreateMyConsultationAsync(MinhasConsulta minhasConsulta)
         {
-            await _minhasConsultaContext.Database.ExecuteSqlRawAsync($@"INSERT INTO tb_minhas_consultas 
-                    (titulo, resumo, texto, pedido, senha, profissional, data, hora, status, finished, fk_consultas_id, fk_socio_id) 
-                    VALUES 
-                    ({minhasConsulta.Estabelecimento.Nome},{minhasConsulta.Especialidade.Nome},{null},{minhasConsulta.Pedido},{minhasConsulta.consultas.Senha},{minhasConsulta.Medico.Nome},{minhasConsulta.data},{minhasConsulta.hora},{minhasConsulta.status},{0},{minhasConsulta.consulta_id},{minhasConsulta.socio_id})");
-            await _minhasConsultaContext.SaveChangesAsync();
-            return true;
+            try
+            {
+                _repositorio.Adicionar(minhasConsulta);
+                return await _repositorio.SalvarAsync();
+            }
+            catch(DbUpdateException ex)
+            {
+                throw new DbUpdateException("Erro ao incluir", ex);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
 
         public async Task<MinhasConsulta> UpdateMyConsultationAsync(MinhasConsulta minhasConsulta)
         {
-            _minhasConsultaContext.Database.ExecuteSqlRaw($@"UPDATE tb_minhas_consultas SET status = '{minhasConsulta.Status}', 
-                                                            finished = {minhasConsulta.Finished} 
-                                                            WHERE fk_consultas_id = {minhasConsulta.ConsultaId}");
-            await _minhasConsultaContext.SaveChangesAsync();
-            return minhasConsulta;
+            try
+            {
+                _repositorio.Editar(minhasConsulta);
+                await _repositorio.SalvarAsync();
+                return minhasConsulta;
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DbUpdateException("Erro ao editar", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
 
         public async Task DeleteMyConsultationAsync(int id)
         {
-            await _minhasConsultaContext.Database.ExecuteSqlRawAsync($@"DELETE FROM tb_minhas_consultas WHERE id = {id}");
-            await _minhasConsultaContext.SaveChangesAsync();
+            try
+            {
+                var minhasConsulta = await _repositorio.Obter(x => x.Id == id).FirstAsync();
+                _repositorio.Adicionar(minhasConsulta);
+                await _repositorio.SalvarAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DbUpdateException("Erro ao deletar", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
     }
 }

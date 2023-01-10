@@ -1,4 +1,5 @@
-﻿using MedQ.Domain.Entities;
+﻿using MedQ.Application.Interfaces;
+using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -12,44 +13,75 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class MedicoRepository : IMedicoRepository
     {
-        private MedQContext _context;
+        private readonly IRepositorioGenerico<Medico> _repositorio;
 
-        public MedicoRepository(MedQContext context)
+        public MedicoRepository(IRepositorioGenerico<Medico> repositorio)
         {
-            _context = context;
+            _repositorio = repositorio;
         }
 
         public async Task<Medico> GetByIDAsync(int id)
         {
-            return await _context.Medico.FindAsync(id);
+            return await _repositorio.Obter(x => x.Id == id).FirstAsync();
         }
 
         public async Task<IEnumerable<Medico>> GetByEstabelecimentoAsync(int estabelecimentoId)
         {
-            var medico = _context.Medico
-                .Where(x => x.EstabelecimentoId.Equals(estabelecimentoId));
-
-            return await medico.ToListAsync();
+            return await _repositorio.AdicionarInclusoes(
+                x => x.Especialidade).Where(x => x.EspecialidadeId == estabelecimentoId).ToListAsync();
         }
 
         public async Task<Medico> CreateAsync(Medico medico)
         {
-            _context.Add(medico);
-            await _context.SaveChangesAsync();
-            return medico;
+            try
+            {
+                _repositorio.Adicionar(medico);
+                await _repositorio.SalvarAsync();
+                return medico;
+            }
+            catch(DbUpdateException ex)
+            {
+                throw new DbUpdateException("Erro ao incluir", ex);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
 
         public async Task<Medico> UpdateAsync(Medico medico)
         {
-            await _context.Database.ExecuteSqlRawAsync($@"UPDATE tb_medicos SET nome = '{medico.Nome}', cpf = '{medico.CPF}', fk_especialidade_id = {medico.EspecialidadeId} WHERE id={medico.Id}");
-            await _context.SaveChangesAsync();
-            return medico;
+            try
+            {
+                _repositorio.Editar(medico);
+                await _repositorio.SalvarAsync();
+                return medico;
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DbUpdateException("Erro ao editar", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
 
         public async Task DeleteAync(Medico medico)
         {
-            await _context.Database.ExecuteSqlRawAsync($@"DELETE FROM tb_medicos WHERE id = {medico.Id}");
-            await _context.SaveChangesAsync();
+            try
+            {
+                _repositorio.Deletar(medico);
+                await _repositorio.SalvarAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DbUpdateException("Erro ao deletar", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
     }
 }

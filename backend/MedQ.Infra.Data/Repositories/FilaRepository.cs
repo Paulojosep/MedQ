@@ -1,4 +1,5 @@
-﻿using MedQ.Domain.Entities;
+﻿using MedQ.Application.Interfaces;
+using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -12,39 +13,48 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class FilaRepository : IFilaRepository
     {
-        private MedQContext _context;
+        private readonly IRepositorioGenerico<Fila> _repositorio;
 
-        public FilaRepository(MedQContext context)
+        public FilaRepository(IRepositorioGenerico<Fila> repositorio)
         {
-            _context = context;
+            _repositorio = repositorio;
         }
 
         public async Task<IEnumerable<Fila>> GetByEstabelecimentoAsync(int estabelecimentoId)
         {
-            var filas = from f in _context.Fila
-                        join ta in _context.TipoAtendimento on f.TipoAntendimentoId equals ta.Id
-                        join e in _context.Especialidade on f.EspecialidadeId equals e.Id
-                        where f.EstabelecimentoId == estabelecimentoId
-                        select f;
-
-            return await filas.ToListAsync();
+            return await _repositorio.AdicionarInclusoes<Fila, object>(
+                x => x.Especialidade,
+                x => x.Estabelecimento,
+                x => x.TipoAtendimento).ToListAsync(); 
         }
 
-        public async Task<IEnumerable<Fila>> GetByTipoAtendimentoAsync(int tipoAtendimentiId, int estabelecimentoId)
+        public async Task<IEnumerable<Fila>> GetByTipoAtendimentoAsync(int tipoAtendimentoId, int estabelecimentoId)
         {
-            var filas = _context.Fila
-                .Include(e => e.Especialidade)
-                .Where(x => x.TipoAntendimentoId.Equals(tipoAtendimentiId))
-                .Where(x => x.EstabelecimentoId.Equals(estabelecimentoId));
+            var filas = _repositorio.AdicionarInclusoes<Fila, object>(
+                x => x.Estabelecimento,
+                x => x.TipoAtendimento);
 
+            if (tipoAtendimentoId > 0) filas = filas.Where(x => x.TipoAntendimentoId == tipoAtendimentoId);
+            if(estabelecimentoId > 0) filas = filas.Where(x => x.EstabelecimentoId == estabelecimentoId);
             return await filas.ToListAsync();
         }
 
         public async Task<Fila> CreateAsync(Fila fila)
         {
-            _context.Add(fila);
-            await _context.SaveChangesAsync();
-            return fila;
+            try
+            {
+                _repositorio.Adicionar(fila);
+                await _repositorio.SalvarAsync();
+                return fila;
+            }
+            catch(DbUpdateException ex)
+            {
+                throw new DbUpdateException("Erro ao incluir", ex);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
     }
 }

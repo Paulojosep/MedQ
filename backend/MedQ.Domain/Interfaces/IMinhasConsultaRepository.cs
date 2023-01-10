@@ -9,8 +9,8 @@ namespace MedQ.Domain.Interfaces
     public interface IMinhasConsultaRepository
     {
         Task<IEnumerable<MinhasConsulta>> GetAllAsyns();
-        Task<MinhasConsulta> GetFinishedMensagensAsync(int socioId);
-        Task<bool> CreateMyConsultationAsync(MinhasConsultas2 minhasConsulta);
+        Task<string> GetFinishedMensagensAsync(int socioId);
+        Task<bool> CreateMyConsultationAsync(MinhasConsulta minhasConsulta);
         Task<MinhasConsulta> UpdateMyConsultationAsync(MinhasConsulta minhasConsulta);
         Task DeleteMyConsultationAsync(int id);
 
