@@ -31,21 +31,10 @@ namespace MedQ.API.Controllers
             return Ok(socios);
         }
 
-        [HttpGet, Route("UsuarioPorId/{id}")]
-        public async Task<ActionResult<SocioDTO>> GetById(int id)
+        [HttpGet]
+        public async Task<ActionResult<SocioDTO>> GetBySocio(int id, string cpf)
         {
-            var socios = await _service.GetByIdAsync(id);
-            if (socios == null)
-            {
-                return NotFound("Socio Não Econtrado");
-            }
-            return Ok(socios);
-        }
-
-        [HttpGet, Route("UsuarioPorCPF/{cpf}")]
-        public async Task<ActionResult<SocioDTO>> GetByCPF(string cpf)
-        {
-            var socios = await _service.GetByCPFAsync(cpf);
+            var socios = await _service.GetBySocioAsync(id, cpf);
             if (socios == null)
             {
                 return NotFound("Socio Não Econtrado");

@@ -1,5 +1,6 @@
 ﻿using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using MedQ.Application.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,7 +22,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet, Route("ConsultarPorSocio/{socioId}")]
-        public async Task<ActionResult<ConsultasDTO>> GetBySocio(int socioId)
+        public async Task<ActionResult<List<ConsultasPorSocioOutput>>> GetBySocio(int socioId)
         {
             var consulta = await _service.GetBySocioAsync(socioId);
             if (consulta == null)
