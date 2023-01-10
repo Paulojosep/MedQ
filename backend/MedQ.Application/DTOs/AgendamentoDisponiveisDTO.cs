@@ -11,15 +11,12 @@ namespace MedQ.Application.DTOs
         public DateTime Data { get; set; }
         public DateTime Hora { get; set; }
         public int Disponibilidade { get; set; }
-
         public int MedicoId { get; set; }
-        [JsonIgnore]
-        public MedicoDTO Medico { get; set; }
-
         public int EstabelecimentoId { get; set; }
-        [JsonIgnore]
-        public EstabelecimentoDTO Estabelecmento { get; set; }
 
-        public ICollection<ConsultasDTO> Consultas { get; set; }
+        //public virtual MedicoDTO Medico { get; set; }
+        //public virtual EstabelecimentoDTO Estabelecmento { get; set; }
+
+        //public virtual ICollection<ConsultasDTO> Consultas { get; set; }
     }
 }
