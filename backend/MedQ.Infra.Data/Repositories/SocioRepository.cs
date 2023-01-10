@@ -25,7 +25,6 @@ namespace MedQ.Infra.Data.Repositories
 
         public async Task<Socio> GetBySocioAsync(int? id, string? cpf)
         {
-            if (id > 0 && String.IsNullOrEmpty(cpf)) throw new Exception("Parametro deve ser informado");
             try
             {
                 var socio = new Socio();
