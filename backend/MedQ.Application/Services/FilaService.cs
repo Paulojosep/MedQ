@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
 using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using MedQ.Application.IO;
 using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
+using MedQ.Infra.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,35 +16,49 @@ namespace MedQ.Application.Services
 {
     public class FilaService : IFilaService
     {
-        private IFilaRepository _repository;
+        private readonly IRepositorioGenerico<Fila> _repository;
         private readonly IMapper _mapper;
 
-        public FilaService(IFilaRepository repository, IMapper mapper)
+        public FilaService(IRepositorioGenerico<Fila> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<FilaDTO>> GetByEstabelecimentoAsync(int estabelecimentoId)
+        public async Task<IEnumerable<FilaByEstabelecimentoOutput>> GetByEstabelecimentoAsync(int estabelecimentoId)
         {
-            var filaEntity = await _repository.GetByEstabelecimentoAsync(estabelecimentoId);
-            var resultado = _mapper.Map< IEnumerable<FilaDTO>>(filaEntity);
-            return resultado;
+            return _mapper.Map<IEnumerable<FilaByEstabelecimentoOutput>>(await _repository.AdicionarInclusoes<Fila, object>(
+                x => x.Especialidade,
+                x => x.TipoAtendimento).ToListAsync());
         }
 
-        public async Task<IEnumerable<FilaDTO>> GetByTipoAtendimentoAsync(int tipoAtendimentiId, int estabelecimentoId)
+        public async Task<IEnumerable<FilaByTipoAtendimentoOutput>> GetByTipoAtendimentoAsync(int tipoAtendimentoId, int estabelecimentoId)
         {
-            var filaEntity = await _repository.GetByTipoAtendimentoAsync(tipoAtendimentiId, estabelecimentoId);
-            var resultado = _mapper.Map<IEnumerable<FilaDTO>>(filaEntity);
-            return resultado;
+            var filas = _repository.AdicionarInclusoes<Fila, object>(
+                x => x.Especialidade,
+                x => x.TipoAtendimento);
+
+            if (tipoAtendimentoId > 0) filas = filas.Where(x => x.TipoAntendimentoId == tipoAtendimentoId);
+            if (estabelecimentoId > 0) filas = filas.Where(x => x.EstabelecimentoId == estabelecimentoId);
+            return _mapper.Map<IEnumerable<FilaByTipoAtendimentoOutput>>( await filas.ToListAsync());
         }
 
-        public async Task<FilaDTO> CreateAsync(FilaDTO fila)
+        public async Task<bool> CreateAsync(FilaDTO fila)
         {
-            var filaEntity = _mapper.Map<Fila>(fila);
-            await _repository.CreateAsync(filaEntity);
-            var resultado = _mapper.Map<FilaDTO>(filaEntity);
-            return resultado;
+            try
+            {
+                var filaEntity = _mapper.Map<Fila>(fila);
+                _repository.Adicionar(filaEntity);
+                return await _repository.SalvarAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DbUpdateException("Erro ao incluir", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro", ex);
+            }
         }
     }
 }

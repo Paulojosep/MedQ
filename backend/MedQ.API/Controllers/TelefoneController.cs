@@ -42,10 +42,10 @@ namespace MedQ.API.Controllers
             return Ok(telefone);
         }
 
-        [HttpPut, Route("Editar/{id}")]
-        public async Task<ActionResult<TelefoneDTO>> Editar(int id, [FromBody] TelefoneDTO obj)
+        [HttpPut, Route("Editar")]
+        public async Task<ActionResult<TelefoneDTO>> Editar([FromBody] TelefoneDTO obj)
         {
-            var telefoneID = await _service.GetByIdAsync(id);
+            var telefoneID = await _service.GetByIdAsync(obj.Id);
             if (telefoneID == null)
             {
                 return NotFound("Não foi possivel Econtrar Telefone");

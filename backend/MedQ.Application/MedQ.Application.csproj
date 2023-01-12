@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MedQ.Domain\MedQ.Domain.csproj" />
+    <ProjectReference Include="..\MedQ.Infra.Data\MedQ.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>

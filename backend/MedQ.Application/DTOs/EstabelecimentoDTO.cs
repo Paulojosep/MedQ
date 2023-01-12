@@ -17,21 +17,18 @@ namespace MedQ.Application.DTOs
         public string Estado { get; set; }
         public DateTime Data_Cadastro { get; set; }
         public string Image { get; set; }
-
         public int TipoEstabelecimentoId { get; set; }
-        [JsonIgnore]
-        public TipoEstabelecimentoDTO TipoEstbelecimento { get; set; }
-
         public int SocioId { get; set; }
-        [JsonIgnore]
-        public SocioDTO Socio { get; set; }
 
-        public ICollection<FilaDTO> Filas { get; private set; }
-        public ICollection<TelefoneDTO> Telefones { get; private set; }
-        public ICollection<ConsultasDTO> Consultas { get; private set; }
-        public ICollection<MedicoDTO> Medicos { get; private set; }
-        public ICollection<CalendarioDTO> Calendarios { get; private set; }
-        public ICollection<AgendamentoDisponiveisDTO> AgendamentoDisponiveis { get; private set; }
-        //public ICollection<EstabelecimentoDTO> Estabelecimentos { get; private set; }
+        //public virtual TipoEstabelecimentoDTO TipoEstbelecimento { get; set; }
+        //public virtual SocioDTO Socio { get; set; }
+
+        //public virtual ICollection<FilaDTO> Filas { get; set; }
+        //public virtual ICollection<TelefoneDTO> Telefones { get; set; }
+        //public virtual ICollection<ConsultasDTO> Consultas { get; set; }
+        //public virtual ICollection<MedicoDTO> Medicos { get; set; }
+        //public virtual ICollection<CalendarioDTO> Calendarios { get; set; }
+        //public virtual ICollection<AgendamentoDisponiveisDTO> AgendamentoDisponiveis { get; set; }
+        //public virtual ICollection<EstabelecimentoDTO> Estabelecimentos { get; set; }
     }
 }

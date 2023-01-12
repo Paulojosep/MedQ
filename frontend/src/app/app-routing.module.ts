@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AdicionarTelefoneComponent } from './adicionar-telefone/adicionar-telefone.component';
+import { HomePage } from './home/home.page';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    component: HomePage
   },
   {
     path: '',
@@ -13,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'adicionar-telefone',
-    loadChildren: () => import('./adicionar-telefone/adicionar-telefone.module').then(m => m.AdicionarTelefoneModule)
+    component: AdicionarTelefoneComponent
   }
 ];
 

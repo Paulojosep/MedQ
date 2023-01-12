@@ -7,17 +7,19 @@ namespace MedQ.Domain.Entities
 {
     public class Medico : Entity
     {
+        public Medico()
+        {
+            AgendamentoDisponiveis = new HashSet<AgendamentoDisponiveis>();
+        }
+
         public string Nome { get; set; }
         public string CPF { get; set; }
-
-        [Column("fk_especialidade_id")]
         public int EspecialidadeId { get; set; }
-        public Especialidade Especialidade { get; set; }
-
-        [Column("fk_estabelecimento_id")]
         public int EstabelecimentoId { get; set; }
-        public Estabelecimento Estabelecimento { get; set; }
 
-        public ICollection<AgendamentoDisponiveis> AgendamentoDisponiveis { get; private set; }
+        public virtual Especialidade Especialidade { get; set; }
+        public virtual Estabelecimento Estabelecimento { get; set; }
+
+        public virtual ICollection<AgendamentoDisponiveis> AgendamentoDisponiveis { get; set; }
     }
 }

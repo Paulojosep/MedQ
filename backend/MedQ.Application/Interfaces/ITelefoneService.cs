@@ -10,7 +10,7 @@ namespace MedQ.Application.Interfaces
     {
         Task<IEnumerable<TelefoneDTO>> GetAllAsync();
         Task<TelefoneDTO> GetByIdAsync(int id);
-        Task<TelefoneDTO> CreateAsync(TelefoneDTO obj);
-        Task<TelefoneDTO> UpdateAsync(TelefoneDTO obj);
+        Task<bool> CreateAsync(TelefoneDTO obj);
+        Task<bool> UpdateAsync(TelefoneDTO obj);
     }
 }

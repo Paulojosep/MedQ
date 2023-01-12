@@ -1,14 +1,17 @@
 ﻿using MedQ.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace MedQ.Infra.Data.EntitiesConfiguration
+namespace MedQ.Infra.Data.Configuration
 {
-    public class TipoAtendimentoConfiguration : IEntityTypeConfiguration<TipoAtendimento>
+    public class TipoEstabelecimentoConfiguration : IEntityTypeConfiguration<TipoEstabelecimento>
     {
-        public void Configure(EntityTypeBuilder<TipoAtendimento> builder)
+        public void Configure(EntityTypeBuilder<TipoEstabelecimento> builder)
         {
-            builder.ToTable("tb_tipo_atendimento");
+            builder.ToTable("tb_tipo_estabelecimento");
 
             builder.HasKey(p => p.Id);
 

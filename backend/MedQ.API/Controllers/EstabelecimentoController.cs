@@ -34,10 +34,10 @@ namespace MedQ.API.Controllers
             return Ok(estabelecimento);
         }
 
-        [HttpGet, Route("EstabelecimentoPorId/{id}")]
-        public async Task<ActionResult<EspecialidadeDTO>> GetById(int id)
+        [HttpGet]
+        public async Task<ActionResult<EspecialidadeDTO>> GetEstabelecimento(int id, string nome)
         {
-            var estabelecimentoId = await _service.GetById(id);
+            var estabelecimentoId = await _service.GetEstabelecimento(id, nome);
             if(estabelecimentoId == null)
             {
                 return NotFound("Estabelecimento Não Econtrado");
@@ -45,19 +45,8 @@ namespace MedQ.API.Controllers
             return Ok(estabelecimentoId);
         }
 
-        [HttpGet, Route("EstabelecimentoPorNome/{nome}")]
-        public async Task<ActionResult<EspecialidadeDTO>> GetByNome(string nome)
-        {
-            var estabelecimento = await _service.GetByNome(nome);
-            if (estabelecimento == null)
-            {
-                return NotFound("Estabelecimento Não Econtrado");
-            }
-            return Ok(estabelecimento);
-        }
-
-        [HttpPost, Route("SetEstabelecimento")]
-        public async Task<ActionResult<EstabelecimentoDTO>> CreateEstabelecimento([FromBody] EstabelecimentoDTO estabelecimentoDTO)
+        [HttpPost, Route("Incluir")]
+        public async Task<ActionResult<EstabelecimentoDTO>> Post([FromBody] EstabelecimentoDTO estabelecimentoDTO)
         {
             var estabelecimetno = await _service.Create(estabelecimentoDTO);
             if(estabelecimetno == null)
@@ -67,10 +56,10 @@ namespace MedQ.API.Controllers
             return Ok(estabelecimetno);
         }
 
-        [HttpPut, Route("UpdateEstabelecimento/{id}")]
-        public async Task<ActionResult<EstabelecimentoDTO>> UpdateEstabelecimento(int id, [FromBody] EstabelecimentoDTO estabelecimentoDTO)
+        [HttpPut, Route("Update/{id}")]
+        public async Task<ActionResult<EstabelecimentoDTO>> Put(int id, [FromBody] EstabelecimentoDTO estabelecimentoDTO)
         {
-            var estabelecimentoId = await _service.GetById(id);
+            var estabelecimentoId = await _service.GetEstabelecimento(id, "");
             if(estabelecimentoId.Id != id)
             {
                 return BadRequest("Estabelecimento não econtrado");
@@ -79,10 +68,10 @@ namespace MedQ.API.Controllers
             return Ok();
         }
 
-        [HttpDelete, Route("DeleteEstabelecimento/{id}")]
-        public async Task<ActionResult<EstabelecimentoDTO>> DeletarEstabelecimento(int id)
+        [HttpDelete, Route("Delete/{id}")]
+        public async Task<ActionResult<EstabelecimentoDTO>> Delete(int id)
         {
-            var estabelecimento = await _service.GetById(id);
+            var estabelecimento = await _service.GetEstabelecimento(id, "");
             if (estabelecimento == null)
             {
                 return NotFound("Estabelecimento Não Econtrado");

@@ -1,5 +1,6 @@
 ﻿using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using MedQ.Application.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,7 +22,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet, Route("ConsultarPorSocio/{socioId}")]
-        public async Task<ActionResult<ConsultasDTO>> GetBySocio(int socioId)
+        public async Task<IActionResult> GetBySocio(int socioId)
         {
             var consulta = await _service.GetBySocioAsync(socioId);
             if (consulta == null)
@@ -32,30 +33,19 @@ namespace MedQ.API.Controllers
         }
 
         [HttpPost, Route("Incluir")]
-        public async Task<ActionResult<ConsultasDTO>> Incluir([FromBody] ConsultasDTO consultas)
+        public async Task<IActionResult> Incluir([FromBody] ConsultasDTO consultas)
         {
-            var consulta = await _service.CreateAsync(consultas);
-            if (consulta == null)
-            {
-                return BadRequest("Não foi possivel Cadastrar");
-            }
-            return Ok(consulta);
+            return Ok(await _service.CreateAsync(consultas));
         }
 
-        [HttpPut, Route("Editar/{id}")]
-        public async Task<ActionResult<ConsultasDTO>> Editar(int id, [FromBody] ConsultasDTO consultas)
+        [HttpPut, Route("Editar")]
+        public async Task<IActionResult> Editar([FromBody] ConsultasDTO consultas)
         {
-            var consultaID = await _service.GetByIdAsync(id);
-            if (consultaID.Id != id)
-            {
-                return BadRequest("Não foi possivel Econtrar a Consulta");
-            }
-            var consulta = await _service.UpdateAsync(consultas);
-            return Ok(consulta);
+            return Ok(await _service.UpdateAsync(consultas));
         }
 
         [HttpDelete, Route("Deletar/{id}")]
-        public async Task<ActionResult<ConsultasDTO>> Deletar(int id)
+        public async Task<IActionResult> Deletar(int id)
         {
             await _service.DeleteAsync(id);
             return Ok();

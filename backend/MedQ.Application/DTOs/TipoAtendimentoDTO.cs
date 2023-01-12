@@ -9,6 +9,6 @@ namespace MedQ.Application.DTOs
         public int Id { get; set; }
         public string Tipo { get; set; }
 
-        public ICollection<FilaDTO> Filas { get; set; }
+        //public ICollection<FilaDTO> Filas { get; set; }
     }
 }

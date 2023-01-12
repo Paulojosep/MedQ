@@ -10,6 +10,6 @@ namespace MedQ.Domain.Entities
         public DateTime HoraInicio { get; set; }
         public DateTime HoraFim { get; set; }
         public int EstabelecimentoId { get; set; }
-        public Estabelecimento Estabelecimento { get; set; }
+        public virtual Estabelecimento Estabelecimento { get; set; }
     }
 }

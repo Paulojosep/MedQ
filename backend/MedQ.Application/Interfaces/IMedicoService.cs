@@ -10,8 +10,8 @@ namespace MedQ.Application.Interfaces
     {
         Task<MedicoDTO> GetByID(int id);
         Task<IEnumerable<MedicoDTO>> GetByEstabelecimento(int estabelecimentoId);
-        Task<MedicoDTO> Create(MedicoDTO medico);
-        Task<MedicoDTO> Update(MedicoDTO medico);
+        Task<bool> Create(MedicoDTO medico);
+        Task<bool> Update(MedicoDTO medico);
         Task Delete(MedicoDTO medico);
     }
 }

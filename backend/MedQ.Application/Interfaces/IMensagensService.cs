@@ -10,9 +10,9 @@ namespace MedQ.Application.Interfaces
     {
         Task<MensagensDTO> GetViewdMensagens(int socioId);
         Task<MensagensDTO> GetMensagens(int socioId);
-        Task<MensagensDTO> SetViwedTrue(int id);
-        Task CreateConsultationMessage(ConsultasDTO infoConsultation);
-        Task CreateStatusConsultationMessage(ConsultasDTO infoConsultation, string status);
+        Task<bool> SetViwedTrue(int id);
+        Task<bool> CreateConsultationMessage(ConsultasDTO infoConsultation);
+        Task<bool> CreateStatusConsultationMessage(ConsultasDTO infoConsultation, string status);
         string GetDay();
         string SetDay(DateTime day);
         string GetTime();

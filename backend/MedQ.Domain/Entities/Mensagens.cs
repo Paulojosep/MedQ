@@ -13,8 +13,8 @@ namespace MedQ.Domain.Entities
         public DateTime Data { get; set; }
         public DateTime Hora { get; set; }
         public int Viewd { get; set; }
-        [Column("fk_socio_id")]
         public int SocioId { get; set; }
-        public Socio Socio { get; set; }
+
+        public virtual Socio Socio { get; set; }
     }
 }

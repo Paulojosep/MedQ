@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
 using MedQ.Application.DTOs;
+using MedQ.Application.Exceptions;
 using MedQ.Application.Interfaces;
 using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
+using MedQ.Infra.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,10 +16,10 @@ namespace MedQ.Application.Services
 {
     public class MedicoService : IMedicoService
     {
-        private IMedicoRepository _repository;
+        private readonly IRepositorioGenerico<Medico> _repository;
         private readonly IMapper _mapper;
 
-        public MedicoService(IMedicoRepository repository, IMapper mapper)
+        public MedicoService(IRepositorioGenerico<Medico> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -23,38 +27,67 @@ namespace MedQ.Application.Services
 
         public async Task<MedicoDTO> GetByID(int id)
         {
-            var medicoEntity = await _repository.GetByIDAsync(id);
-            var resultado = _mapper.Map<MedicoDTO>(medicoEntity);
-            return resultado;
+            return _mapper.Map<MedicoDTO>(await _repository.Obter(x => x.Id == id).FirstAsync());
         }
 
         public async Task<IEnumerable<MedicoDTO>> GetByEstabelecimento(int estabelecimentoId)
         {
-            var medicoEntity = await _repository.GetByEstabelecimentoAsync(estabelecimentoId);
-            var resultado = _mapper.Map<IEnumerable<MedicoDTO>>(medicoEntity);
-            return resultado;
+            return _mapper.Map< IEnumerable<MedicoDTO>>(await _repository.AdicionarInclusoes(
+                x => x.Especialidade).Where(x => x.EspecialidadeId == estabelecimentoId).ToListAsync());
         }
 
-        public async Task<MedicoDTO> Create(MedicoDTO medico)
+        public async Task<bool> Create(MedicoDTO medico)
         {
-            var medicoEntity = _mapper.Map<Medico>(medico);
-            await _repository.CreateAsync(medicoEntity);
-            var resultado = _mapper.Map<MedicoDTO>(medicoEntity);
-            return resultado;
+            try
+            {
+                var medicoEntity = _mapper.Map<Medico>(medico);
+                _repository.Adicionar(medicoEntity);
+                return await _repository.SalvarAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new MedQException("Erro ao incluir", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new MedQException("Erro", ex);
+            }
         }
 
-        public async Task<MedicoDTO> Update(MedicoDTO medico)
+        public async Task<bool> Update(MedicoDTO medico)
         {
-            var medicoEntity = _mapper.Map<Medico>(medico);
-            await _repository.UpdateAsync(medicoEntity);
-            var resultado = _mapper.Map<MedicoDTO>(medicoEntity);
-            return resultado;
+            try
+            {
+                var medicoEntity = _mapper.Map<Medico>(medico);
+                _repository.Editar(medicoEntity);
+                return await _repository.SalvarAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new MedQException("Erro ao editar", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new MedQException("Erro", ex);
+            }
         }
 
         public async Task Delete(MedicoDTO medico)
         {
-            var medicoEntity = _mapper.Map<Medico>(medico);
-            await _repository.DeleteAync(medicoEntity);
+            try
+            {
+                var medicoEntity = _mapper.Map<Medico>(medico);
+                _repository.Deletar(medicoEntity);
+                await _repository.SalvarAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new MedQException("Erro ao deletar", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new MedQException("Erro", ex);
+            }
         }
     }
 }

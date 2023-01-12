@@ -11,13 +11,22 @@ import { ConsultaService } from './core/services/consultas.service';
 import { ApiServices } from './core/services/api.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AgendamentosDisponiveisComponent } from './agendamentos-disponiveis/agendamentos-disponiveis.component';
+import { AdicionarTelefoneComponent } from './adicionar-telefone/adicionar-telefone.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [	AppComponent,
-      AgendamentosDisponiveisComponent
+      AgendamentosDisponiveisComponent,
+      AdicionarTelefoneComponent
    ],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, HttpClientModule],
+  imports: [
+    BrowserModule, 
+    IonicModule.forRoot(), 
+    AppRoutingModule, BrowserAnimationsModule, 
+    HttpClientModule,
+    ReactiveFormsModule
+  ],
   providers: [ ConsultaService, ApiServices],
   bootstrap: [AppComponent],
 })
