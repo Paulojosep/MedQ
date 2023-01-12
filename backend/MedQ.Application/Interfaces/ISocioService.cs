@@ -10,8 +10,8 @@ namespace MedQ.Application.Interfaces
     {
         Task<IEnumerable<SocioDTO>> GetSocioAsync();
         Task<SocioDTO> GetBySocioAsync(int id, string cpf);
-        Task<SocioDTO> CreateAsync(SocioDTO socio);
-        Task<SocioDTO> UpdateAsycn(int id, SocioDTO socio);
+        Task<bool> CreateAsync(SocioDTO socio);
+        Task<bool> UpdateAsycn(SocioDTO socio);
         Task DaleteAsync(int id);
     }
 }

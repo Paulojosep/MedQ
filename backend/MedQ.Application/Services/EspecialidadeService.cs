@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
+using MedQ.Infra.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,33 +14,30 @@ namespace MedQ.Application.Services
 {
     public class EspecialidadeService : IEspecialidadeService
     {
-        private IEspecialidadeRepository _repository;
+        private readonly IRepositorioGenerico<Especialidade> _repository;
+        private readonly IEspecialidadeRepository _especialidadeRepository;
         private readonly IMapper _mapper;
 
-        public EspecialidadeService(IEspecialidadeRepository repository, IMapper mapper)
+        public EspecialidadeService(IRepositorioGenerico<Especialidade> repository, IEspecialidadeRepository especialidadeRepository, IMapper mapper)
         {
             _repository = repository;
+            _especialidadeRepository = especialidadeRepository;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<EspecialidadeDTO>> GetAllAsync()
         {
-            var especialidadeEntity = await _repository.GetEspecialidadeAsync();
-            var resultado = _mapper.Map<IEnumerable<EspecialidadeDTO>>(especialidadeEntity);
-            return resultado;
+            return _mapper.Map<IEnumerable<EspecialidadeDTO>>(await _repository.SelecionarTodos());
         }
 
         public async Task<EspecialidadeDTO> GetByIdAsync(int id)
         {
-            var especialidadeEntity = await _repository.GetByIdAsync(id);
-            var resultado = _mapper.Map<EspecialidadeDTO>(especialidadeEntity);
-            return resultado;
+            return _mapper.Map<EspecialidadeDTO>(await _repository.Obter(x => x.Id ==id).FirstOrDefaultAsync());
         }
 
         public async Task<IEnumerable<EspecialidadeDTO>> GetByEstabelecimentoAsync(int idEstabelecimento)
         {
-            var especialidadeEntity = await _repository.GetByEstabelecimentoAsync(idEstabelecimento);
-            var resultado = _mapper.Map<IEnumerable<EspecialidadeDTO>>(especialidadeEntity);
+            var resultado = _mapper.Map<IEnumerable<EspecialidadeDTO>>(await _especialidadeRepository.GetByEstabelecimentoAsync(idEstabelecimento));
             return resultado;
         }
     }

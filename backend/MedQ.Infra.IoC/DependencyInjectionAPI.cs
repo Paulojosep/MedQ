@@ -34,15 +34,8 @@ namespace MedQ.Infra.IoC
             services.AddScoped<IMinhasConsultaService, MinhasConsultaService>();
 
             //Repositories
-            services.AddScoped<ISocioRepository, SocioRepository>();
             services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
-            services.AddScoped<ITelefoneRepository, TelefoneRepository>();
             services.AddScoped<IConsultasRepository, ConsultaRepository>();
-            services.AddScoped<IFilaRepository, FilaRepository>();
-            services.AddScoped<IMensagensRepository, MensagensRepository>();
-            services.AddScoped<IMedicoRepository, MedicoRepository>();
-            services.AddScoped<IEstabelecimentoRepository, EstabelecimentoRepository>();
-            services.AddScoped<IMinhasConsultaRepository, MinhasConsultaRepository>();
             services.AddScoped(typeof(IRepositorioGenerico<>), typeof(RepositorioGenerico<>));
 
             services.AddAutoMapper(typeof(MedqMapping));

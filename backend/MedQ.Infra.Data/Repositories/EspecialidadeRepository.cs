@@ -1,5 +1,4 @@
-﻿using MedQ.Application.Interfaces;
-using MedQ.Domain.Entities;
+﻿using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -13,23 +12,6 @@ namespace MedQ.Infra.Data.Repositories
 {
     public class EspecialidadeRepository : IEspecialidadeRepository
     {
-        private readonly IRepositorioGenerico<Especialidade> _repositorio;
-
-        public EspecialidadeRepository(IRepositorioGenerico<Especialidade> repositorio)
-        {
-            _repositorio = repositorio;
-        }
-
-        public async Task<IEnumerable<Especialidade>> GetEspecialidadeAsync()
-        {
-            return await _repositorio.SelecionarTodos();
-        }
-
-        public async Task<Especialidade> GetByIdAsync(int id)
-        {
-            return await _repositorio.Obter(x => x.Id == id).FirstOrDefaultAsync();
-        }
-
         public async Task<IEnumerable<Especialidade>> GetByEstabelecimentoAsync(int idEstabelecimento)
         {
             using(var ctx = new MedQContext())

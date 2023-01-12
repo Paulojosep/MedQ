@@ -1,8 +1,12 @@
 ﻿using AutoMapper;
 using MedQ.Application.DTOs;
+using MedQ.Application.Exceptions;
 using MedQ.Application.Interfaces;
 using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
+using MedQ.Infra.Data;
+using MedQ.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,10 +16,10 @@ namespace MedQ.Application.Services
 {
     public class SocioService : ISocioService
     {
-        private ISocioRepository _repository;
+        private readonly IRepositorioGenerico<Socio> _repository;
         private readonly IMapper _mapper;
 
-        public SocioService(ISocioRepository repository, IMapper mapper)
+        public SocioService(IRepositorioGenerico<Socio> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -23,34 +27,93 @@ namespace MedQ.Application.Services
 
         public async Task<IEnumerable<SocioDTO>> GetSocioAsync()
         {
-            var socioEntity = await _repository.GetSocioAsync();
-            var resultado = _mapper.Map<IEnumerable<SocioDTO>>(socioEntity);
-            return resultado;
+            return _mapper.Map<IEnumerable<SocioDTO>>(await _repository.SelecionarTodos());
         }
 
         public async Task<SocioDTO> GetBySocioAsync(int id, string cpf)
         {
-            if (id > 0 && String.IsNullOrEmpty(cpf)) throw new Exception("Parametro deve ser informado");
-            return _mapper.Map<SocioDTO>(await _repository.GetBySocioAsync(id, cpf));
+            try
+            {
+                var socio = new Socio();
+                if (id > 0 && String.IsNullOrEmpty(cpf)) throw new Exception("Parametro deve ser informado");
+
+                if (id > 0)
+                {
+                    socio = await _repository.Obter(x => x.Id == id).FirstAsync();
+                }
+                if (!String.IsNullOrEmpty(cpf))
+                {
+                    socio = await _repository.Obter(x => x.CPF == cpf).FirstAsync();
+                }
+                return _mapper.Map<SocioDTO>(socio);
+            }
+            catch (ArgumentException ex)
+            {
+                throw new MedQException("Parametro não pode ser nulo", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new MedQException("Valor não econtrado");
+            }
+            catch(Exception ex)
+            {
+                throw new MedQException("Erro", ex);
+            }
         }
 
-        public async Task<SocioDTO> CreateAsync(SocioDTO socioDTO)
+        public async Task<bool> CreateAsync(SocioDTO socioDTO)
         {
-            var socioEntity = _mapper.Map<Socio>(socioDTO);
-            return _mapper.Map<SocioDTO>(await _repository.CreateAsync(socioEntity));
+            try
+            {
+                var socioEntity = _mapper.Map<Socio>(socioDTO);
+                _repository.Adicionar(socioEntity);
+                return await _repository.SalvarAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new MedQException("Erro ao incluir", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new MedQException("Erro", ex);
+            }
         }
 
-        public async Task<SocioDTO> UpdateAsycn(int id, SocioDTO socioDTO)
+        public async Task<bool> UpdateAsycn(SocioDTO socioDTO)
         {
-            var socioEntity = _mapper.Map<Socio>(socioDTO);
-            await _repository.UpdateAsycn(socioEntity);
-            var resultado = _mapper.Map<SocioDTO>(socioEntity);
-            return resultado;
+            try
+            {
+                var socioEntity = _mapper.Map<Socio>(socioDTO);
+                _repository.Editar(socioEntity);
+                return await _repository.SalvarAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new MedQException("Erro ao editar", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new MedQException("Erro", ex);
+            }
         }
 
         public async Task DaleteAsync(int id)
         {
-            await _repository.DaleteAsync(await _repository.GetBySocioAsync(id, ""));
+            try
+            {
+                var socioEntity = await _repository.Obter(x => x.Id == id).FirstOrDefaultAsync();
+                if (socioEntity == null) throw new MedQException($@"Não foi possivel deletar ID: {id}, ela já foideletada");
+                _repository.Deletar(socioEntity);
+                await _repository.SalvarAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new MedQException("Erro ao editar", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new MedQException("Erro", ex);
+            }
         }
     }
 }

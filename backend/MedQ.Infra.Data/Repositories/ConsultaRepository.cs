@@ -1,59 +1,20 @@
-﻿using MedQ.Application.Interfaces;
-using MedQ.Application.IO;
+﻿using MedQ.Domain.Interfaces;
 using MedQ.Domain.Entities;
-using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace MedQ.Infra.Data.Repositories
 {
     public class ConsultaRepository : IConsultasRepository
     {
-        private MedQContext _consultasContext;
-        private readonly IRepositorioGenerico<Consultas> _repositorie;
+        private readonly MedQContext _consultasContext;
 
-        public ConsultaRepository(MedQContext context, IRepositorioGenerico<Consultas> repositorie)
+        public ConsultaRepository(MedQContext consultasContext)
         {
-            _consultasContext = context;
-            _repositorie = repositorie;
-        }
-
-        public async Task<Consultas> GetByIdAsync(int id)
-        {
-            return await _repositorie.Obter(x => x.Id == id).FirstOrDefaultAsync();
-        }
-
-        public async Task<List<Consultas>> GetBySocioAsync(int socioId)
-        {
-            var consultas = await _repositorie.AdicionarInclusoes<Consultas, object>(
-                x => x.Agendamento,
-                x => x.Socio,
-                x => x.Estabelecimento).Where(x => x.SocioId == socioId).ToListAsync();
-            return consultas;
-        }
-
-        public async Task<Consultas> CreateAsync(Consultas consultas)
-        {
-            _repositorie.Adicionar(consultas);
-            await _repositorie.SalvarAsync();
-            return consultas;
-        }
-
-        public async Task<Consultas> UpdateAsync(Consultas consultas)
-        {
-            _repositorie.Editar(consultas);
-            await _repositorie.SalvarAsync();
-            return consultas;
-        }
-
-        public async Task DeleteAsync(Consultas consultas)
-        {
-            _repositorie.Deletar(consultas);
-            await _repositorie.SalvarAsync();
+            _consultasContext = consultasContext;
         }
 
         public async Task<IEnumerable<Consultas>> GetInfosAsync(int id)

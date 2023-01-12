@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using MedQ.Application.DTOs;
+using MedQ.Application.Exceptions;
 using MedQ.Application.Interfaces;
 using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
+using MedQ.Infra.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,10 +15,10 @@ namespace MedQ.Application.Services
 {
     public class TelefoneService : ITelefoneService
     {
-        private ITelefoneRepository _repository;
+        private readonly IRepositorioGenerico<Telefone> _repository;
         private readonly IMapper _mapper;
 
-        public TelefoneService(ITelefoneRepository repository, IMapper mapper)
+        public TelefoneService(IRepositorioGenerico<Telefone> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -23,30 +26,59 @@ namespace MedQ.Application.Services
 
         public async Task<IEnumerable<TelefoneDTO>> GetAllAsync()
         {
-            var telefoneEntity = await _repository.GetAllTelefoneAsync();
-            return _mapper.Map<IEnumerable<TelefoneDTO>>(telefoneEntity);
+            return _mapper.Map<IEnumerable<TelefoneDTO>>(await _repository.SelecionarTodos());
         }
 
         public async Task<TelefoneDTO> GetByIdAsync(int id)
         {
-            var telefoneEntity = await _repository.GetByIdAsync(id);
-            return _mapper.Map<TelefoneDTO>(telefoneEntity);
+            try
+            {
+                return _mapper.Map<TelefoneDTO>(await _repository.Obter(x => x.Id == id).FirstAsync());
+            }
+            catch (ArgumentException ex)
+            {
+                throw new MedQException("Parametro não pode ser nulo", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new MedQException("Valor não econtrado");
+            }
         }
 
-        public async Task<TelefoneDTO> CreateAsync(TelefoneDTO obj)
+        public async Task<bool> CreateAsync(TelefoneDTO obj)
         {
-            var telefoneEntity = _mapper.Map<Telefone>(obj);
-            await _repository.CreateTelefoneAsync(telefoneEntity);
-            var resultado = _mapper.Map<TelefoneDTO>(telefoneEntity);
-            return resultado;
+            try
+            {
+                var telefoneEntity = _mapper.Map<Telefone>(obj);
+                _repository.Adicionar(telefoneEntity);
+                return await _repository.SalvarAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new MedQException("Erro ao incluir", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new MedQException("Erro", ex);
+            }
         }
 
-        public async Task<TelefoneDTO> UpdateAsync(TelefoneDTO obj)
+        public async Task<bool> UpdateAsync(TelefoneDTO obj)
         {
-            var telefoneEntity = _mapper.Map<Telefone>(obj);
-            await _repository.UpdateTelefoneAsync(telefoneEntity);
-            var resultado = _mapper.Map<TelefoneDTO>(telefoneEntity);
-            return resultado;
+            try
+            {
+                var telefoneEntity = _mapper.Map<Telefone>(obj);
+                _repository.Editar(telefoneEntity);
+                return await _repository.SalvarAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new MedQException("Erro ao editar", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new MedQException("Erro", ex);
+            }
         }
     }
 }

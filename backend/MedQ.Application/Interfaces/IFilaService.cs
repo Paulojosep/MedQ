@@ -10,6 +10,6 @@ namespace MedQ.Application.Interfaces
     {
         Task<IEnumerable<FilaDTO>> GetByEstabelecimentoAsync(int estabelecimentoId);
         Task<IEnumerable<FilaDTO>> GetByTipoAtendimentoAsync(int tipoAtendimentiId, int estabelecimentoId);
-        Task<FilaDTO> CreateAsync(FilaDTO fila);
+        Task<bool> CreateAsync(FilaDTO fila);
     }
 }

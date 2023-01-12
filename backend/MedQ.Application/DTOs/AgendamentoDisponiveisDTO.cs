@@ -14,7 +14,7 @@ namespace MedQ.Application.DTOs
         public int MedicoId { get; set; }
         public int EstabelecimentoId { get; set; }
 
-        //public virtual MedicoDTO Medico { get; set; }
+        public virtual MedicoDTO Medico { get; set; }
         //public virtual EstabelecimentoDTO Estabelecmento { get; set; }
 
         //public virtual ICollection<ConsultasDTO> Consultas { get; set; }

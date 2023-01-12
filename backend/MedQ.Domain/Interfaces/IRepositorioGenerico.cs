@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MedQ.Application.Interfaces
+namespace MedQ.Domain.Interfaces
 {
     public interface IRepositorioGenerico<T> : IConsultaGenerico<T> where T : class
     {
