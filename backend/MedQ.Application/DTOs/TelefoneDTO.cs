@@ -13,10 +13,9 @@ namespace MedQ.Application.DTOs
         public string DDD { get; set; }
         public string Numero { get; set; }
         public int EstabelecimentoId { get; set; }
-        [JsonIgnore]
-        public EstabelecimentoDTO Estabelecimento { get; set; }
         public int SocioId { get; set; }
-        [JsonIgnore]
-        public SocioDTO Socio { get; set; }
+
+        public virtual EstabelecimentoDTO Estabelecimento { get; set; }
+        public virtual SocioDTO Socio { get; set; }
     }
 }

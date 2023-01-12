@@ -8,6 +8,8 @@ using MedQ.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,14 +28,18 @@ namespace MedQ.Application.Services
 
         public async Task<IEnumerable<TelefoneDTO>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<TelefoneDTO>>(await _repository.SelecionarTodos());
+            return _mapper.Map<IEnumerable<TelefoneDTO>>(await _repository.AdicionarInclusoes<Telefone, object>(
+                x => x.Estabelecimento,
+                x => x.Socio).ToListAsync());
         }
 
         public async Task<TelefoneDTO> GetByIdAsync(int id)
         {
             try
             {
-                return _mapper.Map<TelefoneDTO>(await _repository.Obter(x => x.Id == id).FirstAsync());
+                return _mapper.Map<TelefoneDTO>(await _repository.AdicionarInclusoes<Telefone, object>(
+                x => x.Estabelecimento,
+                x => x.Socio).Where(x => x.Id == id).FirstAsync());
             }
             catch (ArgumentException ex)
             {
