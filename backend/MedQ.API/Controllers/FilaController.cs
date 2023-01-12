@@ -21,7 +21,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet, Route("PegarPorEstabelecimento/{estabelecimentoId}")]
-        public async Task<ActionResult<IEnumerable<FilaDTO>>> GetByEstabelecimento(int estabelecimentoId)
+        public async Task<ActionResult> GetByEstabelecimento(int estabelecimentoId)
         {
             var fila = await _service.GetByEstabelecimentoAsync(estabelecimentoId);
             if(fila == null)
@@ -32,7 +32,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet, Route("PegarPorTipoAtendimento/{tipoAtendimentiId}/{estabelecimentoId}")]
-        public async Task<ActionResult<IEnumerable<FilaDTO>>> GetByTipoAtendimento(int tipoAtendimentiId, int estabelecimentoId)
+        public async Task<ActionResult> GetByTipoAtendimento(int tipoAtendimentiId, int estabelecimentoId)
         {
             var fila = await _service.GetByTipoAtendimentoAsync(tipoAtendimentiId, estabelecimentoId);
             if (fila == null)

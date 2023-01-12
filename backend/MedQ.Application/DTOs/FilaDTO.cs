@@ -13,16 +13,11 @@ namespace MedQ.Application.DTOs
         public string Status { get; set; }
         public DateTime DataCadastro { get; set; }
         public int TipoAntendimentoId { get; set; }
-
-        [JsonIgnore]
-        public TipoAtendimentoDTO TipoAtendimento { get; set; }
         public int EstabelecimentoId { get; set; }
-
-        [JsonIgnore]
-        public EstabelecimentoDTO Estabelecimento { get; set; }
         public int EspecialidadeId { get; set; }
 
-        [JsonIgnore]
-        public EspecialidadeDTO Especialidade { get; set; }
+        public virtual TipoAtendimentoDTO TipoAtendimento { get; set; }
+        public virtual EspecialidadeDTO Especialidade { get; set; }
+        public virtual EstabelecimentoDTO Estabelecimento { get; set; }
     }
 }

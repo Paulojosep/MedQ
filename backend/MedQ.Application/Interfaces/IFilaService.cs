@@ -1,4 +1,5 @@
 ﻿using MedQ.Application.DTOs;
+using MedQ.Application.IO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,8 +9,8 @@ namespace MedQ.Application.Interfaces
 {
     public interface IFilaService
     {
-        Task<IEnumerable<FilaDTO>> GetByEstabelecimentoAsync(int estabelecimentoId);
-        Task<IEnumerable<FilaDTO>> GetByTipoAtendimentoAsync(int tipoAtendimentiId, int estabelecimentoId);
+        Task<IEnumerable<FilaByEstabelecimentoOutput>> GetByEstabelecimentoAsync(int estabelecimentoId);
+        Task<IEnumerable<FilaByTipoAtendimentoOutput>> GetByTipoAtendimentoAsync(int tipoAtendimentiId, int estabelecimentoId);
         Task<bool> CreateAsync(FilaDTO fila);
     }
 }

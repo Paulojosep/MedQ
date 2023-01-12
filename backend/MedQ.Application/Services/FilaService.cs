@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using MedQ.Application.IO;
 using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data;
@@ -24,23 +25,22 @@ namespace MedQ.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<FilaDTO>> GetByEstabelecimentoAsync(int estabelecimentoId)
+        public async Task<IEnumerable<FilaByEstabelecimentoOutput>> GetByEstabelecimentoAsync(int estabelecimentoId)
         {
-            return _mapper.Map<IEnumerable<FilaDTO>>(await _repository.AdicionarInclusoes<Fila, object>(
+            return _mapper.Map<IEnumerable<FilaByEstabelecimentoOutput>>(await _repository.AdicionarInclusoes<Fila, object>(
                 x => x.Especialidade,
-                x => x.Estabelecimento,
                 x => x.TipoAtendimento).ToListAsync());
         }
 
-        public async Task<IEnumerable<FilaDTO>> GetByTipoAtendimentoAsync(int tipoAtendimentoId, int estabelecimentoId)
+        public async Task<IEnumerable<FilaByTipoAtendimentoOutput>> GetByTipoAtendimentoAsync(int tipoAtendimentoId, int estabelecimentoId)
         {
             var filas = _repository.AdicionarInclusoes<Fila, object>(
-                x => x.Estabelecimento,
+                x => x.Especialidade,
                 x => x.TipoAtendimento);
 
             if (tipoAtendimentoId > 0) filas = filas.Where(x => x.TipoAntendimentoId == tipoAtendimentoId);
             if (estabelecimentoId > 0) filas = filas.Where(x => x.EstabelecimentoId == estabelecimentoId);
-            return _mapper.Map<IEnumerable<FilaDTO>>( await filas.ToListAsync());
+            return _mapper.Map<IEnumerable<FilaByTipoAtendimentoOutput>>( await filas.ToListAsync());
         }
 
         public async Task<bool> CreateAsync(FilaDTO fila)
