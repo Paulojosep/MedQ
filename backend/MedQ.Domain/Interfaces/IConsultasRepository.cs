@@ -8,10 +8,8 @@ namespace MedQ.Domain.Interfaces
 {
     public interface IConsultasRepository
     {
-        Task<Consultas> GetBySocioAsync(int socioId);
-        Task<Consultas> CreateAsync(Consultas consultas);
-        Task<Consultas> UpdateAsync(Consultas consultas);
-        Task DeleteAsync(int id);
+        Task<IEnumerable<Consultas>> GetInfosAsync(int id);
+        Task<Consultas> GetInfosForConsultationAsync(int id);
 
     }
 }

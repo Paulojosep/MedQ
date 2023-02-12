@@ -8,6 +8,6 @@ namespace MedQ.Domain.Interfaces
 {
     public interface IEspecialidadeRepository
     {
-        Task<Especialidade> GtById(int id);
+        Task<IEnumerable<Especialidade>> GetByEstabelecimentoAsync(int idEstabelecimento);
     }
 }

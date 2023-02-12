@@ -1,0 +1,16 @@
+<ion-item [formGroup]="this.formGroup" *ngIf="!this.read_only">
+  <ion-label position="floating" style="font-size: 4.5vw;">CPF <ion-text color="danger">*</ion-text>
+  </ion-label>
+  <ion-input 
+  id="CPFInput"
+  maxlength="14"
+  [ngModelChange]="onChanges()" 
+  formControlName="cpfField" 
+  [(ngModel)]='cpfField'
+  name="cpf" 
+  style="font-size: 3.5vw;"></ion-input>
+</ion-item>
+<ion-item [formGroup]="this.formGroup" *ngIf="this.read_only">
+  <ion-label position="floating" style="font-size: 4.5vw;">CPF: {{CPF}}<ion-text color="danger">*</ion-text>
+  </ion-label>
+</ion-item>
