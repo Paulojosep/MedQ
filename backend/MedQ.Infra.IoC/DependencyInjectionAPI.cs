@@ -19,6 +19,11 @@ namespace MedQ.Infra.IoC
         public static IServiceCollection AddInfrastructureAPI(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("MySqlConnection");
+            if(!string.IsNullOrEmpty(configuration["connectionString"]?.ToString()))
+            {
+                connectionString = configuration["connectionString"].ToString();
+            }
+            
             services.AddDbContext<MedQContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
             b => b.MigrationsAssembly(typeof(MedQContext).Assembly.FullName)));
 
