@@ -21,21 +21,21 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet, Route("Listar")]
-        public async Task<ActionResult<IEnumerable<EstabelecimentoDTO>>> GetList()
+        public async Task<IActionResult> GetList()
         {
             var estabelecimento = await _service.GetAll();
             return Ok(estabelecimento);
         }
 
         [HttpGet, Route("ListarPorSocio/{id}")]
-        public async Task<ActionResult<IEnumerable<EstabelecimentoDTO>>> GetListBySocio(int id)
+        public async Task<IActionResult> GetListBySocio(int id)
         {
             var estabelecimento = await _service.GetBySocio(id);
             return Ok(estabelecimento);
         }
 
         [HttpGet]
-        public async Task<ActionResult<EspecialidadeDTO>> GetEstabelecimento(int id, string nome)
+        public async Task<IActionResult> GetEstabelecimento(int id, string nome)
         {
             var estabelecimentoId = await _service.GetEstabelecimento(id, nome);
             if(estabelecimentoId == null)
@@ -57,7 +57,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpPut, Route("Update/{id}")]
-        public async Task<ActionResult<EstabelecimentoDTO>> Put(int id, [FromBody] EstabelecimentoDTO estabelecimentoDTO)
+        public async Task<IActionResult> Put(int id, [FromBody] EstabelecimentoDTO estabelecimentoDTO)
         {
             var estabelecimentoId = await _service.GetEstabelecimento(id, "");
             if(estabelecimentoId.Id != id)
@@ -65,11 +65,11 @@ namespace MedQ.API.Controllers
                 return BadRequest("Estabelecimento não econtrado");
             }
             var estabelecimento = await _service.Update(estabelecimentoDTO);
-            return Ok();
+            return Ok(estabelecimento);
         }
 
         [HttpDelete, Route("Delete/{id}")]
-        public async Task<ActionResult<EstabelecimentoDTO>> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var estabelecimento = await _service.GetEstabelecimento(id, "");
             if (estabelecimento == null)
