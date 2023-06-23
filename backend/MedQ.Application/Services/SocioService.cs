@@ -35,15 +35,15 @@ namespace MedQ.Application.Services
             try
             {
                 var socio = new Socio();
-                if (id > 0 && String.IsNullOrEmpty(cpf)) throw new Exception("Parametro deve ser informado");
+                if (id.Equals(0) && String.IsNullOrEmpty(cpf)) throw new MedQException("Parametro deve ser informado");
 
                 if (id > 0)
                 {
-                    socio = await _repository.Obter(x => x.Id == id).FirstAsync();
+                    socio = await _repository.Obter(x => x.Id == id).FirstOrDefaultAsync();
                 }
                 if (!String.IsNullOrEmpty(cpf))
                 {
-                    socio = await _repository.Obter(x => x.CPF == cpf).FirstAsync();
+                    socio = await _repository.Obter(x => x.CPF == cpf).FirstOrDefaultAsync();
                 }
                 return _mapper.Map<SocioDTO>(socio);
             }
@@ -57,7 +57,7 @@ namespace MedQ.Application.Services
             }
             catch(Exception ex)
             {
-                throw new MedQException("Erro", ex);
+                throw new MedQException(ex.Message);
             }
         }
 

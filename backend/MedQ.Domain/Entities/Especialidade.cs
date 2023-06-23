@@ -10,6 +10,13 @@ namespace MedQ.Domain.Entities
             Medicos = new HashSet<Medico>();
         }
 
+        public Especialidade(int id, string nome, string descricao)
+        {
+            Id = id;
+            Nome = nome;
+            Descricao = descricao;
+        }
+
         public string Nome { get; set; }
         public string Descricao { get; set; }
 

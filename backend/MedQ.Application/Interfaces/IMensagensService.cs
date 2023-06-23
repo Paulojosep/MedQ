@@ -13,8 +13,5 @@ namespace MedQ.Application.Interfaces
         Task<bool> SetViwedTrue(int id);
         Task<bool> CreateConsultationMessage(ConsultasDTO infoConsultation);
         Task<bool> CreateStatusConsultationMessage(ConsultasDTO infoConsultation, string status);
-        string GetDay();
-        string SetDay(DateTime day);
-        string GetTime();
     }
 }

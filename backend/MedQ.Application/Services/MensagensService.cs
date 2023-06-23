@@ -26,12 +26,12 @@ namespace MedQ.Application.Services
 
         public async Task<MensagensDTO> GetViewdMensagens(int socioId)
         {
-            return _mapper.Map<MensagensDTO>(await _repository.Obter(x => x.SocioId == socioId).FirstAsync());
+            return _mapper.Map<MensagensDTO>(await _repository.Obter(x => x.SocioId == socioId).FirstOrDefaultAsync());
         }
 
         public async Task<MensagensDTO> GetMensagens(int socioId)
         {
-            return _mapper.Map<MensagensDTO>(await _repository.Obter(x => x.SocioId == socioId).FirstAsync());
+            return _mapper.Map<MensagensDTO>(await _repository.Obter(x => x.SocioId == socioId).FirstOrDefaultAsync());
         }
 
         public async Task<bool> SetViwedTrue(int id)
@@ -119,7 +119,7 @@ namespace MedQ.Application.Services
             }
         }
 
-        public string GetDay()
+        private string GetDay()
         {
             DateTime date = new DateTime();
             var resultDate = date.Date.ToString();
@@ -127,14 +127,14 @@ namespace MedQ.Application.Services
             return resultDate;
         }
 
-        public string SetDay(DateTime day)
+        private string SetDay(DateTime day)
         {
             double days = Convert.ToDouble(day);
             var resultado = days.ToString();
             return resultado;
         }
 
-        public string GetTime()
+        private string GetTime()
         {
             DateTime time = new DateTime();
             var resultTime = time.TimeOfDay.ToString();

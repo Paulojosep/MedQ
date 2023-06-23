@@ -1,7 +1,9 @@
 using MedQ.Infra.IoC;
+using MedQ.Infra.IoC.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -57,11 +60,26 @@ namespace MedQ.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MedQ.API v1"));
             }
 
+            /*------------ Configuração Local PT-BR --------------------*/
+            var supportedCultures = new[] { new CultureInfo("pt-br") };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("pt-br"),
+                SupportedCultures = supportedCultures,
+                FallBackToParentCultures = false
+            });
+
+
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture("pt-br");
+
             app.UseHttpsRedirection();
+            app.UseCors("AllowMyOrigin");
 
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+            app.UseOptions();
 
             app.UseEndpoints(endpoints =>
             {

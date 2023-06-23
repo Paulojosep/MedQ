@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,10 +42,10 @@ namespace MedQ.Application.Services
 
         public async Task<List<ConsultasPorSocioOutput>> GetBySocioAsync(int socioId)
         {
-            var consultaEntity = await _repository.AdicionarInclusoes<Consultas, object>(
-                x => x.Agendamento,
-                x => x.Socio,
-                x => x.Estabelecimento).Where(x => x.SocioId == socioId).ToListAsync();
+            var consultaEntity = await _repository.IQueryable().Include(x => x.Agendamento).ThenInclude(x => x.Medico).ThenInclude(x => x.Especialidade)
+                .Include(x => x.Agendamento).ThenInclude(x => x.Medico).ThenInclude(x => x.Especialidade)
+                .Where(x => x.SocioId == socioId).ToListAsync();
+
             var resultado = _mapper.Map<List<ConsultasPorSocioOutput>>(consultaEntity);
             return resultado;
         }

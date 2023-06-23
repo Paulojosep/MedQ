@@ -20,8 +20,8 @@ namespace MedQ.Application.DTOs
         public int TipoEstabelecimentoId { get; set; }
         public int SocioId { get; set; }
 
-        //public virtual TipoEstabelecimentoDTO TipoEstbelecimento { get; set; }
-        //public virtual SocioDTO Socio { get; set; }
+        public virtual TipoEstabelecimentoDTO TipoEstbelecimento { get; set; }
+        public virtual SocioDTO Socio { get; set; }
 
         //public virtual ICollection<FilaDTO> Filas { get; set; }
         //public virtual ICollection<TelefoneDTO> Telefones { get; set; }

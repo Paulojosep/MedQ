@@ -9,6 +9,6 @@ namespace MedQ.Application.DTOs
         public int Id { get; set; }
         public string Tipo { get; set; }
 
-        public ICollection<EstabelecimentoDTO> Estabelecimentos { get; private set; }
+        public virtual ICollection<EstabelecimentoDTO> Estabelecimentos { get; private set; }
     }
 }

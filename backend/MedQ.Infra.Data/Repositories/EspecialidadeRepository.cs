@@ -14,6 +14,7 @@ namespace MedQ.Infra.Data.Repositories
     {
         public async Task<IEnumerable<Especialidade>> GetByEstabelecimentoAsync(int idEstabelecimento)
         {
+            
             using(var ctx = new MedQContext())
             {
                 var especialidade = from e in ctx.Especialidade
