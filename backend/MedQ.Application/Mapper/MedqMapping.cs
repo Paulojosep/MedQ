@@ -41,6 +41,7 @@ namespace MedQ.Application.Mapper
             CreateMap<Estabelecimento, EstabelecimentoDTO>().ReverseMap();
             CreateMap<MinhasConsulta, MinhasConsultaDTO>().ReverseMap();
             CreateMap<TipoAtendimento, TipoAtendimentoDTO>().ReverseMap();
+            CreateMap<TipoEstabelecimento, TipoEstabelecimentoDTO>().ReverseMap();
         }
     }
 }

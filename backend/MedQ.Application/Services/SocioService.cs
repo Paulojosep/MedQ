@@ -35,7 +35,7 @@ namespace MedQ.Application.Services
             try
             {
                 var socio = new Socio();
-                if (id > 0 && String.IsNullOrEmpty(cpf)) throw new Exception("Parametro deve ser informado");
+                if (id > 0 || String.IsNullOrEmpty(cpf)) throw new MedQException("Parametro deve ser informado");
 
                 if (id > 0)
                 {
@@ -57,7 +57,7 @@ namespace MedQ.Application.Services
             }
             catch(Exception ex)
             {
-                throw new MedQException("Erro", ex);
+                throw new MedQException(ex.Message);
             }
         }
 

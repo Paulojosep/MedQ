@@ -7,6 +7,7 @@ using MedQ.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,12 +16,14 @@ namespace MedQ.Application.Services
     public class EspecialidadeService : IEspecialidadeService
     {
         private readonly IRepositorioGenerico<Especialidade> _repository;
+        private readonly IRepositorioGenerico<Fila> _filaRepsitorio;
         private readonly IEspecialidadeRepository _especialidadeRepository;
         private readonly IMapper _mapper;
 
-        public EspecialidadeService(IRepositorioGenerico<Especialidade> repository, IEspecialidadeRepository especialidadeRepository, IMapper mapper)
+        public EspecialidadeService(IRepositorioGenerico<Especialidade> repository, IRepositorioGenerico<Fila> filaRepsitorio, IEspecialidadeRepository especialidadeRepository, IMapper mapper)
         {
             _repository = repository;
+            _filaRepsitorio = filaRepsitorio;
             _especialidadeRepository = especialidadeRepository;
             _mapper = mapper;
         }
@@ -37,8 +40,9 @@ namespace MedQ.Application.Services
 
         public async Task<IEnumerable<EspecialidadeDTO>> GetByEstabelecimentoAsync(int idEstabelecimento)
         {
-            var resultado = _mapper.Map<IEnumerable<EspecialidadeDTO>>(await _especialidadeRepository.GetByEstabelecimentoAsync(idEstabelecimento));
-            return resultado;
+            var filaEntity = await _filaRepsitorio.AdicionarInclusoes<Fila, object>(x => x.Especialidade).Where(x => x.EspecialidadeId == idEstabelecimento).Select(x => x.Id).ToListAsync();
+            return _mapper.Map<IEnumerable<EspecialidadeDTO>>(await _repository.AdicionarInclusoes<Especialidade, object>(x => x.Filas,
+                x => x.Medicos).Where(x => filaEntity.Contains(x.Id)).ToListAsync());
         }
     }
 }

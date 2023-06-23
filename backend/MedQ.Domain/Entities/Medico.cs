@@ -12,6 +12,15 @@ namespace MedQ.Domain.Entities
             AgendamentoDisponiveis = new HashSet<AgendamentoDisponiveis>();
         }
 
+        public Medico(int id, string nome, string cPF, int especialidadeId, int estabelecimentoId)
+        {
+            Id = id;
+            Nome = nome;
+            CPF = cPF;
+            EspecialidadeId = especialidadeId;
+            EstabelecimentoId = estabelecimentoId;
+        }
+
         public string Nome { get; set; }
         public string CPF { get; set; }
         public int EspecialidadeId { get; set; }

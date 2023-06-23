@@ -19,8 +19,8 @@ namespace MedQ.Infra.Data.Configuration
             builder.Property(p => p.MedicoId).HasColumnName("fk_medico_id");
             builder.Property(p => p.EstabelecimentoId).HasColumnName("fk_estabelecimento_id");
 
-            builder.HasOne(m => m.Medico).WithMany(ad => ad.AgendamentoDisponiveis).HasForeignKey(m => m.MedicoId);
-            builder.HasOne(e => e.Estabelecmento).WithMany(ad => ad.AgendamentoDisponiveis).HasForeignKey(e => e.EstabelecimentoId);
+            builder.HasOne(m => m.Medico).WithMany(ad => ad.AgendamentoDisponiveis).HasForeignKey(m => m.MedicoId).HasConstraintName("fk_medico_id");
+            builder.HasOne(e => e.Estabelecmento).WithMany(ad => ad.AgendamentoDisponiveis).HasForeignKey(e => e.EstabelecimentoId).HasConstraintName("fk_estabelecimento_id");
         }
     }
 }

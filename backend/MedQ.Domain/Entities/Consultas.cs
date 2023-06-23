@@ -11,6 +11,18 @@ namespace MedQ.Domain.Entities
             MinhasConsultas = new HashSet<MinhasConsulta>();
         }
 
+        public Consultas(int id, int agendamentoId, int estabelecimentoId, int socioId, string senha, string status, DateTime data, DateTime hora)
+        {
+            Id = id;
+            AgendamentoId = agendamentoId;
+            EstabelecimentoId = estabelecimentoId;
+            SocioId = socioId;
+            Senha = senha;
+            Status = status;
+            Data = data;
+            Hora = hora;
+        }
+
         public DateTime Data { get; set; }
         public DateTime Hora { get; set; }
         public string Status { get; set; }

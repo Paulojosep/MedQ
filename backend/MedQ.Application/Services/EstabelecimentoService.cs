@@ -45,7 +45,7 @@ namespace MedQ.Application.Services
         public async Task<IEnumerable<EstabelecimentoDTO>> GetBySocio(int socioId)
         {
             return _mapper.Map<IEnumerable<EstabelecimentoDTO>>(await _repository.AdicionarInclusoes<Estabelecimento, object>(
-                x => x.Socio).Where(x => x.SocioId == socioId).ToListAsync());
+                x => x.Socio, x => x.TipoEstbelecimento).Where(x => x.SocioId == socioId).ToListAsync());
         }
 
         public async Task<bool> Create(EstabelecimentoDTO estabelecimento)
