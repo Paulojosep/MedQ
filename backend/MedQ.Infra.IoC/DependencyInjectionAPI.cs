@@ -70,6 +70,14 @@ namespace MedQ.Infra.IoC
                     context.Database.Migrate();
                     SEED.Popular(context);
                 }
+                else
+                {
+                    if (context.Database.EnsureCreated())
+                    {
+                        context.Database.Migrate();
+                        SEED.Popular(context);
+                    }
+                }
             }
             catch (Exception ex)
             {
