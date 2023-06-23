@@ -7,6 +7,22 @@ namespace MedQ.Domain.Entities
 {
     public class Fila : Entity
     {
+        public Fila()
+        {
+            
+        }
+
+        public Fila(int id, int qtdPessoas, string status, DateTime dataCadastro, int tipoAntendimentoId, int estabelecimentoId, int especialidadeId)
+        {
+            Id = id;
+            QtdPessoas = qtdPessoas;
+            Status = status;
+            DataCadastro = dataCadastro;
+            TipoAntendimentoId = tipoAntendimentoId;
+            EstabelecimentoId = estabelecimentoId;
+            EspecialidadeId = especialidadeId;
+        }
+
         public int QtdPessoas { get; set; }
         public string Status { get; set; }
         public DateTime DataCadastro { get; set; }

@@ -15,6 +15,28 @@ namespace MedQ.Domain.Entities
             Telefones = new HashSet<Telefone>();
         }
 
+        public Socio(int id, string nome, string cPF, string sexo, string email, string senha, string endereco, 
+            string complemento, string cidade, string bairro, string uF, DateTime data_Cadastro, 
+            string image, string codigoVerificacao, string idGoogle, string tipo)
+        {
+            Id = id;
+            Nome = nome;
+            CPF = cPF;
+            UF = uF;
+            Sexo = sexo;
+            Email = email;
+            Senha = senha;
+            Endereco = endereco;
+            Complemento = complemento;
+            Cidade = cidade;
+            Bairro = bairro;
+            Data_Cadastro = data_Cadastro;
+            Image = image;
+            CodigoVerificacao = codigoVerificacao;
+            IdGoogle = idGoogle;
+            Tipo = tipo;
+        }
+
         public string Nome { get; set; }
         public string CPF { get; set; }
         public string UF { get; set; }
