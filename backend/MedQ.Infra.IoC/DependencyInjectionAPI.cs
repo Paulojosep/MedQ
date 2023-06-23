@@ -56,7 +56,9 @@ namespace MedQ.Infra.IoC
             try
             {
                 DbContextOptionsBuilder<MedQContext> dbContextOptions = new DbContextOptionsBuilder<MedQContext>();
-
+                var connectionString = ObterConnectionString(configuration);
+                dbContextOptions.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+                    b => b.MigrationsAssembly(typeof(MedQContext).Assembly.FullName));
                 MedQContext context = new MedQContext(dbContextOptions.Options);
                 context.ChangeTracker
                    .Entries()
