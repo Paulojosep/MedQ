@@ -119,10 +119,13 @@ namespace MedQ.Infra.IoC
             services.AddScoped<IMedicoService, MedicoService>();
             services.AddScoped<IEstabelecimentoService, EstabelecimentoService>();
             services.AddScoped<IMinhasConsultaService, MinhasConsultaService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
 
             //Repositories
             services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
             services.AddScoped<IConsultasRepository, ConsultaRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
             services.AddScoped(typeof(IRepositorioGenerico<>), typeof(RepositorioGenerico<>));
         }
     }
