@@ -1,28 +1,29 @@
-version: '2.2'
+version: '3.4'
 
 services:
-  banco:
-    image: medq_db
-    hostname: banco_de_dados
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    ports:
+  banco_mysql:
+   image: mysql:5.7
+   hostname: bd_medq
+   command: --default-authentication-plugin=mysql_native_password
+   restart: always
+   ports:
     - 3306:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: 21751471
-      bind-address: 0.0.0.0
+   expose:
+    - 3306
+   environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: medq
+    MYSQL_USER: develop
+    MYSQL_PASSWORD: tbate@123
+    MYSQL_TCP_PORT: 3306
 
-  webapi:
-    image: medq_api
-    hostname: medq_api
-    build: 
+  medq.api:
+    image: ${DOCKER_REGISTRY-}medqapi
+    build:
       context: .
       dockerfile: MedQ.API/Dockerfile
-    expose:
-      - 81
-    ports:
-      - "5001:81"
+    restart: always
     environment:
-      connectionString: "Server=banco_de_dados;Port=3306;Database=medq;Uid=root;Pwd=21751471"
-      bind-address: 0.0.0.0
-
+        medbconnection: "server=bd_medq;user=develop;password=tbate@123;database=medq"
+        DROP_DATA_BASE: 1
+        POPULAR_DATA_BASE: 1 
