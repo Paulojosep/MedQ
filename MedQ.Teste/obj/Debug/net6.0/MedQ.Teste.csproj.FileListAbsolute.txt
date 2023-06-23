@@ -1,0 +1,6 @@
+E:\GitLab\MedQ\MedQ.Teste\bin\Debug\net6.0\CoverletSourceRootsMapping
+E:\GitLab\MedQ\MedQ.Teste\obj\Debug\net6.0\MedQ.Teste.csproj.AssemblyReference.cache
+E:\GitLab\MedQ\MedQ.Teste\obj\Debug\net6.0\MedQ.Teste.GeneratedMSBuildEditorConfig.editorconfig
+E:\GitLab\MedQ\MedQ.Teste\obj\Debug\net6.0\MedQ.Teste.AssemblyInfoInputs.cache
+E:\GitLab\MedQ\MedQ.Teste\obj\Debug\net6.0\MedQ.Teste.AssemblyInfo.cs
+E:\GitLab\MedQ\MedQ.Teste\obj\Debug\net6.0\MedQ.Teste.csproj.CoreCompileInputs.cache
