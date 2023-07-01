@@ -38,7 +38,7 @@ namespace MedQ.API.Controllers
         public async Task<IActionResult> GetEstabelecimento(int id, string nome)
         {
             var estabelecimentoId = await _service.GetEstabelecimento(id, nome);
-            if(estabelecimentoId == null)
+            if(estabelecimentoId.Equals(null))
             {
                 return NotFound("Estabelecimento Não Econtrado");
             }
@@ -49,7 +49,7 @@ namespace MedQ.API.Controllers
         public async Task<ActionResult<EstabelecimentoDTO>> Post([FromBody] EstabelecimentoDTO estabelecimentoDTO)
         {
             var estabelecimetno = await _service.Create(estabelecimentoDTO);
-            if(estabelecimetno == null)
+            if (estabelecimetno.Equals(null))
             {
                 return BadRequest("Não foi possivel Cadastrar");
             }

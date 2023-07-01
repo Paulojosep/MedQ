@@ -46,7 +46,7 @@ namespace MedQ.API.Controllers
         public async Task<ActionResult<MedicoDTO>> CreateMedico([FromBody] MedicoDTO medicoDTO)
         {
             var medico = await _service.Create(medicoDTO);
-            if(medico == null)
+            if(medico.Equals(null))
             {
                 return BadRequest("Não foi possivel Cadastrar");
             }

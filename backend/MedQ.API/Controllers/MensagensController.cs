@@ -46,7 +46,7 @@ namespace MedQ.API.Controllers
         public async Task<ActionResult<MensagensDTO>> SetViewedTrue(int id)
         {
             var mensageID = await _service.SetViwedTrue(id);
-            if(mensageID == null)
+            if(mensageID.Equals(null))
             {
                 return NotFound("Não foi possivel Encontrar Viewd");
             }

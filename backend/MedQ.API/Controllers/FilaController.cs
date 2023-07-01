@@ -46,7 +46,7 @@ namespace MedQ.API.Controllers
         public async Task<ActionResult<FilaDTO>> CreateFila([FromBody] FilaDTO filaDTO)
         {
             var fila = await _service.CreateAsync(filaDTO);
-            if (fila == null)
+            if (fila.Equals(null))
             {
                 return BadRequest("Não foi possivel Cadastrar");
             }

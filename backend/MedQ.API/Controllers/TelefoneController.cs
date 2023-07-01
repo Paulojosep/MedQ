@@ -35,7 +35,7 @@ namespace MedQ.API.Controllers
         public async Task<ActionResult<TelefoneDTO>> Incluir([FromBody] TelefoneDTO obj)
         {
             var telefone = await _service.CreateAsync(obj);
-            if (telefone == null)
+            if (telefone.Equals(null))
             {
                 return BadRequest("Não foi possivel Cadastrar");
             }
