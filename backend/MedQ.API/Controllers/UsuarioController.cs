@@ -1,4 +1,5 @@
-﻿using MedQ.Application.Interfaces;
+﻿using MedQ.Application.DTOs;
+using MedQ.Application.Interfaces;
 using MedQ.Application.IO;
 using MedQ.Application.Services;
 using Microsoft.AspNetCore.Http;
@@ -13,10 +14,12 @@ namespace MedQ.API.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _usuarioService;
+        private readonly IEmailService _emailService;
 
-        public UsuarioController(IUsuarioService usuarioService)
+        public UsuarioController(IUsuarioService usuarioService, IEmailService emailService)
         {
             _usuarioService = usuarioService;
+            _emailService = emailService;
         }
 
         [HttpPost("Login")]
@@ -30,6 +33,31 @@ namespace MedQ.API.Controllers
             catch(Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("SignUp")]
+        public async Task<IActionResult> SingUp([FromBody] SocioDTO usuario)
+        {
+            try
+            {
+                string resultado = string.Empty;
+                var ehVerdadeiro = await _usuarioService.SiginUp(usuario);
+                if (ehVerdadeiro.Equals(true))
+                {
+                    resultado = "Usario cadastrado com sucesso, você recebera um email para validar o acesso";
+                    var emailText = new EmailDTO("paulo", "paulo.jmodesto75@gmail.com", usuario.Email, "Cadastro do MedQ", "Seu cadastro foi realizado com sucesso");
+                    var email = await _emailService.SendEmail(emailText);
+                }
+                else
+                {
+                    return BadRequest($"Usuario com {usuario.CPF} Já cadastrado");
+                }
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }

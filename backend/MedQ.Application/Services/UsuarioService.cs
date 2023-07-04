@@ -17,11 +17,13 @@ namespace MedQ.Application.Services
     public class UsuarioService : IUsuarioService
     {
         private readonly IUsuarioRepository _usuarioRepository;
+        private readonly ISocioService _socioService;
         private readonly IMapper _mapper;
 
-        public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper)
+        public UsuarioService(IUsuarioRepository usuarioRepository, ISocioService socioService, IMapper mapper)
         {
             _usuarioRepository = usuarioRepository;
+            _socioService = socioService;
             _mapper = mapper;
         }
 
@@ -44,6 +46,22 @@ namespace MedQ.Application.Services
                 {
                     throw new MedQException("Usuário ou senha inválido");
                 }
+            }
+            catch(Exception ex)
+            {
+                throw new MedQException(ex.Message);
+            }
+        }
+
+        public async Task<bool> SiginUp(SocioDTO socio)
+        {
+            try
+            {
+                var usuario = await _socioService.GetBySocioAsync(0, socio.CPF);
+                if (usuario != null) throw new MedQException("Usuario já existe");
+                if (!Validacoes.Senha(socio.Senha)) throw new MedQException("Senha Invalida");
+                socio.Senha = Seguranca.HashMd5(socio.Senha);
+                return await _socioService.CreateAsync(socio);
             }
             catch(Exception ex)
             {
