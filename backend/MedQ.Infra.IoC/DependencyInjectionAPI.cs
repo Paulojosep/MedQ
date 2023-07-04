@@ -120,6 +120,7 @@ namespace MedQ.Infra.IoC
             services.AddScoped<IEstabelecimentoService, EstabelecimentoService>();
             services.AddScoped<IMinhasConsultaService, MinhasConsultaService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             //Repositories
             services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
