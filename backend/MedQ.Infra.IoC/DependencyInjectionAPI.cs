@@ -67,6 +67,7 @@ namespace MedQ.Infra.IoC
 
                 if (configuration["medbconnection"] != null)
                 {
+                    context.Database.EnsureDeleted();
                     context.Database.Migrate();
                     SEED.Popular(context);
                 }
@@ -74,6 +75,7 @@ namespace MedQ.Infra.IoC
                 {
                     if (context.Database.EnsureCreated())
                     {
+                        context.Database.EnsureDeleted();
                         context.Database.Migrate();
                         SEED.Popular(context);
                     }

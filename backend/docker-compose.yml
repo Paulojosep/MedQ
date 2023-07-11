@@ -22,6 +22,9 @@ services:
     build:
       context: .
       dockerfile: MedQ.API/Dockerfile
+    ports:
+        - 8002:80
+        - 8003:443
     restart: always
     environment:
         medbconnection: "server=bd_medq;user=develop;password=tbate@123;database=medq"

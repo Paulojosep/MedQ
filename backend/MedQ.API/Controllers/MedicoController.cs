@@ -1,5 +1,6 @@
 ﻿using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,6 +22,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet, Route("MedicoByID/{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<MedicoDTO>> GetByID(int id)
         {
             var medico = await _service.GetByID(id);
@@ -43,6 +45,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpPost, Route("setMedico")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<MedicoDTO>> CreateMedico([FromBody] MedicoDTO medicoDTO)
         {
             var medico = await _service.Create(medicoDTO);

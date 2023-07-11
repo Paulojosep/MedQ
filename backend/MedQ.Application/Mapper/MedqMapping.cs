@@ -13,6 +13,11 @@ namespace MedQ.Application.Mapper
         public MedqMapping()
         {
             CreateMap<Socio, SocioDTO>().ReverseMap();
+            CreateMap<Socio, UsuarioLogadoDTO>()
+                .ForMember(x => x.Id, opt => opt.MapFrom(x => x.Id))
+                .ForMember(x => x.Nome, opt => opt.MapFrom(x => x.Nome))
+                .ForMember(x => x.Email, opt => opt.MapFrom(x => x.Email))
+                .ReverseMap();
             CreateMap<Especialidade, EspecialidadeDTO>().ReverseMap();
             CreateMap<Telefone, TelefoneDTO>().ReverseMap();
             CreateMap<Consultas, ConsultasDTO>().ReverseMap();

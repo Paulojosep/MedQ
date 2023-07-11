@@ -28,7 +28,7 @@ namespace MedQ.API.Controllers
             try
             {
                 var usuario = await _usuarioService.Logar(login.Login, login.Senha);
-                return Ok(usuario);
+                return Ok(new UsuarioLogadoDTO(usuario, TokenService.Gerar(usuario)));
             }
             catch(Exception ex)
             {

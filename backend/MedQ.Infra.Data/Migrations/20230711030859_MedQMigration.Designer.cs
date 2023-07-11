@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedQ.Infra.Data.Migrations
 {
     [DbContext(typeof(MedQContext))]
-    [Migration("20230622182039_MedqMigration")]
-    partial class MedqMigration
+    [Migration("20230711030859_MedQMigration")]
+    partial class MedQMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -424,6 +424,10 @@ namespace MedQ.Infra.Data.Migrations
                     b.Property<DateTime>("Data_Cadastro")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("data_cadastro");
+
+                    b.Property<bool>("EhAdmin")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("admin");
 
                     b.Property<string>("Email")
                         .HasColumnType("longtext")
