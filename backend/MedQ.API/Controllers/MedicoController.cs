@@ -57,6 +57,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpPut, Route("updateMedico/{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<MedicoDTO>> UpdateMedico(int id, [FromBody] MedicoDTO medicoDTO)
         {
             var medicoID = await _service.GetByID(id);
@@ -69,6 +70,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpDelete, Route("deleteMedico/{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<MedicoDTO>> DeletarMedico(int id)
         {
             var medico = await _service.GetByID(id);

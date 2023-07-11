@@ -1,9 +1,11 @@
 ﻿using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -46,6 +48,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpPost, Route("Incluir")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<EstabelecimentoDTO>> Post([FromBody] EstabelecimentoDTO estabelecimentoDTO)
         {
             var estabelecimetno = await _service.Create(estabelecimentoDTO);
@@ -57,6 +60,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpPut, Route("Update/{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Put(int id, [FromBody] EstabelecimentoDTO estabelecimentoDTO)
         {
             var estabelecimentoId = await _service.GetEstabelecimento(id, "");
@@ -69,6 +73,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpDelete, Route("Delete/{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int id)
         {
             var estabelecimento = await _service.GetEstabelecimento(id, "");
