@@ -1,22 +1,39 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NavComponent } from './modules/layout/nav/nav.component';
-import { FooterComponent } from './modules/layout/footer/footer.component';
+import { LoginModule } from './core/authentication/login/login.module';
+import { LayoutModule } from './modules/layout/layout.module';
+import { ConsultasModule } from './modules/private/consultas/consultas.module';
+import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { AppRoutingModule } from './app-routing.module';
+import { GuardaRotaService } from './core/services/guarda-rota.service';
+import { AlertModule } from './shared/alert/alert.module';
+import { FormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavComponent,
-    FooterComponent
+    AppComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
-    NgbModule
+    BrowserAnimationsModule,
+    CommonModule,
+    HttpClientModule,
+    NgbModule,
+    LayoutModule,
+    LoginModule,
+    ConsultasModule,
+    AppRoutingModule,
+    AlertModule
   ],
-  providers: [],
+  providers: [GuardaRotaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
