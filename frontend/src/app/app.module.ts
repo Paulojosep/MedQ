@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { GuardaRotaService } from './core/services/guarda-rota.service';
 import { AlertModule } from './shared/alert/alert.module';
 import { FormsModule } from '@angular/forms';
+import { HospitalModule } from './modules/private/hospital/hospital.module';
 
 
 
@@ -30,6 +31,7 @@ import { FormsModule } from '@angular/forms';
     LayoutModule,
     LoginModule,
     ConsultasModule,
+    HospitalModule,
     AppRoutingModule,
     AlertModule
   ],
