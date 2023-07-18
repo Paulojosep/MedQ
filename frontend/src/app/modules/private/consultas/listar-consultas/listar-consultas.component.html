@@ -1,0 +1,27 @@
+<div class="container">
+  <h1> Lista de Consultas</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Medico</th>
+        <th scope="col">Especialidade</th>
+        <th scope="col">Consultas</th>
+        <th scope="col">Data</th>
+        <th scope="col">Hora</th>
+        <th scope="col">Status</th>
+        <th scope="col">Senha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let consulta of consultas">
+        <td>{{consulta.medico}}</td>
+        <td>{{consulta.especialidade}}</td>
+        <td>{{consulta.consultas}}</td>
+        <td>{{consulta.data}}</td>
+        <td>{{consulta.hora}}</td>
+        <td>{{consulta.status}}</td>
+        <td>{{consulta.senha}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
