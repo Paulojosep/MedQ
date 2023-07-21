@@ -4,8 +4,8 @@
 <div class="container card">
   <div class="row row-cols-3">
     <div class="column" style="display: flex; flex-direction: column;">
-      <label>Nome</label>
-      <input type="text" [(ngModel)]="hospital.nome" [disabled]="ehDetalhar">
+      <label for="nome">Nome</label>
+      <input type="text" name="nome" [(ngModel)]="hospital.nome" [disabled]="ehDetalhar">
     </div>
     <div class="column" style="display: flex; flex-direction: column;">
       <label>CEP</label>
@@ -30,6 +30,15 @@
     <div class="column" style="display: flex; flex-direction: column;">
       <label>Estado</label>
       <input type="text" [(ngModel)]="hospital.estado" [disabled]="ehDetalhar">
+    </div>
+    <div class="column" style="display: flex; flex-direction: column;">
+      <label>Tipo Estabelecimento</label>
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="hospital.tipoEstabelecimentoId" [disabled]="ehDetalhar">
+        <option *ngFor="let tipoEstabelecimento of listaTipoEstabelecimentos"
+        value="tipoEstabelecimento.id">
+          {{tipoEstabelecimento.tipo}}
+        </option>
+      </select>
     </div>
   </div>
   <div style="display: flex; justify-content: flex-end;">

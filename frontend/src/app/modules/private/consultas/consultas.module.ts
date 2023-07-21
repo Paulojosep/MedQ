@@ -9,11 +9,6 @@ import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
 import { ConsultasRouter } from "./consultas.routes";
 
-const routes: Routes = [
-    {path: 'listar', component: ListarConsultasComponent},
-    {path: 'consultas/cadastrar', component: CadastrarConsultasComponent}
-];
-
 @NgModule({
     declarations: [
         ListarConsultasComponent,
