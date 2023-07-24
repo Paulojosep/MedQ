@@ -33,7 +33,7 @@ import { HospitalModule } from './modules/private/hospital/hospital.module';
     ConsultasModule,
     HospitalModule,
     AppRoutingModule,
-    AlertModule
+    AlertModule,
   ],
   providers: [GuardaRotaService],
   bootstrap: [AppComponent]
