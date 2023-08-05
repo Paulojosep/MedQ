@@ -21,6 +21,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text;
 using MedQ.Application.Services;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using MedQ.Application.Utils;
+using Microsoft.AspNetCore.Http;
 
 namespace MedQ.API
 {
@@ -102,6 +106,22 @@ namespace MedQ.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MedQ.API v1"));
             }
 
+            /* Exception Handler*/
+            app.UseExceptionHandler(appError =>
+            {
+                appError.Run(async context =>
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    context.Response.ContentType = "application/json";
+                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                    if (contextFeature != null)
+                    {
+                        Log.GravarExcessao(contextFeature.Error);
+                        await context.Response.WriteAsync("Desculpe, houve um problema na sua requisição, por favor tente novamente mais tarde");
+                    }
+                });
+            });
+
             /*------------ Configuração Local PT-BR --------------------*/
             var supportedCultures = new[] { new CultureInfo("pt-br") };
             app.UseRequestLocalization(new RequestLocalizationOptions
@@ -122,7 +142,7 @@ namespace MedQ.API
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseMiddleware<ErrorHandlerMiddleware>();
+            //app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseOptions();
 
             app.UseEndpoints(endpoints =>
