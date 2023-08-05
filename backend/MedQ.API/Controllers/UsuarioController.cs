@@ -2,9 +2,11 @@
 using MedQ.Application.Interfaces;
 using MedQ.Application.IO;
 using MedQ.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace MedQ.API.Controllers
@@ -23,6 +25,11 @@ namespace MedQ.API.Controllers
         }
 
         [HttpPost("Login")]
+        [AllowAnonymous]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsuarioLogadoDTO))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Login([FromBody] Logon login)
         {
             try

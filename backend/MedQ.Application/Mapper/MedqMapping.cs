@@ -20,8 +20,15 @@ namespace MedQ.Application.Mapper
                 .ReverseMap();
             CreateMap<Especialidade, EspecialidadeDTO>().ReverseMap();
             CreateMap<Telefone, TelefoneDTO>().ReverseMap();
-            CreateMap<Consultas, ConsultasDTO>().ReverseMap();
+            
+            CreateMap<Consultas, ConsultasDTO>()
+                .ForMember(x => x.Data, opt => opt.MapFrom(x => x.Data.Date.ToString("dd/MM/yyyy")))
+                .ForMember(x => x.Hora, opt => opt.MapFrom(x => x.Data.Hour.ToString("HH:mm:ss")))
+                .ReverseMap();
+
             CreateMap<Consultas, ConsultasPorSocioOutput>()
+                .ForMember(x => x.Data, opt => opt.MapFrom(x => x.Data.ToString("dd/MM/yyyy")))
+                .ForMember(x => x.Hora, opt => opt.MapFrom(x => x.Hora.ToString("HH:mm:ss")))
                 .ForMember(x => x.Medico, y => y.MapFrom(z => z.Agendamento.Medico.Nome))
                 .ForMember(x => x.Especialidade, y => y.MapFrom(z => z.Agendamento.Medico.Especialidade.Nome))
                 .ReverseMap();
