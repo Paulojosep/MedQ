@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ConsultasService } from '../consultas.service';
+import { Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-cadastrar-consultas',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CadastrarConsultasComponent implements OnInit {
 
-  constructor() { }
+  titulo: string = "";
+
+  constructor(private consultarService: ConsultasService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  btnSalvar() {
+    
   }
 
 }
