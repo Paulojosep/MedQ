@@ -35,7 +35,11 @@ namespace MedQ.Application.Services
 
         public async Task<ConsultasDTO> GetByIdAsync(int id)
         {
-            var consultaEntity = await _repository.Obter(x => x.Id == id).FirstOrDefaultAsync();
+            var consultaEntity = await _repository.AdicionarInclusoes<Consultas, object>(x =>
+            x.Socio, x => x.Agendamento, x => x.Estabelecimento)
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+
             var resultado = _mapper.Map<ConsultasDTO>(consultaEntity);
             return resultado;
         }

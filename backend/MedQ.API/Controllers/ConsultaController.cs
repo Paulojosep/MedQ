@@ -23,6 +23,17 @@ namespace MedQ.API.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var consulta = await _service.GetByIdAsync(id);
+            if(consulta.Equals(null))
+            {
+                return NotFound("Consulta não econtrado");
+            }
+            return Ok(consulta);
+        }
+
         [HttpGet, Route("ConsultarPorSocio/{socioId}")]
         public async Task<IActionResult> GetBySocio(int socioId)
         {
