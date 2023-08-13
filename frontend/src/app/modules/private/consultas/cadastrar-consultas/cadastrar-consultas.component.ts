@@ -11,10 +11,39 @@ import { FormBuilder } from '@angular/forms';
 export class CadastrarConsultasComponent implements OnInit {
 
   titulo: string = "";
+  ehDetalhar: boolean = false;
 
-  constructor(private consultarService: ConsultasService, private fb: FormBuilder, private router: Router) { }
+  private codigoConsulta: any = null;
+  private tipoEntrada: any = null;
+
+  constructor(private consultarService: ConsultasService, private router: Router) {
+    this.codigoConsulta = localStorage.getItem('consultaCodigo');
+    this.tipoEntrada = localStorage.getItem('tipo');
+   }
 
   ngOnInit() {
+    this.ConfigurationBase(this.tipoEntrada);
+  }
+
+  ConfigurationBase(tipo: any | string): void {
+    if(tipo == 'Detalhar') {
+      this.ehDetalhar = true;
+      this.getByCodigo(this.codigoConsulta);
+    }
+    if(tipo == 'Editar') {
+      this.ehDetalhar = false;
+      this.getByCodigo(this.codigoConsulta);
+    }
+    if(tipo == 'Novo') {
+      this.ehDetalhar = false;
+      console.log('nnOVO')
+    }
+  }
+
+  getByCodigo(codigo: number) {
+    this.consultarService.consultarPorId(codigo).subscribe(resp => {
+      console.log(resp);
+    })
   }
 
   btnSalvar() {

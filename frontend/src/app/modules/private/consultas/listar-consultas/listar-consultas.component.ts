@@ -25,7 +25,7 @@ export class ListarConsultasComponent implements OnInit {
   }
 
   getConsultas() {
-    this.consultaService.consultarPorId(this.usuarioLogado.id).subscribe(resp => {
+    this.consultaService.consultarPorSocio(this.usuarioLogado.id).subscribe(resp => {
       console.log(resp);
       this.consultas = resp;
     });
@@ -51,7 +51,7 @@ export class ListarConsultasComponent implements OnInit {
     console.log(codigo)
     localStorage.setItem('consultaCodigo', codigo);
     localStorage.setItem('tipo', 'Detalhar');
-    this.router.navigate(['hospital/detalhar']);
+    this.router.navigate(['consultas/cadastrar']);
   }
 
 

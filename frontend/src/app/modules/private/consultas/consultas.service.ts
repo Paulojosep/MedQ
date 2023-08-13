@@ -10,8 +10,12 @@ export class ConsultasService {
 
 constructor(private http: HttpClient) { }
 
-consultarPorId(id: any): Observable<any[]> {
+consultarPorSocio(id: any): Observable<any[]> {
   return this.http.get<any[]>(`${environment.urlApi}/Consulta/ConsultarPorSocio/${id}`);
+}
+
+consultarPorId(id: any): Observable<any> {
+  return this.http.get<any>(`${environment.urlApi}/Consulta?id=${id}`);
 }
 
 }

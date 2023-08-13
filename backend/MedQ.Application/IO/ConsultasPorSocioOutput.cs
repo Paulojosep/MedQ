@@ -6,6 +6,7 @@ namespace MedQ.Application.IO
 {
     public class ConsultasPorSocioOutput
     {
+        public int Codigo { get; set; }
         public string Medico { get; set; }
         public string Especialidade { get; set; }
         public string Consultas { get; set; }

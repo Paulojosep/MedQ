@@ -24,6 +24,7 @@ namespace MedQ.Application.Mapper
             CreateMap<Consultas, ConsultasDTO>().ReverseMap();
 
             CreateMap<Consultas, ConsultasPorSocioOutput>()
+                .ForMember(x => x.Codigo, opt => opt.MapFrom(x => x.Id))
                 .ForMember(x => x.Data, opt => opt.MapFrom(x => x.Data.ToString("dd/MM/yyyy")))
                 .ForMember(x => x.Hora, opt => opt.MapFrom(x => x.Hora.ToString("HH:mm:ss")))
                 .ForMember(x => x.Medico, y => y.MapFrom(z => z.Agendamento.Medico.Nome))
