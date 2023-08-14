@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { HospitalModule } from './modules/private/hospital/hospital.module';
 import { ErrorInterceptor } from './core/util/error-interceptor';
 import { TokenInterceptor } from './core/util/token-interceptor';
+import { TelefoneModule } from './modules/private/telefone/telefone.module';
 
 
 
@@ -34,6 +35,7 @@ import { TokenInterceptor } from './core/util/token-interceptor';
     LoginModule,
     ConsultasModule,
     HospitalModule,
+    TelefoneModule,
     AppRoutingModule,
     AlertModule
   ],
