@@ -17,6 +17,7 @@ import { HospitalModule } from './modules/private/hospital/hospital.module';
 import { ErrorInterceptor } from './core/util/error-interceptor';
 import { TokenInterceptor } from './core/util/token-interceptor';
 import { TelefoneModule } from './modules/private/telefone/telefone.module';
+import { AgendamentoDisponivelModule } from './modules/private/agendamento-disponivel/agendamento-disponivel.module';
 
 
 
@@ -36,6 +37,7 @@ import { TelefoneModule } from './modules/private/telefone/telefone.module';
     ConsultasModule,
     HospitalModule,
     TelefoneModule,
+    AgendamentoDisponivelModule,
     AppRoutingModule,
     AlertModule
   ],

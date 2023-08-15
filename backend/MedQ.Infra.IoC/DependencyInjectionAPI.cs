@@ -112,22 +112,23 @@ namespace MedQ.Infra.IoC
         private static void RegistrarDependencias(this IServiceCollection services)
         {
             //Services
-            services.AddScoped<ISocioService, SocioService>();
-            services.AddScoped<IEspecialidadeService, EspecialidadeService>();
-            services.AddScoped<ITelefoneService, TelefoneService>();
+            services.AddScoped<IAgendamentoDisponivelService, AgendamentoDisponivelService>();
             services.AddScoped<IConsultaService, ConsultaService>();
-            services.AddScoped<IFilaService, FilaService>();
-            services.AddScoped<IMensagensService, MensagensService>();
-            services.AddScoped<IMedicoService, MedicoService>();
-            services.AddScoped<IEstabelecimentoService, EstabelecimentoService>();
-            services.AddScoped<IMinhasConsultaService, MinhasConsultaService>();
-            services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IEspecialidadeService, EspecialidadeService>();
+            services.AddScoped<IEstabelecimentoService, EstabelecimentoService>();
+            services.AddScoped<IFilaService, FilaService>();
+            services.AddScoped<IMedicoService, MedicoService>();
+            services.AddScoped<IMensagensService, MensagensService>();
+            services.AddScoped<IMinhasConsultaService, MinhasConsultaService>();
+            services.AddScoped<ISocioService, SocioService>();
+            services.AddScoped<ITelefoneService, TelefoneService>();
             services.AddScoped<ITipoEstabelecimentoService, TipoEstabelecimentoService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
 
             //Repositories
-            services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
             services.AddScoped<IConsultasRepository, ConsultaRepository>();
+            services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
             services.AddScoped(typeof(IRepositorioGenerico<>), typeof(RepositorioGenerico<>));
