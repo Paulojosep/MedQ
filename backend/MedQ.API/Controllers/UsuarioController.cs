@@ -5,7 +5,10 @@ using MedQ.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Net.Mime;
 using System.Threading.Tasks;
 
@@ -66,6 +69,15 @@ namespace MedQ.API.Controllers
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        [HttpGet("VersionMedq")]
+        public IActionResult VersionMedq()
+        {
+            string strExeFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            FileInfo file_info = new FileInfo(strExeFilePath);
+            string modificado = file_info.LastWriteTime.ToString("dd/MM/yyyy - HH:mm");
+            return new JsonResult(modificado);
         }
     }
 }
