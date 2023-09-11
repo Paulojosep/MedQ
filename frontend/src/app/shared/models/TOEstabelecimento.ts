@@ -1,3 +1,6 @@
+import { TOSocio } from "./TOSocio";
+import { TOTipoEstabelecimento } from "./TOTipoEstabelecimento";
+
 export interface TOEstabelecimento {
     id: number;
     nome: string;
@@ -11,4 +14,7 @@ export interface TOEstabelecimento {
     image: string;
     tipoEstabelecimentoId: number;
     socioId: number;
+
+    tipoEstabelecimento: TOTipoEstabelecimento;
+    socio: TOSocio;
 }
