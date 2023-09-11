@@ -3,6 +3,7 @@ import { HospitalService } from '../hospital.service';
 import { Router } from '@angular/router';
 import { ConfigurationBase } from 'src/app/shared/interfaces/base-declaration';
 import { TipoEstabelecimentoService } from 'src/app/core/services/tipo-estabelecimento.service';
+import { TOEstabelecimento } from 'src/app/shared/models/TOEstabelecimento';
 
 @Component({
   selector: 'app-cadastrar-hospital',
@@ -12,7 +13,7 @@ import { TipoEstabelecimentoService } from 'src/app/core/services/tipo-estabelec
 export class CadastrarHospitalComponent implements OnInit, ConfigurationBase {
 
   titulo: string = "Detalhar";
-  hospital: any = null;
+  hospital: TOEstabelecimento = {} as TOEstabelecimento;
   listaTipoEstabelecimentos: any[] = [];
   private codigoHospital: any = null;
   private tipoEntrada: any = null;
