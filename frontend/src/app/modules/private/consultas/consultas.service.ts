@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ConsultasPorSocioOutput, TOConsultas } from 'src/app/shared/models/TOConsultas';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,12 +11,12 @@ export class ConsultasService {
 
 constructor(private http: HttpClient) { }
 
-consultarPorSocio(id: any): Observable<any[]> {
-  return this.http.get<any[]>(`${environment.urlApi}/Consulta/ConsultarPorSocio/${id}`);
+consultarPorSocio(id: any): Observable<ConsultasPorSocioOutput[]> {
+  return this.http.get<ConsultasPorSocioOutput[]>(`${environment.urlApi}/Consulta/ConsultarPorSocio/${id}`);
 }
 
-consultarPorId(id: any): Observable<any> {
-  return this.http.get<any>(`${environment.urlApi}/Consulta?id=${id}`);
+consultarPorId(id: any): Observable<TOConsultas> {
+  return this.http.get<TOConsultas>(`${environment.urlApi}/Consulta?id=${id}`);
 }
 
 }

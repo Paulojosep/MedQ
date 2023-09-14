@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConsultasService } from '../consultas.service';
 import { Router } from '@angular/router';
+import { ConsultasPorSocioOutput } from 'src/app/shared/models/TOConsultas';
 
 @Component({
   selector: 'app-listar-consultas',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ListarConsultasComponent implements OnInit {
 
-  consultas: any[] = [];
+  consultas: ConsultasPorSocioOutput[] = [];
   usuarioLogado: any = null;
 
   constructor(private consultaService: ConsultasService, private router: Router) { }
@@ -37,8 +38,9 @@ export class ListarConsultasComponent implements OnInit {
     this.router.navigate(['consultas/cadastrar']);
   }
 
-  btnEditar() {
+  btnEditar(codigo: any) {
     console.log('botao editar');
+    localStorage.setItem('consultaCodigo', codigo);
     localStorage.setItem('tipo', 'Editar');
     this.router.navigate(['consultas/cadastrar']);
   }

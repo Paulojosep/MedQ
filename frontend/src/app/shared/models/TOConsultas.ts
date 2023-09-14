@@ -48,3 +48,14 @@ export interface MinhasConsultaInput {
     especialidade: TOEspecialidade;
     medico: TOMedico;
 }
+
+export interface TOConsultaOutput {
+    imagem: string;
+    nomeHospital: string;
+    dataHora: string;
+    status: string;
+    senha: string;
+    cep: string;
+    endereco: string;
+    estado: string;
+}

@@ -1,3 +1,56 @@
-<p>
-  cadastrar-consultas works!
-</p>
+<div class="card">
+  <div>
+    <h1>{{titulo}} Consultas</h1>
+  </div>
+
+  <div class="card">
+    <div class="row row-cols-3 form-group">
+      <div class="column" style="display: flex; flex-direction: column;">
+        <label for="nome">Imagem</label>
+        <input type="text" class="form-control" formControlName="imagem" name="imagem" id="imagem" [disabled]="ehDetalhar">
+      </div>
+      <div class="column" style="display: flex; flex-direction: column;">
+        <label for="nome">Nome do Hospital:</label>
+        <input type="text" class="form-control" formControlName="nomeHospital" name="nomeHospital" id="nomeHospital" [disabled]="ehDetalhar">
+      </div>
+      <div class="column" style="display: flex; flex-direction: column;">
+        <label for="nome">CEP:</label>
+        <input type="text" class="form-control" formControlName="cep" name="cep" id="cep" [disabled]="ehDetalhar">
+      </div>
+      <div class="column" style="display: flex; flex-direction: column;">
+        <label for="nome">Endereço:</label>
+        <input type="text" class="form-control" formControlName="endereco" name="endereco" id="endereco" [disabled]="ehDetalhar">
+      </div>
+      <div class="column" style="display: flex; flex-direction: column;">
+        <label for="nome">Cidade:</label>
+        <input type="text" class="form-control" formControlName="cidade" name="cidade" id="cidade" [disabled]="ehDetalhar">
+      </div>
+      <div class="column" style="display: flex; flex-direction: column;">
+        <label for="nome">Estado:</label>
+        <input type="text" class="form-control" formControlName="estado" name="estado" id="estado" [disabled]="ehDetalhar">
+      </div>
+      <div class="column" style="display: flex; flex-direction: column;">
+        <label for="nome">Status:</label>
+        <input type="text" class="form-control" formControlName="status" name="status" id="status" [disabled]="ehDetalhar">
+      </div>
+      <div class="column" style="display: flex; flex-direction: column;">
+        <label for="nome">Senha:</label>
+        <input type="text" class="form-control" formControlName="senha" name="senha" id="senha" [disabled]="ehDetalhar">
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+      <ngb-panel title="Simple">
+        <ng-template ngbPanelContent>
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
+          officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
+          moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim
+          keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
+          vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't
+          heard of them accusamus labore sustainable VHS.
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+</div>

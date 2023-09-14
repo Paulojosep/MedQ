@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConsultasService } from '../consultas.service';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { TOConsultas } from 'src/app/shared/models/TOConsultas';
 
 @Component({
   selector: 'app-cadastrar-consultas',
@@ -11,12 +12,13 @@ import { FormBuilder } from '@angular/forms';
 export class CadastrarConsultasComponent implements OnInit {
 
   titulo: string = "";
+  formulario!: FormGroup;
   ehDetalhar: boolean = false;
-
+  consulta: TOConsultas = {} as TOConsultas;
   private codigoConsulta: any = null;
   private tipoEntrada: any = null;
 
-  constructor(private consultarService: ConsultasService, private router: Router) {
+  constructor(private fb: FormBuilder, private consultarService: ConsultasService, private router: Router) {
     this.codigoConsulta = localStorage.getItem('consultaCodigo');
     this.tipoEntrada = localStorage.getItem('tipo');
    }
@@ -40,9 +42,23 @@ export class CadastrarConsultasComponent implements OnInit {
     }
   }
 
+  inicializacao(value: TOConsultas) {
+    console.log(value)
+    this.formulario = this.fb.group({
+      imagem: new FormControl<string>("Tes"),
+      nomeHospital: new FormControl<string>(value.estabelecimento.nome),
+      cep: new FormControl<string>(value.estabelecimento.cep),
+      endereco: new FormControl<string>(value.estabelecimento.endereco),
+      cidade: new FormControl<string>(value.estabelecimento.cidade),
+      estado: new FormControl<string>(value.estabelecimento.estado),
+      status: new FormControl<string>(value.status),
+      senha: new FormControl<string>(value.senha),
+    })
+  }
+
   getByCodigo(codigo: number) {
     this.consultarService.consultarPorId(codigo).subscribe(resp => {
-      console.log(resp);
+      this.inicializacao(resp);
     })
   }
 

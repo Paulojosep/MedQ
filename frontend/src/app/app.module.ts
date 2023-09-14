@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { GuardaRotaService } from './core/services/guarda-rota.service';
 import { AlertModule } from './shared/alert/alert.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HospitalModule } from './modules/private/hospital/hospital.module';
 import { ErrorInterceptor } from './core/util/error-interceptor';
 import { TokenInterceptor } from './core/util/token-interceptor';
@@ -39,7 +39,8 @@ import { AgendamentoDisponivelModule } from './modules/private/agendamento-dispo
     TelefoneModule,
     AgendamentoDisponivelModule,
     AppRoutingModule,
-    AlertModule
+    AlertModule,
+    ReactiveFormsModule
   ],
   providers: [
     GuardaRotaService,
