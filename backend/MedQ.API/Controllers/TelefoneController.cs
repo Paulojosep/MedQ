@@ -1,9 +1,11 @@
 ﻿using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,10 +34,11 @@ namespace MedQ.API.Controllers
         }
 
         [HttpPost, Route("Incluir")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<TelefoneDTO>> Incluir([FromBody] TelefoneDTO obj)
         {
             var telefone = await _service.CreateAsync(obj);
-            if (telefone == null)
+            if (telefone.Equals(null))
             {
                 return BadRequest("Não foi possivel Cadastrar");
             }
@@ -43,6 +46,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpPut, Route("Editar")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<TelefoneDTO>> Editar([FromBody] TelefoneDTO obj)
         {
             var telefoneID = await _service.GetByIdAsync(obj.Id);

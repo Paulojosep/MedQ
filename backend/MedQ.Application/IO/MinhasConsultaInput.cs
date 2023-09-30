@@ -7,17 +7,16 @@ namespace MedQ.Application.IO
 {
     public class MinhasConsultaInput
     {
-        public string senha { get; set; }
-        public string profissional_nome { get; set; }
-        public DateTime data { get; set; }
-        public DateTime hora { get; set; }
-        public string status { get; set; }
-        public int consulta_id { get; set; }
-        public int socio_id { get; set; }
-        public string estabelecimento_nome { get; set; }
-        public string especialidade_nome { get; set; }
+        public string Senha { get; set; }
+        public string ProfissionalNome { get; set; }
+        public DateTime Data { get; set; }
+        public string Status { get; set; }
+        public int ConsultaId { get; set; }
+        public int SocioId { get; set; }
+        public string EstabelecimentoNome { get; set; }
+        public string EspecialidadeNome { get; set; }
         public string Pedido { get; set; }
-        public Consultas consultas { get; set; }
+        public Consultas Consultas { get; set; }
         public AgendamentoDisponiveis Agendamento { get; set; }
         public Estabelecimento Estabelecimento { get; set; }
         public Especialidade Especialidade { get; set; }

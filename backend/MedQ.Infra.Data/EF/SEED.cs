@@ -64,8 +64,11 @@ namespace MedQ.Infra.Data.EF
 
             if (context.Socio.Count().Equals(0))
             {
-                context.Socio.Add(new Socio(1, "Fulano de tal", "Masculino", "12345678901", "fulano.de.tal@gmail.com",
-                    "123456", "Rua dos tolos", "Número 0", "BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now, null, null, null, null));
+                context.Socio.Add(new Socio(1, "Administrador", "12345678901", "Masculino", "admin@gmail.com",
+                    "25d55ad283aa400af464c76d713c07ad", "Rua dos idiotas", "Número 1", "BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now, null, null, null, null, true));
+
+                context.Socio.Add(new Socio(2, "Fulano de tal", "12345678901", "Masculino", "fulano.de.tal@gmail.com",
+                    "e10adc3949ba59abbe56e057f20f883e", "Rua dos tolos", "Número 0", "BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now, null, null, null, null, false));
             }
 
             if (context.Telefone.Count().Equals(0))

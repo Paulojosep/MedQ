@@ -31,6 +31,7 @@ namespace MedQ.Infra.Data.Configuration
             builder.Property(p => p.CodigoVerificacao).HasColumnName("codigo_verificacao");
             builder.Property(p => p.IdGoogle).HasColumnName("id_google");
             builder.Property(p => p.Tipo).HasColumnName("tipo");
+            builder.Property(p => p.EhAdmin).HasColumnName("admin").IsRequired();
         }
     }
 }

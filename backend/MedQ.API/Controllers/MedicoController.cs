@@ -1,5 +1,6 @@
 ﻿using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,6 +22,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet, Route("MedicoByID/{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<MedicoDTO>> GetByID(int id)
         {
             var medico = await _service.GetByID(id);
@@ -43,10 +45,11 @@ namespace MedQ.API.Controllers
         }
 
         [HttpPost, Route("setMedico")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<MedicoDTO>> CreateMedico([FromBody] MedicoDTO medicoDTO)
         {
             var medico = await _service.Create(medicoDTO);
-            if(medico == null)
+            if(medico.Equals(null))
             {
                 return BadRequest("Não foi possivel Cadastrar");
             }
@@ -54,6 +57,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpPut, Route("updateMedico/{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<MedicoDTO>> UpdateMedico(int id, [FromBody] MedicoDTO medicoDTO)
         {
             var medicoID = await _service.GetByID(id);
@@ -66,6 +70,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpDelete, Route("deleteMedico/{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<MedicoDTO>> DeletarMedico(int id)
         {
             var medico = await _service.GetByID(id);

@@ -56,7 +56,9 @@ namespace MedQ.Infra.IoC
             try
             {
                 DbContextOptionsBuilder<MedQContext> dbContextOptions = new DbContextOptionsBuilder<MedQContext>();
-
+                var connectionString = ObterConnectionString(configuration);
+                dbContextOptions.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+                    b => b.MigrationsAssembly(typeof(MedQContext).Assembly.FullName));
                 MedQContext context = new MedQContext(dbContextOptions.Options);
                 context.ChangeTracker
                    .Entries()
@@ -65,8 +67,18 @@ namespace MedQ.Infra.IoC
 
                 if (configuration["medbconnection"] != null)
                 {
+                    context.Database.EnsureDeleted();
                     context.Database.Migrate();
                     SEED.Popular(context);
+                }
+                else
+                {
+                    if (context.Database.EnsureCreated())
+                    {
+                        context.Database.EnsureDeleted();
+                        context.Database.Migrate();
+                        SEED.Popular(context);
+                    }
                 }
             }
             catch (Exception ex)
@@ -100,19 +112,25 @@ namespace MedQ.Infra.IoC
         private static void RegistrarDependencias(this IServiceCollection services)
         {
             //Services
-            services.AddScoped<ISocioService, SocioService>();
-            services.AddScoped<IEspecialidadeService, EspecialidadeService>();
-            services.AddScoped<ITelefoneService, TelefoneService>();
+            services.AddScoped<IAgendamentoDisponivelService, AgendamentoDisponivelService>();
             services.AddScoped<IConsultaService, ConsultaService>();
-            services.AddScoped<IFilaService, FilaService>();
-            services.AddScoped<IMensagensService, MensagensService>();
-            services.AddScoped<IMedicoService, MedicoService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IEspecialidadeService, EspecialidadeService>();
             services.AddScoped<IEstabelecimentoService, EstabelecimentoService>();
+            services.AddScoped<IFilaService, FilaService>();
+            services.AddScoped<IMedicoService, MedicoService>();
+            services.AddScoped<IMensagensService, MensagensService>();
             services.AddScoped<IMinhasConsultaService, MinhasConsultaService>();
+            services.AddScoped<ISocioService, SocioService>();
+            services.AddScoped<ITelefoneService, TelefoneService>();
+            services.AddScoped<ITipoEstabelecimentoService, TipoEstabelecimentoService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
 
             //Repositories
-            services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
             services.AddScoped<IConsultasRepository, ConsultaRepository>();
+            services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
             services.AddScoped(typeof(IRepositorioGenerico<>), typeof(RepositorioGenerico<>));
         }
     }

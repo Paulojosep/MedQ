@@ -16,14 +16,29 @@ services:
     MYSQL_USER: develop
     MYSQL_PASSWORD: tbate@123
     MYSQL_TCP_PORT: 3306
+   volumes:
+    - E:\DOCKER-VOLUMES\medq\dados:/var/lib/mysql 
 
   medq.api:
     image: ${DOCKER_REGISTRY-}medqapi
     build:
       context: .
       dockerfile: MedQ.API/Dockerfile
+    ports:
+        - 8002:80
+        - 8003:443
     restart: always
     environment:
         medbconnection: "server=bd_medq;user=develop;password=tbate@123;database=medq"
         DROP_DATA_BASE: 1
         POPULAR_DATA_BASE: 1 
+
+  sgbd.medq:
+    image: phpmyadmin
+    restart: always
+    ports:
+        - 8087:80
+    environment:
+        - PMA_ARBITRARY=1
+        - PMA_HOST=bd_medq
+        - MYSQL_ROOT_PASSWORD=tbate@123
