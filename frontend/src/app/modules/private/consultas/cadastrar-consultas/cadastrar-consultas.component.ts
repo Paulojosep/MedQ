@@ -12,7 +12,7 @@ import { TOConsultas } from 'src/app/shared/models/TOConsultas';
 export class CadastrarConsultasComponent implements OnInit {
 
   titulo: string = "";
-  formulario!: FormGroup;
+  formulario: FormGroup = new FormGroup(null);
   ehDetalhar: boolean = false;
   consulta: TOConsultas = {} as TOConsultas;
   private codigoConsulta: any = null;
@@ -43,7 +43,6 @@ export class CadastrarConsultasComponent implements OnInit {
   }
 
   inicializacao(value: TOConsultas) {
-    console.log(value)
     this.formulario = this.fb.group({
       imagem: new FormControl<string>("Tes"),
       nomeHospital: new FormControl<string>(value.estabelecimento.nome),
@@ -53,7 +52,8 @@ export class CadastrarConsultasComponent implements OnInit {
       estado: new FormControl<string>(value.estabelecimento.estado),
       status: new FormControl<string>(value.status),
       senha: new FormControl<string>(value.senha),
-    })
+    });
+    console.log(this.formulario.value);
   }
 
   getByCodigo(codigo: number) {

@@ -4,38 +4,38 @@
   </div>
 
   <div class="card">
-    <div class="row row-cols-3 form-group">
-      <div class="column" style="display: flex; flex-direction: column;">
+    <div class="row row-cols-3" >
+      <div class="column" style="display: flex; flex-direction: column;" [formGroup]="formulario">
         <label for="nome">Imagem</label>
-        <input type="text" class="form-control" formControlName="imagem" name="imagem" id="imagem" [disabled]="ehDetalhar">
+        <input type="text" class="form-control" formControlName="imagem" name="imagem" id="imagem">
       </div>
-      <div class="column" style="display: flex; flex-direction: column;">
+      <div class="column" style="display: flex; flex-direction: column;" [formGroup]="formulario">
         <label for="nome">Nome do Hospital:</label>
-        <input type="text" class="form-control" formControlName="nomeHospital" name="nomeHospital" id="nomeHospital" [disabled]="ehDetalhar">
+        <input type="text" class="form-control" formControlName="nomeHospital" name="nomeHospital" id="nomeHospital">
       </div>
-      <div class="column" style="display: flex; flex-direction: column;">
+      <div class="column" style="display: flex; flex-direction: column;" [formGroup]="formulario">
         <label for="nome">CEP:</label>
-        <input type="text" class="form-control" formControlName="cep" name="cep" id="cep" [disabled]="ehDetalhar">
+        <input type="text" class="form-control" formControlName="cep" name="cep" id="cep">
       </div>
-      <div class="column" style="display: flex; flex-direction: column;">
+      <div class="column" style="display: flex; flex-direction: column;" [formGroup]="formulario">
         <label for="nome">Endereço:</label>
-        <input type="text" class="form-control" formControlName="endereco" name="endereco" id="endereco" [disabled]="ehDetalhar">
+        <input type="text" class="form-control" formControlName="endereco" name="endereco" id="endereco">
       </div>
-      <div class="column" style="display: flex; flex-direction: column;">
+      <div class="column" style="display: flex; flex-direction: column;" [formGroup]="formulario">
         <label for="nome">Cidade:</label>
-        <input type="text" class="form-control" formControlName="cidade" name="cidade" id="cidade" [disabled]="ehDetalhar">
+        <input type="text" class="form-control" formControlName="cidade" name="cidade" id="cidade">
       </div>
-      <div class="column" style="display: flex; flex-direction: column;">
+      <div class="column" style="display: flex; flex-direction: column;" [formGroup]="formulario">
         <label for="nome">Estado:</label>
-        <input type="text" class="form-control" formControlName="estado" name="estado" id="estado" [disabled]="ehDetalhar">
+        <input type="text" class="form-control" formControlName="estado" name="estado" id="estado">
       </div>
-      <div class="column" style="display: flex; flex-direction: column;">
+      <div class="column" style="display: flex; flex-direction: column;" [formGroup]="formulario">
         <label for="nome">Status:</label>
-        <input type="text" class="form-control" formControlName="status" name="status" id="status" [disabled]="ehDetalhar">
+        <input type="text" class="form-control" formControlName="status" name="status" id="status">
       </div>
-      <div class="column" style="display: flex; flex-direction: column;">
+      <div class="column" style="display: flex; flex-direction: column;" [formGroup]="formulario">
         <label for="nome">Senha:</label>
-        <input type="text" class="form-control" formControlName="senha" name="senha" id="senha" [disabled]="ehDetalhar">
+        <input type="text" class="form-control" formControlName="senha" name="senha" id="senha">
       </div>
     </div>
   </div>

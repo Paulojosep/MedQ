@@ -19,4 +19,8 @@ consultarPorId(id: any): Observable<TOConsultas> {
   return this.http.get<TOConsultas>(`${environment.urlApi}/Consulta?id=${id}`);
 }
 
+consultarMinhaConsultaPorId(id: number): Observable<any> {
+  return this.http.get<any>(`${environment.urlApi}/MinhasConsulta/FinishedMensagens/${id}`);
+}
+
 }

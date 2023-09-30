@@ -8,16 +8,20 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
 import { ConsultasRouter } from "./consultas.routes";
+import { MinhasConsultasComponent } from "./minhas-consultas/minhas-consultas.component";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
         ListarConsultasComponent,
-        CadastrarConsultasComponent
+        CadastrarConsultasComponent,
+        MinhasConsultasComponent
     ],
     imports: [
         BrowserModule,    
         BrowserAnimationsModule,
         CommonModule,
+        ReactiveFormsModule,
         HttpClientModule,
         NgbModule,
         ConsultasRouter
