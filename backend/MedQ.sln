@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedQ.API", "MedQ.API\MedQ.A
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7170B4B0-AADC-4E78-8452-CBA3C6835FFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedQ.Teste", "..\MedQ.Teste\MedQ.Teste.csproj", "{FB6A2865-D627-42F9-AFA5-3A1C58DD06BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedQ.Teste", "MedQ.Tests\MedQ.Teste\MedQ.Teste.csproj", "{6B9E228D-00F1-43D3-A998-596881343263}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{7170B4B0-AADC-4E78-8452-CBA3C6835FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7170B4B0-AADC-4E78-8452-CBA3C6835FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7170B4B0-AADC-4E78-8452-CBA3C6835FFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB6A2865-D627-42F9-AFA5-3A1C58DD06BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB6A2865-D627-42F9-AFA5-3A1C58DD06BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB6A2865-D627-42F9-AFA5-3A1C58DD06BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB6A2865-D627-42F9-AFA5-3A1C58DD06BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B9E228D-00F1-43D3-A998-596881343263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B9E228D-00F1-43D3-A998-596881343263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B9E228D-00F1-43D3-A998-596881343263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B9E228D-00F1-43D3-A998-596881343263}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
