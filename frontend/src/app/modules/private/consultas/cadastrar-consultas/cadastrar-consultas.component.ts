@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConsultasService } from '../consultas.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { TOConsultas } from 'src/app/shared/models/TOConsultas';
+import { TOConsultas } from 'src/app/shared/models/TOModel';
 
 @Component({
   selector: 'app-cadastrar-consultas',

@@ -7,9 +7,11 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { TelefoneRouter } from "./telefone.routes";
 import { CadastrarTelefoneComponent } from "./cadastrar-telefone/cadastrar-telefone.component";
+import { ListarTelefoneComponent } from "./listar-telefone/listar-telefone.component";
 
 @NgModule({
     declarations: [
+        ListarTelefoneComponent,
         CadastrarTelefoneComponent
     ],
     imports: [

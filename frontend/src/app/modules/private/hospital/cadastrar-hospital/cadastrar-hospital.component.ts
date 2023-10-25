@@ -3,7 +3,7 @@ import { HospitalService } from '../hospital.service';
 import { Router } from '@angular/router';
 import { ConfigurationBase } from 'src/app/shared/interfaces/base-declaration';
 import { TipoEstabelecimentoService } from 'src/app/core/services/tipo-estabelecimento.service';
-import { TOEstabelecimento } from 'src/app/shared/models/TOEstabelecimento';
+import { TOEstabelecimento } from 'src/app/shared/models/TOModel';
 
 @Component({
   selector: 'app-cadastrar-hospital',

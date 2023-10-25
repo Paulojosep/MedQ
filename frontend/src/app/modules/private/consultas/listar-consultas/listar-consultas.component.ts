@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConsultasService } from '../consultas.service';
 import { Router } from '@angular/router';
-import { ConsultasPorSocioOutput } from 'src/app/shared/models/TOConsultas';
+import { ConsultasPorSocioOutput } from 'src/app/shared/models/TOModel';
 
 @Component({
   selector: 'app-listar-consultas',

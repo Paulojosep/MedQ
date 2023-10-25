@@ -1,10 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EstabelecimentoService } from 'src/app/core/services/estabelecimento.service';
-import { TOEstabelecimento } from 'src/app/shared/models/TOEstabelecimento';
-import { TOTelefone } from 'src/app/shared/models/TOTelefone';
 import { TelefoneService } from '../telefone.service';
 import { AlertService } from 'src/app/shared/alert/alert.service';
+import { TOTelefone } from 'src/app/shared/models/TOModel';
 
 @Component({
   selector: 'app-cadastrar-telefone',

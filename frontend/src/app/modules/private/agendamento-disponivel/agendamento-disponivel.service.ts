@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AgendamentoDisponivelInput, TOAgendamentoDisponivel } from 'src/app/shared/models/TOAgendamentoDisponivel';
+import { TOAgendamentoDisponivel, AgendamentoDisponivelInput } from 'src/app/shared/models/TOModel';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

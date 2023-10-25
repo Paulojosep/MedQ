@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ConsultasPorSocioOutput, TOConsultas } from 'src/app/shared/models/TOConsultas';
+import { ConsultasPorSocioOutput, TOConsultas } from 'src/app/shared/models/TOModel';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

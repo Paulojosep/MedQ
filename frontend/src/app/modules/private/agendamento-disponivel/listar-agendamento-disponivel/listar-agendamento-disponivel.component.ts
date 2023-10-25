@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AgendamentoDisponivelService } from '../agendamento-disponivel.service';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/shared/alert/alert.service';
-import { AgendamentoDisponivelInput, TOAgendamentoDisponivel } from 'src/app/shared/models/TOAgendamentoDisponivel';
 import * as moment from 'moment';
+import { AgendamentoDisponivelInput, TOAgendamentoDisponivel } from 'src/app/shared/models/TOModel';
 
 @Component({
   selector: 'app-listar-agendamento-disponivel',
