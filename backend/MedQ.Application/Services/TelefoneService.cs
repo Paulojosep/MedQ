@@ -17,18 +17,20 @@ namespace MedQ.Application.Services
 {
     public class TelefoneService : ITelefoneService
     {
-        private readonly IRepositorioGenerico<Telefone> _repository;
+        private readonly IRepositorioGenerico<Telefone> _telefoneRepositorio;
+        private readonly IRepositorioGenerico<Estabelecimento> _estabelecimentoRepositorio;
         private readonly IMapper _mapper;
 
-        public TelefoneService(IRepositorioGenerico<Telefone> repository, IMapper mapper)
+        public TelefoneService(IRepositorioGenerico<Telefone> telefoneRepositorio, IRepositorioGenerico<Estabelecimento> estabelecimentoRepositorio, IMapper mapper)
         {
-            _repository = repository;
+            _telefoneRepositorio = telefoneRepositorio;
+            _estabelecimentoRepositorio = estabelecimentoRepositorio;
             _mapper = mapper;
         }
 
         public async Task<IEnumerable<TelefoneDTO>> GetAllAsync()
         {
-            return _mapper.Map<IEnumerable<TelefoneDTO>>(await _repository.AdicionarInclusoes<Telefone, object>(
+            return _mapper.Map<IEnumerable<TelefoneDTO>>(await _telefoneRepositorio.AdicionarInclusoes<Telefone, object>(
                 x => x.Estabelecimento,
                 x => x.Socio).ToListAsync());
         }
@@ -37,7 +39,7 @@ namespace MedQ.Application.Services
         {
             try
             {
-                return _mapper.Map<TelefoneDTO>(await _repository.AdicionarInclusoes<Telefone, object>(
+                return _mapper.Map<TelefoneDTO>(await _telefoneRepositorio.AdicionarInclusoes<Telefone, object>(
                 x => x.Estabelecimento,
                 x => x.Socio).Where(x => x.Id == id).FirstAsync());
             }
@@ -55,9 +57,10 @@ namespace MedQ.Application.Services
         {
             try
             {
+                obj.SocioId = await _estabelecimentoRepositorio.Obter(x => x.Id == obj.EstabelecimentoId).Select(s => s.SocioId).FirstOrDefaultAsync();
                 var telefoneEntity = _mapper.Map<Telefone>(obj);
-                _repository.Adicionar(telefoneEntity);
-                return await _repository.SalvarAsync();
+                _telefoneRepositorio.Adicionar(telefoneEntity);
+                return await _telefoneRepositorio.SalvarAsync();
             }
             catch (DbUpdateException ex)
             {
@@ -74,8 +77,8 @@ namespace MedQ.Application.Services
             try
             {
                 var telefoneEntity = _mapper.Map<Telefone>(obj);
-                _repository.Editar(telefoneEntity);
-                return await _repository.SalvarAsync();
+                _telefoneRepositorio.Editar(telefoneEntity);
+                return await _telefoneRepositorio.SalvarAsync();
             }
             catch (DbUpdateException ex)
             {
