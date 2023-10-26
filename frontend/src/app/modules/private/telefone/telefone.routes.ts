@@ -5,7 +5,8 @@ import { ListarTelefoneComponent } from "./listar-telefone/listar-telefone.compo
 
 const routes: Routes = [
     {path: 'telefone/listar', component: ListarTelefoneComponent},
-    {path: 'telefone/cadastrar', component: CadastrarTelefoneComponent}
+    {path: 'telefone/cadastrar', component: CadastrarTelefoneComponent},
+    {path: 'telefone/editar', component: CadastrarTelefoneComponent}
 ]
 
 

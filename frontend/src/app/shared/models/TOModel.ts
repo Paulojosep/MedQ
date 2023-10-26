@@ -124,10 +124,12 @@ export interface TOSocio {
 
 export interface TOTelefone {
     id: number;
-    DDD: string;
+    ddd: string;
     numero: string;
     estabelecimentoId: number;
+    estabelecimento: TOEstabelecimento;
     socioId: number;
+    socio: TOSocio;
 }
 
 export interface TOTipoEstabelecimento {

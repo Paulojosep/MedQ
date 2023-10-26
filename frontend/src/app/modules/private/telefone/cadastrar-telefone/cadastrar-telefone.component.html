@@ -5,7 +5,15 @@
   <div class="row row-cols-3">
     <div class="column" style="display: flex; flex-direction: column;">
       <label for="nome">Telefone</label>
-      <input type="text" name="telefone" [(ngModel)]="numeroTelefone" maxlength="11">
+      <input type="text" name="telefone" [(ngModel)]="numeroTelefone" maxlength="11" placeholder="XX-XXXXXXXX">
+    </div>
+  </div>
+  <div class="row row-cols-3">
+    <div class="column" style="display: flex; flex-direction: column;">
+      <label for="nome">Hospital</label>
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="codigoEstabelecimento" placeholder="Selecione">
+        <option *ngFor="let item of listaEstabelecimento" value="{{item.id}}">{{item.nome}}</option>
+      </select>
     </div>
   </div>
   <div style="display: flex; justify-content: flex-end;">

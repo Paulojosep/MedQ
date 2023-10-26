@@ -20,11 +20,20 @@ export class ListarTelefoneComponent implements OnInit {
   }
 
   listarTelefone() {
-    this.telefoneService.listar().subscribe({
-      next: (resp) => {
-        this.listaTelefone = resp;
-      }
-    });
+    this.telefoneService.listar().subscribe(resp => {
+      this.listaTelefone = resp;
+    })
+  }
+
+  btnNovo() {
+    localStorage.setItem('tipo', 'Novo');
+    this.router.navigate(['telefone/cadastrar']);
+  }
+
+  btnEditar(codigo: any) {
+    localStorage.setItem('telefoneCodigo', codigo);
+    localStorage.setItem('tipo', 'Editar');
+    this.router.navigate(['telefone/editar']);
   }
 
 }
