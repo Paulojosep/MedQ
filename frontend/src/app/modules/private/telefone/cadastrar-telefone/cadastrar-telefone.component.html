@@ -1,0 +1,33 @@
+<div>
+  <h2>{{tituto}} Telefone</h2>
+</div>
+<div class="container card">
+  <div class="row row-cols-3">
+    <div class="column" style="display: flex; flex-direction: column;">
+      <label for="nome">Telefone</label>
+      <input type="text" name="telefone" [(ngModel)]="numeroTelefone" maxlength="11" placeholder="XX-XXXXXXXX">
+    </div>
+  </div>
+  <div class="row row-cols-3">
+    <div class="column" style="display: flex; flex-direction: column;">
+      <label for="nome">Hospital</label>
+      <select class="form-select" aria-label="Default select example" [(ngModel)]="codigoEstabelecimento" placeholder="Selecione">
+        <option *ngFor="let item of listaEstabelecimento" value="{{item.id}}">{{item.nome}}</option>
+      </select>
+    </div>
+  </div>
+  <div style="display: flex; justify-content: flex-end;">
+    <button type="submit" style="margin-right: 5px;" class="btn btn-success" (click)="btnSalvar()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+      </svg>
+      Salvar
+    </button>
+    <button type="submit" class="btn btn-danger" (click)="btnVoltar()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-start-fill" viewBox="0 0 16 16">
+        <path d="M4 4a.5.5 0 0 1 1 0v3.248l6.267-3.636c.54-.313 1.232.066 1.232.696v7.384c0 .63-.692 1.01-1.232.697L5 8.753V12a.5.5 0 0 1-1 0V4z"/>
+      </svg>
+      Voltar
+    </button>
+  </div>
+</div>

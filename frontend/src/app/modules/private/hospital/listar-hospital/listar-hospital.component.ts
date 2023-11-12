@@ -30,8 +30,9 @@ export class ListarHospitalComponent implements OnInit {
     this.router.navigate(['hospital/novo']);
   }
 
-  btnEditar() {
+  btnEditar(codigo: any) {
     console.log('botao editar');
+    localStorage.setItem('hospitalCodigo', codigo);
     localStorage.setItem('tipo', 'Editar');
     this.router.navigate(['hospital/editar']);
   }

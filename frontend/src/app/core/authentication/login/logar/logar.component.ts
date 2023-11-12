@@ -21,7 +21,7 @@ export class LogarComponent implements OnInit {
     this.loginService.logar(this.logon).subscribe(resp => {
       console.log(resp);
       localStorage.setItem('UsuarioLogado', JSON.stringify(resp));
-      this.router.navigate(['consultas/lista'])
+      this.router.navigate(['consultas/lista']);
     })
   }
 }
