@@ -128,7 +128,6 @@ namespace MedQ.Infra.IoC
 
             //Repositories
             services.AddScoped<IConsultasRepository, ConsultaRepository>();
-            services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
             services.AddScoped(typeof(IRepositorioGenerico<>), typeof(RepositorioGenerico<>));

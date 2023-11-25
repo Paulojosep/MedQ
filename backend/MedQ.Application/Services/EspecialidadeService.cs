@@ -17,14 +17,12 @@ namespace MedQ.Application.Services
     {
         private readonly IRepositorioGenerico<Especialidade> _repository;
         private readonly IRepositorioGenerico<Fila> _filaRepsitorio;
-        private readonly IEspecialidadeRepository _especialidadeRepository;
         private readonly IMapper _mapper;
 
-        public EspecialidadeService(IRepositorioGenerico<Especialidade> repository, IRepositorioGenerico<Fila> filaRepsitorio, IEspecialidadeRepository especialidadeRepository, IMapper mapper)
+        public EspecialidadeService(IRepositorioGenerico<Especialidade> repository, IRepositorioGenerico<Fila> filaRepsitorio, IMapper mapper)
         {
             _repository = repository;
             _filaRepsitorio = filaRepsitorio;
-            _especialidadeRepository = especialidadeRepository;
             _mapper = mapper;
         }
 

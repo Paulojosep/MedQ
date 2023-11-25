@@ -16,11 +16,11 @@ namespace MedQ.Application.Services
 {
     public class UsuarioService : IUsuarioService
     {
-        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IRepositorioGenerico<Socio> _usuarioRepository;
         private readonly ISocioService _socioService;
         private readonly IMapper _mapper;
 
-        public UsuarioService(IUsuarioRepository usuarioRepository, ISocioService socioService, IMapper mapper)
+        public UsuarioService(IRepositorioGenerico<Socio> usuarioRepository, ISocioService socioService, IMapper mapper)
         {
             _usuarioRepository = usuarioRepository;
             _socioService = socioService;
@@ -36,7 +36,7 @@ namespace MedQ.Application.Services
                     throw new MedQException("Informe os dados para login");
                 }
 
-                var usuario = await _usuarioRepository.Logar(login, Seguranca.HashMd5(senha));
+                var usuario = await _usuarioRepository.Obter(x => x.Email == login && x.Senha == Seguranca.HashMd5(senha)).FirstOrDefaultAsync();
 
                 if(usuario != null)
                 {
