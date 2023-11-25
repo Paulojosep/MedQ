@@ -10,5 +10,6 @@ namespace MedQ.Application.Interfaces
     {
         Task<SocioDTO> Logar(string usuario, string senha);
         Task<bool> SiginUp(SocioDTO socio);
+        Task<bool> TrocarSenha(int id, string login, string senha, string novaSenha);
     }
 }

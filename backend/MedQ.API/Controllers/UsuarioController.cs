@@ -79,5 +79,21 @@ namespace MedQ.API.Controllers
             string modificado = file_info.LastWriteTime.ToString("dd/MM/yyyy - HH:mm");
             return new JsonResult(modificado);
         }
+
+        [HttpPost("TrocarSenha")]
+        public async Task<IActionResult> TrocarSenha([FromBody] UsuarioTrocarSenha parametro)
+        {
+            try
+            {
+                var result = await _usuarioService.TrocarSenha(parametro.Id, parametro.Login, parametro.Senha, parametro.NovaSenha);
+
+                if (result.Equals(false)) throw new Exception();
+                return Ok("Mudançã de senha realizada com sucesso");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -68,5 +68,28 @@ namespace MedQ.Application.Services
                 throw new MedQException(ex.Message);
             }
         }
+
+        public async Task<bool> TrocarSenha(int id, string login, string senha, string novaSenha)
+        {
+            try
+            {
+                var result = false;
+                var usuario = await _usuarioRepository.Obter(x => x.Id == id && x.Email == login).FirstOrDefaultAsync();
+                if (usuario != null)
+                {
+                    if (usuario.Senha == Seguranca.HashMd5(senha))
+                    {
+                        usuario.Senha = Seguranca.HashMd5(novaSenha);
+                        _usuarioRepository.Editar(usuario);
+                        result = await _usuarioRepository.SalvarAsync();
+                    }
+                }
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
