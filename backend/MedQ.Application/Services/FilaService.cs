@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Grpc.Net.Client;
 using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
 using MedQ.Application.IO;
@@ -6,6 +7,7 @@ using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +18,22 @@ namespace MedQ.Application.Services
 {
     public class FilaService : IFilaService
     {
+        private readonly IConfiguration _configuration;
         private readonly IRepositorioGenerico<Fila> _repository;
         private readonly IMapper _mapper;
+        private readonly string url;
 
-        public FilaService(IRepositorioGenerico<Fila> repository, IMapper mapper)
+        public FilaService(IConfiguration configuration, IRepositorioGenerico<Fila> repository, IMapper mapper)
         {
+            _configuration = configuration;
             _repository = repository;
             _mapper = mapper;
+            this.url = _configuration.GetSection("Api").GetSection("FilaService").Value;
         }
 
         public async Task<IEnumerable<FilaByEstabelecimentoOutput>> GetByEstabelecimentoAsync(int estabelecimentoId)
         {
+            await Test();
             return _mapper.Map<IEnumerable<FilaByEstabelecimentoOutput>>(await _repository.AdicionarInclusoes<Fila, object>(
                 x => x.Especialidade,
                 x => x.TipoAtendimento).ToListAsync());
@@ -59,6 +66,14 @@ namespace MedQ.Application.Services
             {
                 throw new Exception("Erro", ex);
             }
+        }
+
+        public async Task Test()
+        {
+            var canal = GrpcChannel.ForAddress("https://localhost:7053");
+            var client = new GrpcService1.Fila.FilaClient(canal);
+            var reply = await client.GetFilaAsync(new GrpcService1.FilaRequest { FilaName = "Paulo"});
+            Console.WriteLine("Greeting: " + reply.Message);
         }
     }
 }

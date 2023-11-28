@@ -6,6 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Google.Protobuf" Version="3.21.5" />
+    <PackageReference Include="Grpc.AspNetCore.Server" Version="2.49.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.49.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.49.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
@@ -16,6 +23,15 @@
   <ItemGroup>
     <ProjectReference Include="..\MedQ.Domain\MedQ.Domain.csproj" />
     <ProjectReference Include="..\MedQ.Infra.Data\MedQ.Infra.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\..\..\..\Visual Studio Projetos\GrpcService1\GrpcService1\Protos\fila.proto" GrpcServices="Client">
+      <Link>Protos\fila.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\..\..\..\Visual Studio Projetos\GrpcService1\GrpcService1\Protos\greet.proto" GrpcServices="Client">
+      <Link>Protos\greet.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>
