@@ -16,8 +16,8 @@ namespace MedQ.Application.DTOs
         public int EstabelecimentoId { get; set; }
         public int SocioId { get; set; }
 
-        public virtual SocioDTO? Socio { get; set; }
-        public virtual AgendamentoDisponiveisDTO? Agendamento { get; set; }
-        public virtual EstabelecimentoDTO? Estabelecimento { get; set; }
+        public virtual SocioDTO Socio { get; set; }
+        public virtual AgendamentoDisponiveisDTO Agendamento { get; set; }
+        public virtual EstabelecimentoDTO Estabelecimento { get; set; }
     }
 }

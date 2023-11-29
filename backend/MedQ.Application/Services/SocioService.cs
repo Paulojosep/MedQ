@@ -34,17 +34,12 @@ namespace MedQ.Application.Services
         {
             try
             {
-                var socio = new Socio();
                 if (id.Equals(0) && String.IsNullOrEmpty(cpf)) throw new MedQException("Parametro deve ser informado");
 
-                if (id > 0)
-                {
-                    socio = await _repository.Obter(x => x.Id == id).FirstOrDefaultAsync();
-                }
-                if (!String.IsNullOrEmpty(cpf))
-                {
-                    socio = await _repository.Obter(x => x.CPF == cpf).FirstOrDefaultAsync();
-                }
+                var socio = await _repository.Obter(x => x.Id == id && x.CPF == cpf).FirstOrDefaultAsync();
+
+                if(socio.Equals(null)) throw new MedQException("Usuario não econtrado");
+                
                 return _mapper.Map<SocioDTO>(socio);
             }
             catch (ArgumentException ex)

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace MedQ.Domain.Entities
@@ -17,7 +19,7 @@ namespace MedQ.Domain.Entities
 
         public Socio(int id, string nome, string cPF, string sexo, string email, string senha, string endereco, 
             string complemento, string cidade, string bairro, string uF, DateTime data_Cadastro, 
-            string image, string codigoVerificacao, string idGoogle, string tipo)
+            string image, string codigoVerificacao, string idGoogle, string tipo, bool ehAdmin)
         {
             Id = id;
             Nome = nome;
@@ -35,6 +37,7 @@ namespace MedQ.Domain.Entities
             CodigoVerificacao = codigoVerificacao;
             IdGoogle = idGoogle;
             Tipo = tipo;
+            EhAdmin = ehAdmin;
         }
 
         public string Nome { get; set; }
@@ -52,7 +55,7 @@ namespace MedQ.Domain.Entities
         public string CodigoVerificacao { get; set; }
         public string IdGoogle { get; set; }
         public string Tipo { get; set; }
-        
+        public bool EhAdmin { get; private set; } = false;
 
         public virtual ICollection<Estabelecimento> Estabelecimentos { get; set; }
         public virtual ICollection<Consultas> Consultas { get; set; }

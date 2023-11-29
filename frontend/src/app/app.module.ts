@@ -1,33 +1,53 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
-
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ConsultaService } from './core/services/consultas.service';
-import { ApiServices } from './core/services/api.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AgendamentosDisponiveisComponent } from './agendamentos-disponiveis/agendamentos-disponiveis.component';
-import { AdicionarTelefoneComponent } from './adicionar-telefone/adicionar-telefone.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginModule } from './core/authentication/login/login.module';
+import { LayoutModule } from './modules/layout/layout.module';
+import { ConsultasModule } from './modules/private/consultas/consultas.module';
+import { RouterModule, Routes } from '@angular/router';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { AppRoutingModule } from './app-routing.module';
+import { GuardaRotaService } from './core/services/guarda-rota.service';
+import { AlertModule } from './shared/alert/alert.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HospitalModule } from './modules/private/hospital/hospital.module';
+import { ErrorInterceptor } from './core/util/interceptor/error-interceptor';
+import { TokenInterceptor } from './core/util/interceptor/token-interceptor';
+import { TelefoneModule } from './modules/private/telefone/telefone.module';
+import { AgendamentoDisponivelModule } from './modules/private/agendamento-disponivel/agendamento-disponivel.module';
+import { MessageInterceptor } from './core/util/interceptor/message.interceptor';
+
+
 
 @NgModule({
-  declarations: [	AppComponent,
-      AgendamentosDisponiveisComponent,
-      AdicionarTelefoneComponent
-   ],
-  entryComponents: [],
+  declarations: [
+    AppComponent
+  ],
   imports: [
-    BrowserModule, 
-    IonicModule.forRoot(), 
-    AppRoutingModule, BrowserAnimationsModule, 
+    FormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    CommonModule,
     HttpClientModule,
+    NgbModule,
+    LayoutModule,
+    LoginModule,
+    ConsultasModule,
+    HospitalModule,
+    TelefoneModule,
+    AgendamentoDisponivelModule,
+    AppRoutingModule,
+    AlertModule,
     ReactiveFormsModule
   ],
-  providers: [ ConsultaService, ApiServices],
-  bootstrap: [AppComponent],
+  providers: [
+    GuardaRotaService,
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: MessageInterceptor, multi: true}],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

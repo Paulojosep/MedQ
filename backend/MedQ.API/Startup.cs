@@ -1,5 +1,9 @@
 using MedQ.Infra.IoC;
 using MedQ.Infra.IoC.Middleware;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +19,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text;
+using MedQ.Application.Services;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using MedQ.Application.Utils;
+using Microsoft.AspNetCore.Http;
 
 namespace MedQ.API
 {
@@ -41,9 +51,45 @@ namespace MedQ.API
             services.AddInfrastructureAPI(Configuration);
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(setup =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MedQ.API", Version = "v1" });
+                var jwtSecurityScheme = new OpenApiSecurityScheme
+                {
+                    BearerFormat = "JTW",
+                    Name = "JT Authentication",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = JwtBearerDefaults.AuthenticationScheme,
+                    Description = "JWT Bearer Token",
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+                setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+                setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { jwtSecurityScheme , Array.Empty<string>() }
+                });
+            });
+
+            services.AddAuthentication(x =>
+             {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+             })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(TokenService.Segredo)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
             });
         }
 
@@ -60,6 +106,22 @@ namespace MedQ.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MedQ.API v1"));
             }
 
+            /* Exception Handler*/
+            app.UseExceptionHandler(appError =>
+            {
+                appError.Run(async context =>
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    context.Response.ContentType = "application/json";
+                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                    if (contextFeature != null)
+                    {
+                        Log.GravarExcessao(contextFeature.Error);
+                        await context.Response.WriteAsync("Desculpe, houve um problema na sua requisição, por favor tente novamente mais tarde");
+                    }
+                });
+            });
+
             /*------------ Configuração Local PT-BR --------------------*/
             var supportedCultures = new[] { new CultureInfo("pt-br") };
             app.UseRequestLocalization(new RequestLocalizationOptions
@@ -73,12 +135,14 @@ namespace MedQ.API
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.CreateSpecificCulture("pt-br");
 
             app.UseHttpsRedirection();
-            app.UseCors("AllowMyOrigin");
+            app.UseCors(x => x.AllowAnyOrigin()
+                              .AllowAnyMethod()
+                              .AllowAnyHeader());
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-            app.UseMiddleware<ErrorHandlerMiddleware>();
+            //app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseOptions();
 
             app.UseEndpoints(endpoints =>

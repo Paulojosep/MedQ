@@ -41,6 +41,7 @@ namespace MedQ.Application.Services
             try
             {
                 var minhasConsultas = _mapper.Map<MinhasConsulta>(minhasConsulta);
+                minhasConsultas.Pedido = MakeId();
                 _repository.Adicionar(minhasConsultas);
                 return await _repository.SalvarAsync();
             }

@@ -67,6 +67,7 @@ namespace MedQ.Infra.IoC
 
                 if (configuration["medbconnection"] != null)
                 {
+                    context.Database.EnsureDeleted();
                     context.Database.Migrate();
                     SEED.Popular(context);
                 }
@@ -74,6 +75,7 @@ namespace MedQ.Infra.IoC
                 {
                     if (context.Database.EnsureCreated())
                     {
+                        context.Database.EnsureDeleted();
                         context.Database.Migrate();
                         SEED.Popular(context);
                     }
@@ -110,19 +112,21 @@ namespace MedQ.Infra.IoC
         private static void RegistrarDependencias(this IServiceCollection services)
         {
             //Services
-            services.AddScoped<ISocioService, SocioService>();
-            services.AddScoped<IEspecialidadeService, EspecialidadeService>();
-            services.AddScoped<ITelefoneService, TelefoneService>();
+            services.AddScoped<IAgendamentoDisponivelService, AgendamentoDisponivelService>();
             services.AddScoped<IConsultaService, ConsultaService>();
-            services.AddScoped<IFilaService, FilaService>();
-            services.AddScoped<IMensagensService, MensagensService>();
-            services.AddScoped<IMedicoService, MedicoService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IEspecialidadeService, EspecialidadeService>();
             services.AddScoped<IEstabelecimentoService, EstabelecimentoService>();
+            services.AddScoped<IFilaService, FilaService>();
+            services.AddScoped<IMedicoService, MedicoService>();
+            services.AddScoped<IMensagensService, MensagensService>();
             services.AddScoped<IMinhasConsultaService, MinhasConsultaService>();
+            services.AddScoped<ISocioService, SocioService>();
+            services.AddScoped<ITelefoneService, TelefoneService>();
+            services.AddScoped<ITipoEstabelecimentoService, TipoEstabelecimentoService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
 
             //Repositories
-            services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
             services.AddScoped<IConsultasRepository, ConsultaRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 

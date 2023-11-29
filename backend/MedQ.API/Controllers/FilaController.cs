@@ -1,9 +1,11 @@
 ﻿using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -43,10 +45,11 @@ namespace MedQ.API.Controllers
         }
 
         [HttpPost, Route("SetFila")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<FilaDTO>> CreateFila([FromBody] FilaDTO filaDTO)
         {
             var fila = await _service.CreateAsync(filaDTO);
-            if (fila == null)
+            if (fila.Equals(null))
             {
                 return BadRequest("Não foi possivel Cadastrar");
             }

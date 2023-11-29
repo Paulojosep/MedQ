@@ -423,6 +423,10 @@ namespace MedQ.Infra.Data.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("data_cadastro");
 
+                    b.Property<bool>("EhAdmin")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("admin");
+
                     b.Property<string>("Email")
                         .HasColumnType("longtext")
                         .HasColumnName("email");
