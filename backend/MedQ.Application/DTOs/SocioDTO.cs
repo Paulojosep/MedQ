@@ -43,4 +43,12 @@ namespace MedQ.Application.DTOs
         public DateTime Acesso { get; private set; }
         public string Token { get; set; }
     }
+
+    public class UsuarioTrocarSenha
+    {
+        public int Id { get; set; }
+        public string Login { get; set; }
+        public string Senha { get; set; }
+        public string NovaSenha { get; set; }
+    }
 }

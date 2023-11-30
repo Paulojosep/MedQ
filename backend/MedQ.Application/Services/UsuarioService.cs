@@ -16,11 +16,11 @@ namespace MedQ.Application.Services
 {
     public class UsuarioService : IUsuarioService
     {
-        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IRepositorioGenerico<Socio> _usuarioRepository;
         private readonly ISocioService _socioService;
         private readonly IMapper _mapper;
 
-        public UsuarioService(IUsuarioRepository usuarioRepository, ISocioService socioService, IMapper mapper)
+        public UsuarioService(IRepositorioGenerico<Socio> usuarioRepository, ISocioService socioService, IMapper mapper)
         {
             _usuarioRepository = usuarioRepository;
             _socioService = socioService;
@@ -36,7 +36,7 @@ namespace MedQ.Application.Services
                     throw new MedQException("Informe os dados para login");
                 }
 
-                var usuario = await _usuarioRepository.Logar(login, Seguranca.HashMd5(senha));
+                var usuario = await _usuarioRepository.Obter(x => x.Email == login && x.Senha == Seguranca.HashMd5(senha)).FirstOrDefaultAsync();
 
                 if(usuario != null)
                 {
@@ -66,6 +66,29 @@ namespace MedQ.Application.Services
             catch(Exception ex)
             {
                 throw new MedQException(ex.Message);
+            }
+        }
+
+        public async Task<bool> TrocarSenha(int id, string login, string senha, string novaSenha)
+        {
+            try
+            {
+                var result = false;
+                var usuario = await _usuarioRepository.Obter(x => x.Id == id && x.Email == login).FirstOrDefaultAsync();
+                if (usuario != null)
+                {
+                    if (usuario.Senha == Seguranca.HashMd5(senha))
+                    {
+                        usuario.Senha = Seguranca.HashMd5(novaSenha);
+                        _usuarioRepository.Editar(usuario);
+                        result = await _usuarioRepository.SalvarAsync();
+                    }
+                }
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }
