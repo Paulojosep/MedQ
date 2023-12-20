@@ -36,6 +36,7 @@ export class MapComponent implements OnInit, AfterViewInit  {
     const baseMapURl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     this.map = L.map('map');
     L.tileLayer(baseMapURl).addTo(this.map);
+    L.popup({autoPan: true}).openPopup();
   }
 
   private addMarker(latitude: number, longitude: number) {

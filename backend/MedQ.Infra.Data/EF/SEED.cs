@@ -62,6 +62,11 @@ namespace MedQ.Infra.Data.EF
                 context.Medico.Add(new Medico(1, "Doctor who", "052458445", 1, 1));
             }
 
+            if(context.MinhasConsulta.Count().Equals(0))
+            {
+                context.MinhasConsulta.Add(new MinhasConsulta(1, "Consulta X", "Consulta de retorno de exame", "", "Pedido Medico", "txt123", "Doctor Who", DateTime.Now.Date, DateTime.Now, "Ativo", "", 1, 1));
+            }
+
             if (context.Socio.Count().Equals(0))
             {
                 context.Socio.Add(new Socio(1, "Administrador", "12345678901", "Masculino", "admin@gmail.com",
