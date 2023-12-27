@@ -19,7 +19,10 @@ import { TokenInterceptor } from './core/util/interceptor/token-interceptor';
 import { TelefoneModule } from './modules/private/telefone/telefone.module';
 import { AgendamentoDisponivelModule } from './modules/private/agendamento-disponivel/agendamento-disponivel.module';
 import { MessageInterceptor } from './core/util/interceptor/message.interceptor';
-
+import {MatSidenavModule} from '@angular/material/sidenav'
+import { MatListModule } from "@angular/material/list";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatIconModule } from "@angular/material/icon";
 
 
 @NgModule({
@@ -41,7 +44,11 @@ import { MessageInterceptor } from './core/util/interceptor/message.interceptor'
     AgendamentoDisponivelModule,
     AppRoutingModule,
     AlertModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSidenavModule,
+    MatListModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [
     GuardaRotaService,
