@@ -11,6 +11,6 @@ export class AppComponent {
   title = 'frontend';
 
   constructor(private router: Router) {
-    this.router.navigate(['/mapa']);
+    //this.router.navigate(['/mapa']);
   }
 }
