@@ -18,7 +18,7 @@ namespace MedQ.Domain.Entities
             EstabelecimentoId = estabelecimentoId;
             Disponibilidade = disponibilidade;
             Data = data;
-            Hora = hora;
+            Hora = hora ;
             
         }
 
