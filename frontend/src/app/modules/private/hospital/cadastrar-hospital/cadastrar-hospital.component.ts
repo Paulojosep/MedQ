@@ -48,6 +48,7 @@ export class CadastrarHospitalComponent implements OnInit, ConfigurationBase {
 
   getByCodigo(codigo: any) {
     this.hospitalService.getByCodigo(codigo).subscribe(resp => {
+      console.log(resp)
       this.hospital = resp;
     })
   }

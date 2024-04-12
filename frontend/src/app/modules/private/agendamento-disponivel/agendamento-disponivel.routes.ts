@@ -4,7 +4,7 @@ import { ListarAgendamentoDisponivelComponent } from "./listar-agendamento-dispo
 
 
 const routes: Routes = [
-  {path: 'agendamentoDisponivel/listar', component: ListarAgendamentoDisponivelComponent}
+  {path: 'listar', component: ListarAgendamentoDisponivelComponent}
 ];
 
 @NgModule({

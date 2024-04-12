@@ -1,0 +1,14 @@
+<mat-sidenav-container class="containeer">
+  <mat-sidenav mode="side" opened>
+    <mat-nav-list>
+      <a class="nav-link active" mat-list-item aria-current="page" href="/mapa" routerLink="/mapa">Home</a>
+      <a class="nav-link" mat-list-item href="/consultas/lista" routerLink="/consultas/lista">Consultas</a>
+      <a class="nav-link" mat-list-item href="/telefone/listar" routerLink="/telefone/listar">Telefones</a>
+      <a class="nav-link" mat-list-item href="#">Mensagens</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
