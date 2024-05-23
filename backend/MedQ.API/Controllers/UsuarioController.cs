@@ -95,5 +95,18 @@ namespace MedQ.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("VerificarGoogle")]
+        public async Task<IActionResult> VerificarGoogle([FromBody] int googleId)
+        {
+            try
+            {
+                return Ok(await _usuarioService.VerificarGoogleId(googleId));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
