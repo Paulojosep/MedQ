@@ -7,7 +7,7 @@ import { LoginModule } from './core/authentication/login/login.module';
 import { LayoutModule } from './modules/layout/layout.module';
 import { ConsultasModule } from './modules/private/consultas/consultas.module';
 import { RouterModule, Routes } from '@angular/router';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { GuardaRotaService } from './core/services/guarda-rota.service';
@@ -22,32 +22,27 @@ import { MessageInterceptor } from './core/util/interceptor/message.interceptor'
 
 
 
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    FormsModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    CommonModule,
-    HttpClientModule,
-    NgbModule,
-    LayoutModule,
-    LoginModule,
-    ConsultasModule,
-    HospitalModule,
-    TelefoneModule,
-    AgendamentoDisponivelModule,
-    AppRoutingModule,
-    AlertModule,
-    ReactiveFormsModule
-  ],
-  providers: [
-    GuardaRotaService,
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: MessageInterceptor, multi: true}],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent
+    ],
+    bootstrap: [AppComponent], imports: [FormsModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        CommonModule,
+        NgbModule,
+        LayoutModule,
+        LoginModule,
+        ConsultasModule,
+        HospitalModule,
+        TelefoneModule,
+        AgendamentoDisponivelModule,
+        AppRoutingModule,
+        AlertModule,
+        ReactiveFormsModule], providers: [
+        GuardaRotaService,
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: MessageInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
