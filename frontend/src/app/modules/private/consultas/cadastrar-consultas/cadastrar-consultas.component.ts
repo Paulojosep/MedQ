@@ -5,9 +5,10 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TOConsultas } from 'src/app/shared/models/TOModel';
 
 @Component({
-  selector: 'app-cadastrar-consultas',
-  templateUrl: './cadastrar-consultas.component.html',
-  styleUrls: ['./cadastrar-consultas.component.css']
+    selector: 'app-cadastrar-consultas',
+    templateUrl: './cadastrar-consultas.component.html',
+    styleUrls: ['./cadastrar-consultas.component.css'],
+    standalone: false
 })
 export class CadastrarConsultasComponent implements OnInit {
 
