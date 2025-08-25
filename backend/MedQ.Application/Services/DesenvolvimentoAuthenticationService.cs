@@ -13,12 +13,14 @@ namespace MedQ.Application.Services
     public class DesenvolvimentoAuthenticationService : IAuthenticationService
     {
         private readonly IUsuarioService _usuarioService;
+        private readonly ITokenService _tokenService;
         private Usuario _usuario;
         private SocioDTO usuarioLogado;
 
-        public DesenvolvimentoAuthenticationService(IUsuarioService usuarioService)
+        public DesenvolvimentoAuthenticationService(IUsuarioService usuarioService, ITokenService tokenService)
         {
             _usuarioService = usuarioService;
+            _tokenService = tokenService;
         }
 
         public void DefinirUsuario(ClaimsPrincipal principal)
@@ -40,11 +42,11 @@ namespace MedQ.Application.Services
                 Nome = usuarioLogado.Nome,
                 Email = usuarioLogado.Email,
                 Acesso = DateTime.Now,
-                Token = TokenService.Gerar(usuarioLogado),
+                Token = _tokenService.Gerar(usuarioLogado),
                 EhAdmin = usuarioLogado.EhAdmin,
                 Menu = new MenuVM[]
                 {
-                    new MenuVM { Label = "Consultas", RouterLink = "consultas/lista" },
+                    new MenuVM { Label = "Consultas", RouterLink = "consultas/lista" }, 
                     new MenuVM { Label = "Telefones", RouterLink = "telefone/listar" },
                     new MenuVM { Label = "Mensagens", RouterLink = "mensagens/lista" }
                 }

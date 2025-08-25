@@ -125,6 +125,7 @@ namespace MedQ.Infra.IoC
             services.AddScoped<ITelefoneService, TelefoneService>();
             services.AddScoped<ITipoEstabelecimentoService, TipoEstabelecimentoService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             //Repositories
             services.AddScoped<IConsultasRepository, ConsultaRepository>();

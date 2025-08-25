@@ -4,9 +4,10 @@ import { AlertService } from 'src/app/shared/alert/alert.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-logar',
-  templateUrl: './logar.component.html',
-  styleUrls: ['./logar.component.css']
+    selector: 'app-logar',
+    templateUrl: './logar.component.html',
+    styleUrls: ['./logar.component.css'],
+    standalone: false
 })
 export class LogarComponent implements OnInit {
 

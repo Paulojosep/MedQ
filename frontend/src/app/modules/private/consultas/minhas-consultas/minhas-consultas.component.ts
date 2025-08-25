@@ -5,9 +5,10 @@ import { ConsultasService } from '../consultas.service';
 import { ConsultasPorSocioOutput } from 'src/app/shared/models/TOModel';
 
 @Component({
-  selector: 'app-minhas-consultas',
-  templateUrl: './minhas-consultas.component.html',
-  styleUrls: ['./minhas-consultas.component.css']
+    selector: 'app-minhas-consultas',
+    templateUrl: './minhas-consultas.component.html',
+    styleUrls: ['./minhas-consultas.component.css'],
+    standalone: false
 })
 export class MinhasConsultasComponent implements OnInit {
 
