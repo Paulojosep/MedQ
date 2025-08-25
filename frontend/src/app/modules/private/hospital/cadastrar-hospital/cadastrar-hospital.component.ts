@@ -6,9 +6,10 @@ import { TipoEstabelecimentoService } from 'src/app/core/services/tipo-estabelec
 import { TOEstabelecimento } from 'src/app/shared/models/TOModel';
 
 @Component({
-  selector: 'app-cadastrar-hospital',
-  templateUrl: './cadastrar-hospital.component.html',
-  styleUrls: ['./cadastrar-hospital.component.css']
+    selector: 'app-cadastrar-hospital',
+    templateUrl: './cadastrar-hospital.component.html',
+    styleUrls: ['./cadastrar-hospital.component.css'],
+    standalone: false
 })
 export class CadastrarHospitalComponent implements OnInit, ConfigurationBase {
 
