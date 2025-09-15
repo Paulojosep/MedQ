@@ -19,29 +19,42 @@ import { TokenInterceptor } from './core/util/interceptor/token-interceptor';
 import { TelefoneModule } from './modules/private/telefone/telefone.module';
 import { AgendamentoDisponivelModule } from './modules/private/agendamento-disponivel/agendamento-disponivel.module';
 import { MessageInterceptor } from './core/util/interceptor/message.interceptor';
-import { PrivateModule } from './modules/private/private.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import Lara from '@primeng/themes/lara';
 
-@NgModule({ declarations: [
-        AppComponent
-    ],
-    bootstrap: [AppComponent], imports: [FormsModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        CommonModule,
-        NgbModule,
-        LayoutModule,
-        LoginModule,
-        ConsultasModule,
-        HospitalModule,
-        TelefoneModule,
-        AgendamentoDisponivelModule,
-        AppRoutingModule,
-        AlertModule,
-        ReactiveFormsModule], providers: [
-        GuardaRotaService,
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: MessageInterceptor, multi: true },
-        provideHttpClient(withInterceptorsFromDi())
-    ] })
-export class AppModule { }
+@NgModule({
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  imports: [
+    FormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    NgbModule,
+    LayoutModule,
+    LoginModule,
+    ConsultasModule,
+    HospitalModule,
+    TelefoneModule,
+    AgendamentoDisponivelModule,
+    AppRoutingModule,
+    AlertModule,
+    ReactiveFormsModule,
+  ],
+  providers: [
+    GuardaRotaService,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: MessageInterceptor, multi: true },
+    provideAnimationsAsync(),
+    providePrimeNG({
+        theme: {
+            preset: Lara,
+            options: {}
+        }
+    }),
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
+})
+export class AppModule {}

@@ -15,7 +15,6 @@ import {CardModule} from 'primeng/card';
 import {AccordionModule} from 'primeng/accordion';
 import {ButtonModule} from 'primeng/button';
 import { BreadcrumbModule } from "primeng/breadcrumb";
-import {InputTextareaModule} from 'primeng/inputtextarea';
 import {AutoFocusModule} from 'primeng/autofocus';
 import {DialogModule} from 'primeng/dialog'
 import {ToastModule} from 'primeng/toast';
@@ -24,6 +23,11 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { InputNumberModule } from 'primeng/inputnumber';
 import {CheckboxModule} from 'primeng/checkbox';
 import { MenuModule } from 'primeng/menu';
+import { MenubarModule } from 'primeng/menubar';
+import { BadgeModule } from 'primeng/badge';
+import { RippleModule } from 'primeng/ripple';
+import { AvatarModule } from 'primeng/avatar';
+import { MenuItem } from 'primeng/api';
 
 @NgModule({
     declarations: [],
@@ -45,7 +49,6 @@ import { MenuModule } from 'primeng/menu';
         AccordionModule,
         ButtonModule,
         BreadcrumbModule,
-        InputTextareaModule,
         AutoFocusModule,
         DialogModule,
         ToastModule,
@@ -54,7 +57,10 @@ import { MenuModule } from 'primeng/menu';
         InputNumberModule,
         CheckboxModule,
         MenuModule,
-        ComponentesModule 
+        MenubarModule,
+        BadgeModule,
+        RippleModule,
+        AvatarModule,
       ], exports: [
         FormsModule,
         InputTextModule,
@@ -73,14 +79,18 @@ import { MenuModule } from 'primeng/menu';
         AccordionModule,
         ButtonModule,
         BreadcrumbModule,
-        InputTextareaModule,
         AutoFocusModule,
         DialogModule,
         ToastModule,
         ProgressBarModule,
         ProgressSpinnerModule,
         CheckboxModule,
-        MenuModule 
+        MenuModule,
+        MenubarModule,
+        MenubarModule,
+        BadgeModule,
+        RippleModule,
+        AvatarModule,
     ]
 })
 

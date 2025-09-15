@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+<!--<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
   <div class="container-fluid">
     <img src="../../../../assets/images/icon/login.png" class="logo">
     <a class="navbar-brand" href="#">MedQ</a>
@@ -29,4 +29,24 @@
       </form>
     </div>
   </div>
-</nav>
+</nav>-->
+
+<p-menubar [model]="items">
+    <ng-template #start>
+        <img src="../../../../assets/images/icon/login.png" class="logo">
+        <a class="navbar-brand">MedQ</a>
+    </ng-template>
+    <ng-template #item let-item let-root="root">
+        <a pRipple class="flex items-center p-menubar-item-link">
+            <span>{{ item.label }}</span>
+            <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+            <a *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']" href="item.items.routerLink" routerLink="item.items.routerLink"></a>
+        </a>
+    </ng-template>
+    <ng-template #end>
+        <div class="flex items-center gap-2">
+            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+        </div>
+    </ng-template>
+</p-menubar>
