@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-listar-hospital',
   templateUrl: './listar-hospital.component.html',
-  styleUrls: ['./listar-hospital.component.css']
+  styleUrls: ['./listar-hospital.component.css'],
+  standalone: false
 })
 export class ListarHospitalComponent implements OnInit {
 

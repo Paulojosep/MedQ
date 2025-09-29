@@ -8,7 +8,8 @@ import { AgendamentoDisponivelInput, TOAgendamentoDisponivel } from 'src/app/sha
 @Component({
   selector: 'app-listar-agendamento-disponivel',
   templateUrl: './listar-agendamento-disponivel.component.html',
-  styleUrls: ['./listar-agendamento-disponivel.component.css']
+  styleUrls: ['./listar-agendamento-disponivel.component.css'],
+  standalone: false
 })
 export class ListarAgendamentoDisponivelComponent implements OnInit {
 

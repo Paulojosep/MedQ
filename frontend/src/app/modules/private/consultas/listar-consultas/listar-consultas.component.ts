@@ -6,7 +6,8 @@ import { ConsultasPorSocioOutput } from 'src/app/shared/models/TOModel';
 @Component({
   selector: 'app-listar-consultas',
   templateUrl: './listar-consultas.component.html',
-  styleUrls: ['./listar-consultas.component.css']
+  styleUrls: ['./listar-consultas.component.css'],
+  standalone: false
 })
 export class ListarConsultasComponent implements OnInit {
 

@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-logar',
   templateUrl: './logar.component.html',
-  styleUrls: ['./logar.component.css']
+  styleUrls: ['./logar.component.css'],
+  standalone: false
 })
 export class LogarComponent implements OnInit {
 

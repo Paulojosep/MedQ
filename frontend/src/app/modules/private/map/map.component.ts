@@ -5,7 +5,8 @@ L.Icon.Default.imagePath = 'assets/leaflet/'
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css'],
+  standalone: false
 })
 export class MapComponent implements OnInit, AfterViewInit  {
 
@@ -16,6 +17,7 @@ export class MapComponent implements OnInit, AfterViewInit  {
   constructor() {  }
 
   ngOnInit(): void {
+    this.addMarkers();
   }
 
   ngAfterViewInit(): void {
@@ -46,7 +48,21 @@ export class MapComponent implements OnInit, AfterViewInit  {
 
   private addMarkers() {
     // Add your markers to the map
-    this.markers.forEach(marker => marker.addTo(this.map));
+    //this.markers.forEach(marker => marker.addTo(this.map));
+
+    const locais = [
+      { nome: 'Brasília', lat: -15.793889, lng: -47.882778 },
+      { nome: 'São Paulo', lat: -23.55052, lng: -46.633308 },
+      { nome: 'Rio de Janeiro', lat: -22.906847, lng: -43.172896 }
+    ];
+
+    locais.forEach(local => {
+      L.marker([local.lat, local.lng])
+        .addTo(this.map)
+        .bindPopup(`<b>${local.nome}</b>`)
+        .openPopup();
+    });
+
   }
 
   private centerMap() {
