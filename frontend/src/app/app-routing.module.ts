@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { GuardaRotaService } from "./core/services/guarda-rota.service";
+import { NavBarComponent } from "./modules/layout/nav-bar/nav-bar.component";
 
 const routes: Routes = [
     {path: "login", loadChildren: () => import('./core/authentication/login/login.module').then((m) => m.LoginModule)},
@@ -13,7 +14,17 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-      RouterModule.forRoot(routes)
+      RouterModule.forRoot([
+        {
+          path: '',
+          component: NavBarComponent,
+          children: [
+            {
+              path: '', loadChildren: () => {return import('./modules/private/private.module').then(m => m.PrivateModule)}
+            }
+          ]
+        }
+      ])
     ],
     exports: [RouterModule]
   })

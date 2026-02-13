@@ -3,10 +3,10 @@ import * as L from 'leaflet';
 L.Icon.Default.imagePath = 'assets/leaflet/'
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css'],
-  standalone: false
+    selector: 'app-map',
+    templateUrl: './map.component.html',
+    styleUrls: ['./map.component.css'],
+    standalone: false
 })
 export class MapComponent implements OnInit, AfterViewInit  {
 

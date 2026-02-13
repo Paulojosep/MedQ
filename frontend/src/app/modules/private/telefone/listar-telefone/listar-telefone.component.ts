@@ -5,10 +5,10 @@ import { TelefoneService } from '../telefone.service';
 import { TOTelefone } from 'src/app/shared/models/TOModel';
 
 @Component({
-  selector: 'app-listar-telefone',
-  templateUrl: './listar-telefone.component.html',
-  styleUrls: ['./listar-telefone.component.css'],
-  standalone: false
+    selector: 'app-listar-telefone',
+    templateUrl: './listar-telefone.component.html',
+    styleUrls: ['./listar-telefone.component.css'],
+    standalone: false
 })
 export class ListarTelefoneComponent implements OnInit {
 

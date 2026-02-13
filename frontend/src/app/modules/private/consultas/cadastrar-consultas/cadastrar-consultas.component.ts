@@ -5,15 +5,14 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TOConsultas } from 'src/app/shared/models/TOModel';
 
 @Component({
-  selector: 'app-cadastrar-consultas',
-  templateUrl: './cadastrar-consultas.component.html',
-  styleUrls: ['./cadastrar-consultas.component.css'],
-  standalone: false
+    selector: 'app-cadastrar-consultas',
+    templateUrl: './cadastrar-consultas.component.html',
+    styleUrls: ['./cadastrar-consultas.component.css'],
+    standalone: false
 })
 export class CadastrarConsultasComponent implements OnInit {
 
   titulo: string = "";
-  formulario: FormGroup = new FormGroup(null);
   ehDetalhar: boolean = false;
   consulta: TOConsultas = {} as TOConsultas;
   private codigoConsulta: any = null;
@@ -44,7 +43,7 @@ export class CadastrarConsultasComponent implements OnInit {
   }
 
   inicializacao(value: TOConsultas) {
-    this.formulario = this.fb.group({
+    /*this.formulario = this.fb.group({
       imagem: new FormControl<string>("Tes"),
       nomeHospital: new FormControl<string>(value.estabelecimento.nome),
       cep: new FormControl<string>(value.estabelecimento.cep),
@@ -54,12 +53,13 @@ export class CadastrarConsultasComponent implements OnInit {
       status: new FormControl<string>(value.status),
       senha: new FormControl<string>(value.senha),
     });
-    console.log(this.formulario.value);
+    console.log(this.formulario.value);*/
   }
 
   getByCodigo(codigo: number) {
     this.consultarService.consultarPorId(codigo).subscribe(resp => {
-      this.inicializacao(resp);
+      console.log(resp)
+      //this.inicializacao(resp);
     })
   }
 

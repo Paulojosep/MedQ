@@ -4,14 +4,15 @@ import { Router } from '@angular/router';
 import { ConsultasPorSocioOutput } from 'src/app/shared/models/TOModel';
 
 @Component({
-  selector: 'app-listar-consultas',
-  templateUrl: './listar-consultas.component.html',
-  styleUrls: ['./listar-consultas.component.css'],
-  standalone: false
+    selector: 'app-listar-consultas',
+    templateUrl: './listar-consultas.component.html',
+    styleUrls: ['./listar-consultas.component.css'],
+    standalone: false
 })
 export class ListarConsultasComponent implements OnInit {
 
   consultas: ConsultasPorSocioOutput[] = [];
+  displayedColumns: string[] = ['medico', 'especialidade', 'data', 'hora', 'status', 'senha', 'acoes'];
   usuarioLogado: any = null;
 
   constructor(private consultaService: ConsultasService, private router: Router) { }

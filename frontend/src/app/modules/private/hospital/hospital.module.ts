@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -8,22 +8,16 @@ import { HospitalRouter } from "./hospital.routes";
 import { ListarHospitalComponent } from "./listar-hospital/listar-hospital.component";
 import { CadastrarHospitalComponent } from "./cadastrar-hospital/cadastrar-hospital.component";
 import { FormsModule } from "@angular/forms";
+import { ComponentesModule } from "../../componentes.module";
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         ListarHospitalComponent,
         CadastrarHospitalComponent
     ],
-    imports: [
-        BrowserModule,    
+    exports: [HospitalRouter], imports: [BrowserModule,
         BrowserAnimationsModule,
         CommonModule,
-        HttpClientModule,
         NgbModule,
         FormsModule,
-        HospitalRouter
-    ],
-    providers: [],
-    exports: [HospitalRouter]
-})
+        HospitalRouter, ComponentesModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class HospitalModule { }

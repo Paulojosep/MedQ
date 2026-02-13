@@ -6,10 +6,10 @@ import * as moment from 'moment';
 import { AgendamentoDisponivelInput, TOAgendamentoDisponivel } from 'src/app/shared/models/TOModel';
 
 @Component({
-  selector: 'app-listar-agendamento-disponivel',
-  templateUrl: './listar-agendamento-disponivel.component.html',
-  styleUrls: ['./listar-agendamento-disponivel.component.css'],
-  standalone: false
+    selector: 'app-listar-agendamento-disponivel',
+    templateUrl: './listar-agendamento-disponivel.component.html',
+    styleUrls: ['./listar-agendamento-disponivel.component.css'],
+    standalone: false
 })
 export class ListarAgendamentoDisponivelComponent implements OnInit {
 

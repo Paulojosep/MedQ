@@ -6,10 +6,10 @@ import { TOEstabelecimento, TOTelefone } from 'src/app/shared/models/TOModel';
 import { EstabelecimentoService } from 'src/app/core/services/estabelecimento.service';
 
 @Component({
-  selector: 'app-cadastrar-telefone',
-  templateUrl: './cadastrar-telefone.component.html',
-  styleUrls: ['./cadastrar-telefone.component.css'],
-  standalone: false
+    selector: 'app-cadastrar-telefone',
+    templateUrl: './cadastrar-telefone.component.html',
+    styleUrls: ['./cadastrar-telefone.component.css'],
+    standalone: false
 })
 export class CadastrarTelefoneComponent implements OnInit {
 
