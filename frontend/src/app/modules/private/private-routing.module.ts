@@ -8,7 +8,8 @@ import { RouterModule, Routes } from '@angular/router';
             {path: 'agendamentoDisponivel', loadChildren: () => import('./agendamento-disponivel/agendamento-disponivel.module').then((m) => m.AgendamentoDisponivelModule)},
             {path: 'consultas', loadChildren: () => import('./consultas/consultas.module').then((m) => m.ConsultasModule)},
             {path: 'hospital', loadChildren: () => import('./hospital/hospital.module').then((m) => m.HospitalModule)},
-            {path: 'telefone', loadChildren: () => import('./telefone/telefone.module').then((m) => m.TelefoneModule)}
+            {path: 'telefone', loadChildren: () => import('./telefone/telefone.module').then((m) => m.TelefoneModule)},
+            {path: 'mapa', loadChildren: () => import('./map/map.module').then((m) => m.MapModule)},
         ])
     ],
     exports: [RouterModule]
