@@ -12,54 +12,9 @@ import { MenuItem } from 'primeng/api';
     standalone: false,
 })
 export class HeaderComponent implements OnInit {
-  items: MenuItem[] | undefined;
-  sidebarVisible: boolean =true;
   constructor() { }
 
   ngOnInit() {
-    this.items = [
-            {
-                separator: true
-            },
-            {
-                label: 'Componentes',
-                items: [
-                    {
-                        label: 'Mapa',
-                        icon: 'pi-map-marker',
-                        routerLink: '/consultas/lista'
-                    },
-                    {
-                        label: 'Search',
-                        icon: 'pi pi-search',
-                        shortcut: '⌘+S'
-                    }
-                ]
-            },
-            {
-                label: 'Profile',
-                items: [
-                    {
-                        label: 'Settings',
-                        icon: 'pi pi-cog',
-                        shortcut: '⌘+O'
-                    },
-                    {
-                        label: 'Messages',
-                        icon: 'pi pi-inbox',
-                        badge: '2'
-                    },
-                    {
-                        label: 'Logout',
-                        icon: 'pi pi-sign-out',
-                        shortcut: '⌘+Q'
-                    }
-                ]
-            },
-            {
-                separator: true
-            }
-        ];
   }
 
 }

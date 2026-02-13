@@ -10,6 +10,7 @@ import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http"
 import { ConsultasRouter } from "./consultas.routes";
 import { MinhasConsultasComponent } from "./minhas-consultas/minhas-consultas.component";
 import { ReactiveFormsModule } from "@angular/forms";
+import { ComponentesModule } from "src/app/modules/componentes.module";
 
 @NgModule({ declarations: [
         ListarConsultasComponent,
@@ -17,9 +18,9 @@ import { ReactiveFormsModule } from "@angular/forms";
         MinhasConsultasComponent
     ],
     exports: [ConsultasRouter], imports: [BrowserModule,
-        BrowserAnimationsModule,
-        CommonModule,
-        ReactiveFormsModule,
-        NgbModule,
-        ConsultasRouter], providers: [provideHttpClient(withInterceptorsFromDi())] })
+    BrowserAnimationsModule,
+    CommonModule,
+    ReactiveFormsModule,
+    NgbModule,
+    ConsultasRouter, ComponentesModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class ConsultasModule { }

@@ -8,6 +8,7 @@ import { HospitalRouter } from "./hospital.routes";
 import { ListarHospitalComponent } from "./listar-hospital/listar-hospital.component";
 import { CadastrarHospitalComponent } from "./cadastrar-hospital/cadastrar-hospital.component";
 import { FormsModule } from "@angular/forms";
+import { ComponentesModule } from "../../componentes.module";
 
 @NgModule({ declarations: [
         ListarHospitalComponent,
@@ -18,5 +19,5 @@ import { FormsModule } from "@angular/forms";
         CommonModule,
         NgbModule,
         FormsModule,
-        HospitalRouter], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        HospitalRouter, ComponentesModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class HospitalModule { }

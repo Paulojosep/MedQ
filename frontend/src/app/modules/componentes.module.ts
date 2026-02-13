@@ -28,6 +28,16 @@ import { BadgeModule } from 'primeng/badge';
 import { RippleModule } from 'primeng/ripple';
 import { AvatarModule } from 'primeng/avatar';
 import { MenuItem } from 'primeng/api';
+import { MatListModule } from "@angular/material/list";
+import { MatIconModule } from "@angular/material/icon";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatCardModule } from "@angular/material/card";
+import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatToolbarModule } from "@angular/material/toolbar";
 
 @NgModule({
     declarations: [],
@@ -61,6 +71,16 @@ import { MenuItem } from 'primeng/api';
         BadgeModule,
         RippleModule,
         AvatarModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatIconModule,
+        MatCardModule,
+        MatTableModule,
+        MatButtonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatSnackBarModule
       ], exports: [
         FormsModule,
         InputTextModule,
@@ -91,6 +111,16 @@ import { MenuItem } from 'primeng/api';
         BadgeModule,
         RippleModule,
         AvatarModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatIconModule,
+        MatCardModule,
+        MatTableModule,
+        MatButtonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatSnackBarModule,
     ]
 })
 

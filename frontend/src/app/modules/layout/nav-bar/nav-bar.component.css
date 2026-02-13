@@ -1,7 +1,11 @@
-.containeer {
+.container {
     height: 85%;
 }
 
 i {
     padding-right: .6rem;
+}
+
+.menu {
+    background-color: #0002005e;
 }

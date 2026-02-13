@@ -11,11 +11,13 @@ import { AvatarModule } from 'primeng/avatar';
 import { MenuItem } from 'primeng/api';
 import { SidebarModule } from "primeng/sidebar";
 import { MenubarModule } from 'primeng/menubar';
+import { ComponentesModule } from "../componentes.module";
 
 @NgModule({
     declarations: [
       HeaderComponent,
       FooterComponent,
+      NavBarComponent,
     ],
     imports: [
     BrowserModule,
@@ -26,11 +28,13 @@ import { MenubarModule } from 'primeng/menubar';
     AvatarModule,
     SidebarModule,
     MenubarModule,
+    ComponentesModule,
 ],
     providers: [],
     exports: [
         HeaderComponent,
         FooterComponent,
+        NavBarComponent,
     ]
   })
   export class LayoutModule { }

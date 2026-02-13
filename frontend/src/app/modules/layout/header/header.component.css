@@ -1,10 +1,3 @@
-.logo {
-    max-width:50px;
-    max-height:150px;
-    width: auto;
-    height: auto;
-}
-
 img {
     height: 3rem;
 }
@@ -12,6 +5,7 @@ img {
 .header {
     justify-content: center;
     height: 10%;
+    background-color: #02028aad;
 }
 
 span {

@@ -12,6 +12,7 @@ import { ConsultasPorSocioOutput } from 'src/app/shared/models/TOModel';
 export class ListarConsultasComponent implements OnInit {
 
   consultas: ConsultasPorSocioOutput[] = [];
+  displayedColumns: string[] = ['medico', 'especialidade', 'data', 'hora', 'status', 'senha', 'acoes'];
   usuarioLogado: any = null;
 
   constructor(private consultaService: ConsultasService, private router: Router) { }
