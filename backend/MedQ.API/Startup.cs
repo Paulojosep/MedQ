@@ -51,12 +51,14 @@ namespace MedQ.API
             services.AddInfrastructureAPI(Configuration);
 
             services.AddControllers();
+            services.AddAuthorization();
+
             services.AddSwaggerGen(setup =>
             {
                 var jwtSecurityScheme = new OpenApiSecurityScheme
                 {
-                    BearerFormat = "JTW",
-                    Name = "JT Authentication",
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
                     Scheme = JwtBearerDefaults.AuthenticationScheme,

@@ -23,6 +23,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet, Route("Listar")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<TelefoneDTO>>> GetList()
         {
             var telefones = await _service.GetAllAsync();

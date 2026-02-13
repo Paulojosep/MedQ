@@ -37,7 +37,7 @@ namespace MedQ.Application.Services
                     new Claim(ClaimTypes.Role, usuario.EhAdmin ? "Administrador" : "Comum"),
                 }),
                 Expires = DateTime.UtcNow.AddHours(4),
-                SigningCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256)
+                SigningCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
