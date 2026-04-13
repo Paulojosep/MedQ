@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
+import { EstabelecimentoService } from 'src/app/core/services/estabelecimento.service';
 L.Icon.Default.imagePath = 'assets/leaflet/'
 
 @Component({
@@ -14,7 +15,7 @@ export class MapComponent implements OnInit, AfterViewInit  {
     markers: L.Marker[] = [
     ];
 
-  constructor() {  }
+  constructor(private estabelecimentoService: EstabelecimentoService) {  }
 
   ngOnInit(): void {
     this.addMarkers();
@@ -50,18 +51,25 @@ export class MapComponent implements OnInit, AfterViewInit  {
     // Add your markers to the map
     //this.markers.forEach(marker => marker.addTo(this.map));
 
-    const locais = [
+    const locais: any[] = []; /*[
       { nome: 'Brasília', lat: -15.793889, lng: -47.882778 },
       { nome: 'São Paulo', lat: -23.55052, lng: -46.633308 },
       { nome: 'Rio de Janeiro', lat: -22.906847, lng: -43.172896 }
-    ];
+    ];*/
 
-    locais.forEach(local => {
-      L.marker([local.lat, local.lng])
-        .addTo(this.map)
-        .bindPopup(`<b>${local.nome}</b>`)
-        .openPopup();
-    });
+    this.estabelecimentoService.getBuscarCordenada().subscribe(locais => {
+      locais.forEach(local => {
+        L.marker([local.latitude, local.longitude])
+          .addTo(this.map)
+          .bindPopup(`
+            <div class="popup-content">
+              <img src="hospital_base.jpg" alt="Hospital de Base">
+              <h3>${local.endereco}</h3>
+              <button onclick="alert('Mais informações sobre o Hospital de Base')">Detalhes</button>
+            </div>`)
+          .openPopup();
+      });
+    })
 
   }
 
