@@ -3,14 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CadastrarComponent } from './cadastrar/cadastrar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginRouter } from './login.routes';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { LogarComponent } from './logar/logar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-const routes: Routes = [
-    {path: 'logar2', component: LogarComponent},
-    {path: 'cadastrar', component: CadastrarComponent}
-];
+import { ComponentesModule } from 'src/app/modules/componentes.module';
 
 @NgModule({
     declarations: [
@@ -19,9 +15,9 @@ const routes: Routes = [
     ],
     imports: [
         FormsModule,
-        BrowserModule,
         NgbModule,
-        LoginRouter
+        LoginRouter,
+        ComponentesModule
     ],
     providers: [],
     exports: [RouterModule]

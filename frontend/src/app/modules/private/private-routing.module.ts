@@ -10,6 +10,7 @@ import { RouterModule, Routes } from '@angular/router';
             {path: 'hospital', loadChildren: () => import('./hospital/hospital.module').then((m) => m.HospitalModule)},
             {path: 'telefone', loadChildren: () => import('./telefone/telefone.module').then((m) => m.TelefoneModule)},
             {path: 'mapa', loadChildren: () => import('./map/map.module').then((m) => m.MapModule)},
+            {path: 'credencia', loadChildren: () => import('./../../core/authentication/login/login.module').then((m) => m.LoginModule)}
         ])
     ],
     exports: [RouterModule]

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { Router } from '@angular/router';
 
@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
     standalone: false
 })
 export class AppComponent {
+  
+  @Input()
+  login: boolean = false;
+  
   title = 'frontend';
 
   constructor(private router: Router) {
