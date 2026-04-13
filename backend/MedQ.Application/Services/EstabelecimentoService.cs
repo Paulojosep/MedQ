@@ -2,6 +2,7 @@
 using MedQ.Application.DTOs;
 using MedQ.Application.Exceptions;
 using MedQ.Application.Interfaces;
+using MedQ.Application.IO;
 using MedQ.Domain.Entities;
 using MedQ.Domain.Interfaces;
 using MedQ.Infra.Data;
@@ -9,7 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MedQ.Application.Services
@@ -18,11 +21,14 @@ namespace MedQ.Application.Services
     {
         private readonly IRepositorioGenerico<Estabelecimento> _repository;
         private readonly IMapper _mapper;
+        private HttpClient client = new HttpClient();
+        private string Url;
 
         public EstabelecimentoService(IRepositorioGenerico<Estabelecimento> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
+            this.Url = $"https://nominatim.openstreetmap.org/search?format=json&q=";
         }
 
         public async Task<IEnumerable<EstabelecimentoDTO>> GetAll()
@@ -100,6 +106,35 @@ namespace MedQ.Application.Services
             {
                 throw new MedQException("Erro", ex);
             }
+        }
+
+        public async Task<CordenacaoLatitudeLongitudeOutput> ObterLatitudeLongitudeAsync(string endereco)
+        {
+            CordenacaoLatitudeLongitudeOutput cordenacao = new CordenacaoLatitudeLongitudeOutput();
+
+            var url = $"{this.Url}{Uri.EscapeDataString(endereco)}";
+            client.DefaultRequestHeaders.Add("User-Agent", "dotnet-geocode-app");
+
+            var response = await client.GetStringAsync(url);
+
+            using JsonDocument doc = JsonDocument.Parse(response);
+            var result = doc.RootElement;
+
+            if(result.GetArrayLength() > 0)
+            {
+                var firstResult = result[0];
+                string latitude = firstResult.GetProperty("lat").GetString();
+                string longitude = firstResult.GetProperty("lon").GetString();
+
+                cordenacao = new CordenacaoLatitudeLongitudeOutput()
+                {
+                    Endereco = endereco,
+                    Latitude = latitude,
+                    Longitude = longitude
+                };
+            }
+
+            return cordenacao;
         }
     }
 }
