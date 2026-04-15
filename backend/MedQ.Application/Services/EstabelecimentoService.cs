@@ -59,6 +59,10 @@ namespace MedQ.Application.Services
             try
             {
                 var estabelecimentoEntity = _mapper.Map<Estabelecimento>(estabelecimento);
+                var cordenadas = await ObterLatitudeLongitudeAsync(estabelecimentoEntity.Nome);
+                estabelecimentoEntity.Latitude = cordenadas.Latitude != null ? cordenadas.Latitude : "";
+                estabelecimentoEntity.Longitude = cordenadas.Longitude != null ? cordenadas.Longitude : "";
+
                 _repository.Adicionar(estabelecimentoEntity);
                 return await _repository.SalvarAsync();
             }

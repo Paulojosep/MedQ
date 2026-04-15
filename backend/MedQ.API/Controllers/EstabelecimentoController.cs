@@ -1,6 +1,7 @@
 ﻿using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
 using MedQ.Application.IO;
+using MedQ.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -86,20 +87,17 @@ namespace MedQ.API.Controllers
             return Ok("Deletado com sucesso");
         }
 
-        [HttpGet("BuscarCordenada")]
-        [AllowAnonymous]
-        public async Task<IActionResult> BuscarCordenada()
+        [HttpGet("BuscarCordenada/{id}")]
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> BuscarCordenada(int id)
         {
             List<CordenacaoLatitudeLongitudeOutput> listaCordenacao = new List<CordenacaoLatitudeLongitudeOutput>();
-            var listaEstabelecimento = await _service.GetAll();
-            if(listaEstabelecimento.Count() > 0)
+            var listaEstabelecimento = await _service.GetEstabelecimento(id, "");
+            if(listaEstabelecimento.Id.HasValue)
             {
-                foreach (var estabelecimento in listaEstabelecimento)
-                {
-                    var cord = await _service.ObterLatitudeLongitudeAsync(estabelecimento.Nome);
-                    if(cord.Endereco != null)
-                        listaCordenacao.Add(cord);
-                }
+                var cord = await _service.ObterLatitudeLongitudeAsync(listaEstabelecimento.Nome);
+                if (cord.Endereco != null)
+                    listaCordenacao.Add(cord);
             }
             
             return Ok(listaCordenacao);
