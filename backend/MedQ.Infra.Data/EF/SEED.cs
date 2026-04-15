@@ -44,43 +44,40 @@ namespace MedQ.Infra.Data.EF
             if (context.Estabelecimento.Count().Equals(0))
             {
                 context.Estabelecimento.Add(new Estabelecimento(1, "Hospital Águas Claras", "70297-400",
-                    "R. Arariba, 5 - Águas Claras", "", "BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now,
+                    "R. Arariba, 5 - Águas Claras", "", "BRASILIA", "AGUAS CLARAS", "DF", "-15.8464379", "-48.0300584", DateTime.Now,
                     "https://aquiaguasclaras.com.br/wp-content/uploads/2019/07/20170201_083431.jpg", 1, 1));
-                context.Estabelecimento.Add(new Estabelecimento(3, "Hospital de Novas Águas Claras", "70297-400",
-                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now,
-                    "https://aquiaguasclaras.com.br/wp-content/uploads/2019/07/20170201_083431.jpg", 1, 1));
-                context.Estabelecimento.Add(new Estabelecimento(4, "Hospital de Base do Distrito Federal (HBDF) ", "70297-400",
-                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now,
+                context.Estabelecimento.Add(new Estabelecimento(4, "Hospital de Base do Distrito Federal", "70297-400",
+                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", "-15.8003300", "-47.8884235", DateTime.Now,
                     null, 1, 1));
-                context.Estabelecimento.Add(new Estabelecimento(5, "Hospital de Apoio de Brasília (HAB)", "70297-400",
-                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now,
+                context.Estabelecimento.Add(new Estabelecimento(5, "Hospital de Apoio de Brasília", "70297-400",
+                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", "-15.7583202", "-47.9154930", DateTime.Now,
                     null, 1, 1));
-                context.Estabelecimento.Add(new Estabelecimento(6, "Hospital Materno Infantil Dr. Antônio Lisboa (HMIB)", "70297-400",
-                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now,
+                context.Estabelecimento.Add(new Estabelecimento(6, "Hospital Materno Infantil Dr. Antônio Lisboa", "70297-400",
+                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", "", "", DateTime.Now,
                     null, 1, 1));
-                context.Estabelecimento.Add(new Estabelecimento(7, "Hospital da Criança de Brasília (HCB)", "70297-400",
-                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now,
+                context.Estabelecimento.Add(new Estabelecimento(7, "Hospital da Criança de Brasília", "70297-400",
+                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", "-15.7589517", "-47.9174626", DateTime.Now,
                     null, 1, 1));
                 context.Estabelecimento.Add(new Estabelecimento(8, "Hospital São Vicente de Paulo", "70297-400",
-                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now,
+                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", "-22.9158221", "-43.2150277", DateTime.Now,
                     null, 1, 1));
-                context.Estabelecimento.Add(new Estabelecimento(9, "Hospital Regional da Asa Norte (HRAN)", "70297-400",
-                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now,
+                context.Estabelecimento.Add(new Estabelecimento(9, "Hospital Regional da Asa Norte", "70297-400",
+                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", "-15.7848220", "-47.8828378", DateTime.Now,
                     null, 1, 1));
                 context.Estabelecimento.Add(new Estabelecimento(10, "Hospital Regional de Brazlândia", "70297-400",
-                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now,
+                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", "-15.6750780", "-48.2036740", DateTime.Now,
                     null, 1, 1));
                 context.Estabelecimento.Add(new Estabelecimento(11, "Hospital Regional de Ceilândia", "70297-400",
-                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now,
+                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", "-15.8151989", "-48.0959864", DateTime.Now,
                     null, 1, 1));
                 context.Estabelecimento.Add(new Estabelecimento(12, "Hospital Regional do Gama", "70297-400",
-                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now,
+                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", "-16.0232990", "-48.0694454", DateTime.Now,
                     null, 1, 1));
                 context.Estabelecimento.Add(new Estabelecimento(13, "Hospital Regional do Guará", "70297-400",
-                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now,
+                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", "-15.8181587", "-47.9862626", DateTime.Now,
                     null, 1, 1));
-                context.Estabelecimento.Add(new Estabelecimento(14, "Hospital da Região Leste (Paranoá)", "70297-400",
-                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", DateTime.Now,
+                context.Estabelecimento.Add(new Estabelecimento(14, "Hospital da Região Leste", "70297-400",
+                    "R. Arariba, 5 - Águas Claras", "", "NOVA BRASILIA", "AGUAS CLARAS", "DF", "-15.7814329", "-47.7818247", DateTime.Now,
                     null, 1, 1));
             }
 
