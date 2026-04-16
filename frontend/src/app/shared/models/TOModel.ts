@@ -86,8 +86,6 @@ export interface TOEstabelecimento {
     cidade: string;
     bairro: string;
     estado: string;
-    latitude: string;
-    longitude: string;
     data_Cadastro: string;
     image: string;
     tipoEstabelecimentoId: number;
