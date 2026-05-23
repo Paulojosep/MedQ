@@ -17,7 +17,7 @@ namespace MedQ.Domain.Entities
         }
 
         public Estabelecimento(int id, string nome, string cEP, string endereco, string complemento, string cidade, 
-            string bairro, string estado, DateTime data_Cadastro, string image, int tipoEstabelecimentoId, int socioId)
+            string bairro, string estado, string latitude, string longitude, DateTime data_Cadastro, string image, int tipoEstabelecimentoId, int socioId)
         {
             Id = id;
             Nome = nome;
@@ -27,6 +27,8 @@ namespace MedQ.Domain.Entities
             Cidade = cidade;
             Bairro = bairro;
             Estado = estado;
+            Latitude = latitude;
+            Longitude = longitude;
             Data_Cadastro = data_Cadastro;
             Image = image;
             TipoEstabelecimentoId = tipoEstabelecimentoId;
@@ -44,6 +46,8 @@ namespace MedQ.Domain.Entities
         public string Image { get; set; }
         public int TipoEstabelecimentoId { get; set; }
         public int SocioId { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
 
         public virtual Socio Socio { get; set; }
         public virtual TipoEstabelecimento TipoEstbelecimento { get; set; }

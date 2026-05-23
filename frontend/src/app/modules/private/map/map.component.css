@@ -14,3 +14,22 @@
     height: 100%;
     width: 100%;
   }
+
+  .popup-content {
+    text-align: center;
+  }
+  
+  .popup-content img {
+    width: 150px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .popup-content button {
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }

@@ -1,5 +1,8 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import * as L from 'leaflet';
+import { EstabelecimentoService } from 'src/app/core/services/estabelecimento.service';
+import { CadastrarHospitalComponent } from '../hospital/cadastrar-hospital/cadastrar-hospital.component';
 L.Icon.Default.imagePath = 'assets/leaflet/'
 
 @Component({
@@ -10,11 +13,14 @@ L.Icon.Default.imagePath = 'assets/leaflet/'
 })
 export class MapComponent implements OnInit, AfterViewInit  {
 
+  @ViewChild(CadastrarHospitalComponent) 
+  hospitalComponent!: CadastrarHospitalComponent;
+
   private map!: L.Map
     markers: L.Marker[] = [
     ];
 
-  constructor() {  }
+  constructor(private estabelecimentoService: EstabelecimentoService, private router: Router, private changeDetector: ChangeDetectorRef) {  }
 
   ngOnInit(): void {
     this.addMarkers();
@@ -47,24 +53,31 @@ export class MapComponent implements OnInit, AfterViewInit  {
   }
 
   private addMarkers() {
-    // Add your markers to the map
-    //this.markers.forEach(marker => marker.addTo(this.map));
+    (window as any).Hello = this.Hello.bind(this);
 
-    const locais = [
-      { nome: 'Brasília', lat: -15.793889, lng: -47.882778 },
-      { nome: 'São Paulo', lat: -23.55052, lng: -46.633308 },
-      { nome: 'Rio de Janeiro', lat: -22.906847, lng: -43.172896 }
-    ];
+    const locais: any[] = [];
 
-    locais.forEach(local => {
-      L.marker([local.lat, local.lng])
-        .addTo(this.map)
-        .bindPopup(`<b>${local.nome}</b>`)
-        .openPopup();
-    });
+    this.estabelecimentoService.getAll().subscribe(locais => {
+      locais.forEach(local => {
+        L.marker([Number(local.latitude), Number(local.longitude)])
+          .addTo(this.map)
+          .bindPopup(`
+            <div class="popup-content">
+              <h3>${local.nome}</h3>
+              <button id="detalhar" onclick="Hello(${local.id})">Detalhes</button>
+            </div>`)
+          .openPopup();
+      });
+    })
 
   }
 
+  private Hello(id: any) {
+    localStorage.setItem('hospitalCodigo', JSON.stringify(id));
+    localStorage.setItem('tipo', "Detalhar");
+    this.router.navigate(['/hospital/detalhar']);
+  }
+  
   private centerMap() {
     // Create a LatLngBounds object to encompass all the marker locations
     const bounds = L.latLngBounds(this.markers.map(marker => marker.getLatLng()));

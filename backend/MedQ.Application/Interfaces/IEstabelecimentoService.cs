@@ -1,4 +1,5 @@
 ﻿using MedQ.Application.DTOs;
+using MedQ.Application.IO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +15,6 @@ namespace MedQ.Application.Interfaces
         Task<bool> Create(EstabelecimentoDTO Estabelecimento);
         Task<bool> Update(EstabelecimentoDTO Estabelecimento);
         Task Delete(EstabelecimentoDTO Estabelecimento);
+        Task<CordenacaoLatitudeLongitudeOutput> ObterLatitudeLongitudeAsync(string endereco);
     }
 }

@@ -20,6 +20,8 @@ namespace MedQ.Infra.Data.Configuration
             builder.Property(p => p.Cidade).HasColumnName("cidade");
             builder.Property(p => p.Bairro).HasColumnName("bairro");
             builder.Property(p => p.Estado).HasColumnName("estado");
+            builder.Property(p => p.Latitude).HasColumnName("latitude");
+            builder.Property(p => p.Longitude).HasColumnName("longitude");
             builder.Property(p => p.Image).HasColumnName("image");
             builder.Property(p => p.Data_Cadastro).HasColumnName("data_cadastro");
             builder.Property(p => p.TipoEstabelecimentoId).HasColumnName("fk_tipo_estabelecimento_id").IsRequired();

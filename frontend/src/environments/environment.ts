@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlApi: 'http://medqdesenv530:8003/api',
+  urlApi: 'https://localhost:5001/api',
   urlEmail: 'http://localhost:8080/api'
 };
 
