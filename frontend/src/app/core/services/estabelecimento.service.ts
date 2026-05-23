@@ -23,4 +23,8 @@ export class EstabelecimentoService {
     return this.http.get<TOEstabelecimento>(`${environment.urlApi}/Estabelecimento?id=${codigo}&nome=${nome}`);
   }
 
+  getBuscarCordenada(): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.urlApi}/Estabelecimento/BuscarCordenada`);
+  }
+
 }

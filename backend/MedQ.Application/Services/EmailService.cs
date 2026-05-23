@@ -1,17 +1,17 @@
-﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using MedQ.Application.DTOs;
+﻿using MedQ.Application.DTOs;
+using MedQ.Application.Exceptions;
 using MedQ.Application.Interfaces;
+using MedQ.Application.Results;
+using Microsoft.Extensions.Configuration;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using RestSharp;
 using System.Runtime.InteropServices;
-using MedQ.Application.Results;
-using MedQ.Application.Exceptions;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace MedQ.Application.Services
@@ -44,11 +44,11 @@ namespace MedQ.Application.Services
 
             try
             {
-                return JsonConvert.DeserializeObject<T>(response.Content);
+                return JsonSerializer.Deserialize<T>(response.Content);
             }
             catch (Exception ex)
             {
-                var error = JsonConvert.DeserializeObject<JsonResponse<object>>(response.Content);
+                var error = JsonSerializer.Deserialize<JsonResponse<object>>(response.Content);
                 throw new MedQException(error.Message);
             }
         }
