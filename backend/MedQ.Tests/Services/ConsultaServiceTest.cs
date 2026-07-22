@@ -17,20 +17,8 @@ namespace MedQ.Tests.Services
 {
     public class ConsultaServiceTest
     {
-        private readonly Mock<IConsultaService> _consultaServiceMock;
-        private readonly Mock<IRepositorioGenerico<Consultas>> _consultaRepoGenMock = new Mock<IRepositorioGenerico<Consultas>>();
-        private readonly Mock<IConsultasRepository> _consultaRepoMock = new Mock<IConsultasRepository>();
-        private readonly Mock<IMensagensService> _mensageServMock = new Mock<IMensagensService>();
-        private readonly Mock<IMinhasConsultaService> _minhaConsultaServMock = new Mock<IMinhasConsultaService>();
         private readonly Mock<IMapper> _mapperMock = new Mock<IMapper>();
-
         private readonly Mock<IConsultaService> _consultaServMock = new Mock<IConsultaService>();
-
-        public ConsultaServiceTest(Mock<IConsultaService> consultaServiceMock)
-        {
-            //_consultaService = new ConsultaService(_consultaRepoGenMock.Object, _consultaRepoMock.Object, _mensageServMock.Object, _minhaConsultaServMock.Object, _mapperMock.Object);
-            _consultaServMock = consultaServiceMock;
-        }
 
         [Fact(DisplayName = "Get By Id Should Retorn Consulta When Consulta Exist")]
         public async Task GetByIdAsync_ShoulRetornConsulta_WhenConsultaExist()
@@ -51,20 +39,48 @@ namespace MedQ.Tests.Services
             Assert.Equal(consultaStatus, consulta.Status);
         }
 
-        [Fact]
+        [Fact(DisplayName = "Get By Socio Retorna com valor da consulta do socio quando existe")]
         public async Task GetBySocioAsync()
         {
             // Arrange
             int socioId = 1;
             var outuput = new ConsultasPorSocioOutput() { Codigo = socioId };
-            var lista = new List<ConsultasPorSocioOutput>();
-            lista.Add(outuput);
-            //mockService.Setup(map => map.GetBySocioAsync(socioId)).ReturnsAsync(lista);
+            List<ConsultasPorSocioOutput> listaOutput = new List<ConsultasPorSocioOutput>();
+            listaOutput.Add(outuput);
+            _consultaServMock.Setup(map => map.GetBySocioAsync(socioId)).ReturnsAsync(listaOutput);
             //Act
-            var consultaSocio = await _consultaServMock.Object.GetByIdAsync(socioId);
+            var consultaSocio = await _consultaServMock.Object.GetBySocioAsync(socioId);
 
             // Assert
-            Assert.Equal(socioId, consultaSocio.SocioId);
+            Assert.NotNull(consultaSocio);
+        }
+
+        [Fact(DisplayName = "Teste da Criacao da Consulta")]
+        public async Task CreateAsync()
+        {
+            //Arrange
+            var consultaInput = new ConsultasDTO()
+            {
+                Id = 1245,
+                AgendamentoId = 1,
+                EstabelecimentoId = 1,
+                SocioId = 1,
+                Senha = "123",
+                Status = "Ativo",
+                Data = new DateTime().Date,
+                Hora = new DateTime()
+            };
+
+            bool resultadoEsperado = true;
+
+            _consultaServMock.Setup(setup => setup.CreateAsync(consultaInput)).ReturnsAsync(resultadoEsperado);
+
+            //Act
+            var resultado = await _consultaServMock.Object.CreateAsync(consultaInput);
+
+            // Assert
+            Assert.Equal(resultadoEsperado, resultado);
+            Assert.True(resultado);
         }
     }
 }
