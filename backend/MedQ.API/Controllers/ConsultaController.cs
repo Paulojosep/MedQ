@@ -24,6 +24,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> GetById(int id)
         {
             var consulta = await _service.GetByIdAsync(id);
@@ -35,6 +36,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet, Route("ConsultarPorSocio/{socioId}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> GetBySocio(int socioId)
         {
             var consulta = await _service.GetBySocioAsync(socioId);
