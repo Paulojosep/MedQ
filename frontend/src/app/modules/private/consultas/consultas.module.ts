@@ -6,27 +6,21 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { ConsultasRouter } from "./consultas.routes";
 import { MinhasConsultasComponent } from "./minhas-consultas/minhas-consultas.component";
 import { ReactiveFormsModule } from "@angular/forms";
+import { ComponentesModule } from "src/app/modules/componentes.module";
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         ListarConsultasComponent,
         CadastrarConsultasComponent,
         MinhasConsultasComponent
     ],
-    imports: [
-        BrowserModule,    
-        BrowserAnimationsModule,
-        CommonModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        NgbModule,
-        ConsultasRouter
-    ],
-    providers: [],
-    exports: [ConsultasRouter]
-})
+    exports: [ConsultasRouter], imports: [BrowserModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    ReactiveFormsModule,
+    NgbModule,
+    ConsultasRouter, ComponentesModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class ConsultasModule { }

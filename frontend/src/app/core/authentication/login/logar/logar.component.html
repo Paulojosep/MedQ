@@ -1,48 +1,25 @@
-<div class="container py-5 h-100">
-  <div class="row d-flex align-items-center justify-content-center h-100">
-    <div class="col-md-8 col-lg-7 col-xl-6">
-      <img src="../../../../assets/images/medq01.png"
-        class="img-fluid" alt="Phone image">
-    </div>
-    <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-      <form>
-        <!-- Email input -->
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form1Example13">Email address</label>
-          <input type="email" [(ngModel)]="logon.login" name="login" id="form1Example13" class="form-control form-control-lg" />
-        </div>
+<mat-card>
+  <mat-card-title>Login</mat-card-title>
 
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-          <label class="form-label" for="form1Example23">Password</label>
-          <input type="password" [(ngModel)]="logon.senha" name="senha" id="form1Example23" class="form-control form-control-lg" />
-        </div>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="Logar()">
+      <p>
+        <mat-form-field>
+          <input type="text" matInput placeholder="E-Mail" formControlName="email">
+        </mat-form-field>
+      </p>
 
-        <div class="d-flex justify-content-around align-items-center mb-4">
-          <!-- Checkbox -->
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
-            <label class="form-check-label" for="form1Example3"> Remember me </label>
-          </div>
-          <a>Forgot password?</a>
-        </div>
+      <p>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Senha" formControlName="senha">
+        </mat-form-field>
+      </p>
 
-        <!-- Submit button -->
-        <button type="button" class="btn btn-primary" (click)="logar()">Logar</button>
+      <p *ngIf="error" class="error">{{ error }}</p>
 
-        <div class="divider d-flex align-items-center my-4">
-          <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
-        </div>
-
-        <a class="btn btn-primary btn-lg btn-block" style="background-color: #3b5998"
-          role="button">
-          <i class="fab fa-facebook-f me-2"></i>Continue with Facebook
-        </a>
-        <a class="btn btn-primary btn-lg btn-block" style="background-color: #55acee"
-          role="button">
-          <i class="fab fa-twitter me-2"></i>Continue with Twitter</a>
-
-      </form>
-    </div>
-  </div>
-</div>
+      <div class="button">
+        <button type="submit" mat-button>Login</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

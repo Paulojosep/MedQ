@@ -7,7 +7,7 @@ namespace MedQ.Application.DTOs
 {
     public class EstabelecimentoDTO
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Nome { get; set; }
         public string CEP { get; set; }
         public string Endereco { get; set; }
@@ -15,6 +15,8 @@ namespace MedQ.Application.DTOs
         public string Cidade { get; set; }
         public string Bairro { get; set; }
         public string Estado { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
         public DateTime Data_Cadastro { get; set; }
         public string Image { get; set; }
         public int TipoEstabelecimentoId { get; set; }

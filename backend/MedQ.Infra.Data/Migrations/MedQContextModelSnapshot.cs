@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace MedQ.Infra.Data.Migrations
 {
     [DbContext(typeof(MedQContext))]
@@ -14,8 +16,8 @@ namespace MedQ.Infra.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.5");
+                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("MedQ.Domain.Entities.AgendamentoDisponiveis", b =>
                 {
@@ -50,7 +52,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasIndex("MedicoId");
 
-                    b.ToTable("tb_agendamentos_disponiveis");
+                    b.ToTable("tb_agendamentos_disponiveis", (string)null);
                 });
 
             modelBuilder.Entity("MedQ.Domain.Entities.Calendario", b =>
@@ -80,7 +82,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasIndex("EstabelecimentoId");
 
-                    b.ToTable("tb_calendario");
+                    b.ToTable("tb_calendario", (string)null);
                 });
 
             modelBuilder.Entity("MedQ.Domain.Entities.Consultas", b =>
@@ -127,7 +129,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasIndex("SocioId");
 
-                    b.ToTable("tb_consultas");
+                    b.ToTable("tb_consultas", (string)null);
                 });
 
             modelBuilder.Entity("MedQ.Domain.Entities.Especialidade", b =>
@@ -148,7 +150,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tb_especialidade");
+                    b.ToTable("tb_especialidade", (string)null);
                 });
 
             modelBuilder.Entity("MedQ.Domain.Entities.Estabelecimento", b =>
@@ -190,6 +192,14 @@ namespace MedQ.Infra.Data.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("image");
 
+                    b.Property<string>("Latitude")
+                        .HasColumnType("longtext")
+                        .HasColumnName("latitude");
+
+                    b.Property<string>("Longitude")
+                        .HasColumnType("longtext")
+                        .HasColumnName("longitude");
+
                     b.Property<string>("Nome")
                         .HasColumnType("longtext")
                         .HasColumnName("nome");
@@ -208,7 +218,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasIndex("TipoEstabelecimentoId");
 
-                    b.ToTable("tb_estabelecimento");
+                    b.ToTable("tb_estabelecimento", (string)null);
                 });
 
             modelBuilder.Entity("MedQ.Domain.Entities.Fila", b =>
@@ -250,7 +260,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasIndex("TipoAntendimentoId");
 
-                    b.ToTable("tb_fila");
+                    b.ToTable("tb_fila", (string)null);
                 });
 
             modelBuilder.Entity("MedQ.Domain.Entities.Medico", b =>
@@ -283,7 +293,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasIndex("EstabelecimentoId");
 
-                    b.ToTable("tb_medicos");
+                    b.ToTable("tb_medicos", (string)null);
                 });
 
             modelBuilder.Entity("MedQ.Domain.Entities.Mensagens", b =>
@@ -325,7 +335,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasIndex("SocioId");
 
-                    b.ToTable("tb_mensagens");
+                    b.ToTable("tb_mensagens", (string)null);
                 });
 
             modelBuilder.Entity("MedQ.Domain.Entities.MinhasConsulta", b =>
@@ -389,7 +399,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasIndex("SocioId");
 
-                    b.ToTable("tb_minhas_consultas");
+                    b.ToTable("tb_minhas_consultas", (string)null);
                 });
 
             modelBuilder.Entity("MedQ.Domain.Entities.Socio", b =>
@@ -465,7 +475,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tb_socio");
+                    b.ToTable("tb_socio", (string)null);
                 });
 
             modelBuilder.Entity("MedQ.Domain.Entities.Telefone", b =>
@@ -497,7 +507,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasIndex("SocioId");
 
-                    b.ToTable("tb_telefone");
+                    b.ToTable("tb_telefone", (string)null);
                 });
 
             modelBuilder.Entity("MedQ.Domain.Entities.TipoAtendimento", b =>
@@ -514,7 +524,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tb_tipo_atendimento");
+                    b.ToTable("tb_tipo_atendimento", (string)null);
                 });
 
             modelBuilder.Entity("MedQ.Domain.Entities.TipoEstabelecimento", b =>
@@ -531,7 +541,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tb_tipo_estabelecimento");
+                    b.ToTable("tb_tipo_estabelecimento", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -557,7 +567,7 @@ namespace MedQ.Infra.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("AspNetRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -580,7 +590,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -644,7 +654,7 @@ namespace MedQ.Infra.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -667,7 +677,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -689,7 +699,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -704,7 +714,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
+                    b.ToTable("AspNetUserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -723,7 +733,7 @@ namespace MedQ.Infra.Data.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("MedQ.Domain.Entities.AgendamentoDisponiveis", b =>
@@ -731,16 +741,16 @@ namespace MedQ.Infra.Data.Migrations
                     b.HasOne("MedQ.Domain.Entities.Estabelecimento", "Estabelecmento")
                         .WithMany("AgendamentoDisponiveis")
                         .HasForeignKey("EstabelecimentoId")
-                        .HasConstraintName("fk_estabelecimento_id")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_estabelecimento_id");
 
                     b.HasOne("MedQ.Domain.Entities.Medico", "Medico")
                         .WithMany("AgendamentoDisponiveis")
                         .HasForeignKey("MedicoId")
-                        .HasConstraintName("fk_medico_id")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_medico_id");
 
                     b.Navigation("Estabelecmento");
 

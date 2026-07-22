@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { HospitalService } from '../hospital.service';
 import { Router } from '@angular/router';
+import { TOEstabelecimento } from 'src/app/shared/models/TOModel';
 
 @Component({
-  selector: 'app-listar-hospital',
-  templateUrl: './listar-hospital.component.html',
-  styleUrls: ['./listar-hospital.component.css']
+    selector: 'app-listar-hospital',
+    templateUrl: './listar-hospital.component.html',
+    styleUrls: ['./listar-hospital.component.css'],
+    standalone: false
 })
 export class ListarHospitalComponent implements OnInit {
 
-  hospitais: any[] = [];
+  hospitais: TOEstabelecimento[] = [];
+  displayedColumns: string[] = ['nome', 'endereco', 'cidade', 'bairro', 'estado', 'acoes'];
 
   constructor(private hospitalService: HospitalService, private router: Router) { }
 

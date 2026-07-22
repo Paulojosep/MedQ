@@ -30,12 +30,12 @@ namespace MedQ.API
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -51,12 +51,14 @@ namespace MedQ.API
             services.AddInfrastructureAPI(Configuration);
 
             services.AddControllers();
+            services.AddAuthorization();
+
             services.AddSwaggerGen(setup =>
             {
                 var jwtSecurityScheme = new OpenApiSecurityScheme
                 {
-                    BearerFormat = "JTW",
-                    Name = "JT Authentication",
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
                     Scheme = JwtBearerDefaults.AuthenticationScheme,
@@ -86,7 +88,7 @@ namespace MedQ.API
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(TokenService.Segredo)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Secret"])),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };

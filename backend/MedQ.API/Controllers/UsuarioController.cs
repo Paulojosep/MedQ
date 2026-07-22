@@ -20,11 +20,13 @@ namespace MedQ.API.Controllers
     {
         private readonly IUsuarioService _usuarioService;
         private readonly IEmailService _emailService;
+        private readonly ITokenService _tokenService;
 
-        public UsuarioController(IUsuarioService usuarioService, IEmailService emailService)
+        public UsuarioController(IUsuarioService usuarioService, IEmailService emailService, ITokenService tokenService)
         {
             _usuarioService = usuarioService;
             _emailService = emailService;
+            _tokenService = tokenService;
         }
 
         [HttpPost("Login")]
@@ -38,7 +40,7 @@ namespace MedQ.API.Controllers
             try
             {
                 var usuario = await _usuarioService.Logar(login.Login, login.Senha);
-                return Ok(new UsuarioLogadoDTO(usuario, TokenService.Gerar(usuario)));
+                return Ok(new UsuarioLogadoDTO(usuario, _tokenService.Gerar(usuario)));
             }
             catch(Exception ex)
             {
@@ -89,6 +91,19 @@ namespace MedQ.API.Controllers
 
                 if (result.Equals(false)) throw new Exception();
                 return Ok("Mudançã de senha realizada com sucesso");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VerificarGoogle")]
+        public async Task<IActionResult> VerificarGoogle([FromBody] int googleId)
+        {
+            try
+            {
+                return Ok(await _usuarioService.VerificarGoogleId(googleId));
             }
             catch(Exception ex)
             {

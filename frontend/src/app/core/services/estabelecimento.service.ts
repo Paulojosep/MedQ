@@ -20,7 +20,11 @@ export class EstabelecimentoService {
   }
 
   getByCodigoNome(codigo: number | null = 0, nome: string | null = ''): Observable<TOEstabelecimento> {
-    return this.http.get<TOEstabelecimento>(`${environment}/Estabelecimento?id=${codigo}&nome=${nome}`);
+    return this.http.get<TOEstabelecimento>(`${environment.urlApi}/Estabelecimento?id=${codigo}&nome=${nome}`);
+  }
+
+  getBuscarCordenada(): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.urlApi}/Estabelecimento/BuscarCordenada`);
   }
 
 }

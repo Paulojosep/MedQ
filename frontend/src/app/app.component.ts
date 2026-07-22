@@ -1,10 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    standalone: false
 })
 export class AppComponent {
+  
+  @Input()
+  login: boolean = false;
+  
   title = 'frontend';
+
+  constructor(private router: Router) {
+    //this.router.navigate(['/mapa']);
+  }
 }

@@ -1,5 +1,6 @@
 ﻿using MedQ.Application.Interfaces;
 using MedQ.Application.IO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -18,12 +19,14 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet("Lista")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _service.GetAll());
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> GetById(int id)
         {
             var agendamentoDisponivel = await _service.GetById(id);
@@ -32,6 +35,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet("PorEstabelecimento")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> GetByEstabelecimento(int estabelecimentoId)
         {
             var agendamentoDisponivel = await _service.GetByEstabelecimento(estabelecimentoId);
@@ -40,6 +44,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet("Status")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> GetByStatus(int establelcimentoId)
         {
             var agendamentoDisponivel = await _service.GetByStatus(establelcimentoId);
@@ -48,6 +53,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> GetAgendamentoDisponivel([FromBody] AgendamentoDisponivelInput input)
         {
             var agendamentoDisponivel = await _service.GetAgendamentoDisponivel(input);

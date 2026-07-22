@@ -1,5 +1,6 @@
 ﻿using MedQ.Application.DTOs;
 using MedQ.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,6 +22,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet, Route("Listar")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<IEnumerable<EspecialidadeDTO>>> GetList()
         {
             var especialidade = await _service.GetAllAsync();
@@ -28,6 +30,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet, Route("EspecialidadePorId/{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<IEnumerable<EspecialidadeDTO>>> GetById(int id)
         {
             var especialidade = await _service.GetByIdAsync(id);
@@ -39,6 +42,7 @@ namespace MedQ.API.Controllers
         }
 
         [HttpGet, Route("EspecialidadePorEstabelecimento/{estabelecimentoId}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<IEnumerable<EspecialidadeDTO>>> GetByEstabelecimento(int estabelecimentoId)
         {
             var especialidade = await _service.GetByEstabelecimentoAsync(estabelecimentoId);

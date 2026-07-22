@@ -91,5 +91,11 @@ namespace MedQ.Application.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<string> VerificarGoogleId(int googleId)
+        {
+            var usuario = await _usuarioRepository.Obter(x => x.IdGoogle == googleId.ToString()).FirstOrDefaultAsync();
+            return usuario?.IdGoogle;
+        }
     }
 }
